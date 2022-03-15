@@ -9,8 +9,6 @@ export const COLOR = {
   TABLE_BLACK: '#1B1B1B',
 };
 
-export const BOX_SHADOW = {};
-
 export const FONT_SIZE = {
   30: '30px',
   28: '28px',
@@ -30,14 +28,6 @@ export const BREAK_POINT = {
   lg: '992px',
   xl: '1200px',
   xxl: '1600px',
-};
-
-export const TRANSITION = {
-  all: 'all 0.3s',
-};
-
-export const OTHERS = {
-  borderRadius: '5px',
 };
 
 export const MEDIA_QUERY = {

@@ -49,9 +49,5 @@ MyApp.propTypes = {
   pageProps: PropTypes.shape({}).isRequired,
 };
 
-/* MyApp.defaultProps = {
-  resetOnModalCloseFn: () => {},
-}; */
-
 const wrapper = createWrapper(initStore);
 export default wrapper.withRedux(MyApp);

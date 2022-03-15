@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import get from 'lodash/get';
 import { Button, Typography, Alert } from 'antd';
-import { ethers } from 'ethers';
+import Web3 from 'web3';
+import get from 'lodash/get';
 import { CONSTANTS } from 'util/constants';
 import {
   setUserAccount as setUserAccountFn,
@@ -27,7 +27,7 @@ const Login = ({
         params: [accoundPassed, 'latest'],
       })
       .then((b) => {
-        setUserBalance(ethers.utils.formatEther(b));
+        setUserBalance(Web3.utils.fromWei(b, 'ether'));
       })
       .catch((e) => {
         setErrorMessage(e.message);
@@ -83,7 +83,12 @@ const Login = ({
     <Container>
       <DetailsContainer>
         {errorMessage ? (
-          <Alert message={errorMessage} type="error" showIcon data-testid="login-error" />
+          <Alert
+            message={errorMessage}
+            type="error"
+            showIcon
+            data-testid="login-error"
+          />
         ) : (
           <Alert
             type="success"
@@ -102,7 +107,7 @@ const Login = ({
 };
 
 Login.propTypes = {
-  account: PropTypes.string,
+  account: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   errorMessage: PropTypes.string,
   setUserAccount: PropTypes.func.isRequired,
   setUserBalance: PropTypes.func.isRequired,
