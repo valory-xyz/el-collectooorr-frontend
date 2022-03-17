@@ -13,9 +13,9 @@ const NavigationBar = ({ children }) => {
   return (
     <CustomLayout>
       <Header>
-        <Logo onClick={() => router.push('/')} data-testid="el-collector-logo">
+        <Logo onClick={() => router.push('/')} data-testid="el-collectooorr-logo">
           <div className="title-logo" />
-          El Collector
+          El Collectooorr
         </Logo>
         <RightMenu>
           <Login />

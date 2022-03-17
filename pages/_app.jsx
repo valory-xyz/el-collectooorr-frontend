@@ -29,8 +29,8 @@ class MyApp extends App {
     return (
       <>
         <Head>
-          <title>El Collector</title>
-          <meta name="description" content="El Collector" />
+          <title>El Collectooorr</title>
+          <meta name="description" content="El Collectooorr" />
         </Head>
         <Web3ReactProvider getLibrary={getLibrary}>
           <Layout>

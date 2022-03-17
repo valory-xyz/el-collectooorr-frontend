@@ -1,5 +1,5 @@
-# el-collector-frontend
-This repository contains code for El Collector.
+# el-collectooorr-frontend
+This repository contains code for El Collectooorr.
 
 ## Project Status
 This project is currently in development. Feel free to create a branch and send me a PR for changes.
