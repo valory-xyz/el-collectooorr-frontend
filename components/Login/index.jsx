@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Button, Typography, Alert } from 'antd';
+import { Button } from 'antd';
 import Web3 from 'web3';
 import get from 'lodash/get';
 import { CONSTANTS } from 'util/constants';
@@ -9,12 +9,11 @@ import {
   setUserBalance as setUserBalanceFn,
   setErrorMessage as setErrorMessageFn,
 } from 'store/setup/actions';
-import { Container, DetailsContainer } from './styles';
-
-const { Title } = Typography;
+import { Container, DetailsContainer, MetamaskContainer } from './styles';
 
 const Login = ({
   account,
+  balance,
   errorMessage,
   setUserAccount,
   setUserBalance,
@@ -69,6 +68,16 @@ const Login = ({
     window.ethereum.on('chainChanged', handleChainChange);
   }
 
+  if (errorMessage) {
+    return (
+      <Container>
+        <MetamaskContainer data-testid="login-error">
+          {errorMessage}
+        </MetamaskContainer>
+      </Container>
+    );
+  }
+
   if (!account) {
     return (
       <Container>
@@ -82,25 +91,11 @@ const Login = ({
   return (
     <Container>
       <DetailsContainer>
-        {errorMessage ? (
-          <Alert
-            message={errorMessage}
-            type="error"
-            showIcon
-            data-testid="login-error"
-          />
-        ) : (
-          <Alert
-            type="success"
-            showIcon
-            message={(
-              <Title level={5} data-testid="metamask-address">
-                Address:&nbsp;
-                {account ? `${account}` : 'NA'}
-              </Title>
-            )}
-          />
-        )}
+        <MetamaskContainer>
+          <div>{balance ? `${balance} ETH` : 'NA'}</div>
+          <div className="dash" />
+          <div className="address">{account ? `${account}` : 'NA'}</div>
+        </MetamaskContainer>
       </DetailsContainer>
     </Container>
   );
@@ -108,6 +103,7 @@ const Login = ({
 
 Login.propTypes = {
   account: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+  balance: PropTypes.string,
   errorMessage: PropTypes.string,
   setUserAccount: PropTypes.func.isRequired,
   setUserBalance: PropTypes.func.isRequired,
@@ -116,6 +112,7 @@ Login.propTypes = {
 
 Login.defaultProps = {
   account: null,
+  balance: null,
   errorMessage: null,
 };
 
