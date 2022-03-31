@@ -1,4 +1,4 @@
-export const BASKET_ADDRESS = '0x8bd7ac926c5a50372b69d5437df0395bcf0773bc';
+export const BASKET_ADDRESS = '0x21bf3da0cf0f28da27169239102e26d3d46956e5';
 
 export const BASKET_CONTRACT = {
   abi: [
