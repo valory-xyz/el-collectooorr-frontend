@@ -10,33 +10,41 @@ import { getBaskets } from './utils';
 import { BasketContainer } from './styles';
 
 const { Paragraph } = Typography;
-
 const { Meta } = Card;
+
+/**
+ * helper function formalize the list type
+ * If (kinesis_contract) we will get animation which needs iFrame
+ * If (ipfs_contract) we will get image
+ */
+const getCollectionList = (array) => {
+  if ((get(array[0], 'platform') || '') === 'KINESIS') {
+    return array.map(({ collection_name, animation_url, description }) => ({
+      type: 'iframe',
+      name: collection_name,
+      url: animation_url,
+      description,
+    }));
+  }
+
+  if ((get(array[0], 'image') || '').includes('ipfs')) {
+    return array.map(({ name, description, image }) => ({
+      type: 'image',
+      name,
+      url: image,
+      description,
+    }));
+  }
+
+  return array;
+};
+
+/**
+ * Basket component
+ */
 const Basket = ({ account }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [list, setList] = useState([]);
-
-  const getCollectionList = (array) => {
-    if ((get(list[0], 'platform') || '') === 'KINESIS') {
-      return array.map(({ collection_name, animation_url, description }) => ({
-        type: 'iframe',
-        name: collection_name,
-        url: animation_url,
-        description,
-      }));
-    }
-
-    if ((get(list[0], 'image') || '').includes('ipfs')) {
-      return array.map(({ name, description, image }) => ({
-        type: 'image',
-        name,
-        url: image,
-        description,
-      }));
-    }
-
-    return array;
-  };
 
   useEffect(async () => {
     if (account) {
@@ -45,7 +53,8 @@ const Basket = ({ account }) => {
 
       try {
         const data = await getBaskets();
-        setList(getCollectionList(data));
+        const transformedList = getCollectionList(data);
+        setList(transformedList);
       } catch (e) {
         console.error(e);
       } finally {
@@ -62,7 +71,6 @@ const Basket = ({ account }) => {
     return <Alert message="No basket found" type="info" />;
   }
 
-  console.log({ list });
   return (
     <BasketContainer>
       <Row>
