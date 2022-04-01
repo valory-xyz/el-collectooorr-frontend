@@ -32,6 +32,7 @@ const getCollectionList = (array) => {
       type: 'image',
       name,
       url: image,
+      style: { height: '138px' },
       description,
     }));
   }
@@ -75,7 +76,7 @@ const Basket = ({ account }) => {
     <BasketContainer>
       <Row>
         {list.map(({
-          name, description, type, url,
+          name, description, type, url, style,
         }, index) => (
           <Col lg={6} xs={12} key={`basket-${index}`} id="mohan">
             <Card hoverable>
@@ -83,7 +84,7 @@ const Basket = ({ account }) => {
               <iframe title={`basket-NFT-${index}`} src={url} />
               )}
 
-              {type === 'image' && <img alt={name} src={url} />}
+              {type === 'image' && <img alt={name} src={url} style={style} />}
 
               <Meta title={name} />
 
