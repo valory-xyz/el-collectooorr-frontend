@@ -1,9 +1,9 @@
 import Web3 from 'web3';
 import {
-  TOKEN_VAULT_ADDRESS,
-  TOKEN_VAULT_CONTRACT,
   BASKET_ADDRESS,
   BASKET_CONTRACT,
+  VAULT_ADDRESS,
+  VAULT_CONTRACT,
 } from 'common-util/AbiAndAddresses';
 
 export const getBasketContract = () => {
@@ -13,12 +13,9 @@ export const getBasketContract = () => {
   return contract;
 };
 
-export const getTokenVaultContract = () => {
+export const getVaultContract = () => {
   window.ethereum.enable();
   const web3 = new Web3(window.web3.currentProvider);
-  const contract = new web3.eth.Contract(
-    TOKEN_VAULT_CONTRACT.abi,
-    TOKEN_VAULT_ADDRESS,
-  );
+  const contract = new web3.eth.Contract(VAULT_CONTRACT.abi, VAULT_ADDRESS);
   return contract;
 };

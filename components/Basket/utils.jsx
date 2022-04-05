@@ -1,5 +1,5 @@
-import { getBasketContract } from 'common-util/Contracts';
-import { toNumber, sortBy, map } from 'lodash';
+import { getBasketContract, getVaultContract } from 'common-util/Contracts';
+import { sortBy, map } from 'lodash';
 import axios from 'axios';
 
 export const sortByKeys = (object) => {
@@ -7,25 +7,6 @@ export const sortByKeys = (object) => {
   const sortedKeys = sortBy(keys);
   return map(sortedKeys, (key) => [key, object[key]]);
 };
-
-/*
-export const dummyData = () => new Promise((resolve, reject) => {
-  try {
-    const results = Promise.all(
-      [...Array(10).keys()].map(async (_e, index) => {
-        const id = `${index + 1}`;
-        const response = await axios.get(
-          `https://kinesis.art/api/metadata/${id}`,
-        );
-        return response.data;
-      }),
-    );
-    resolve(results);
-  } catch (error) {
-    reject(error);
-  }
-});
-*/
 
 export const getJsonData = (url) => new Promise((resolve, reject) => {
   axios
@@ -35,6 +16,21 @@ export const getJsonData = (url) => new Promise((resolve, reject) => {
     })
     .catch((error) => {
       reject(error);
+    });
+});
+
+export const getToken = () => new Promise((resolve, reject) => {
+  const contract = getBasketContract();
+
+  contract.methods
+    .token()
+    .call()
+    .then((response) => {
+      resolve(response);
+    })
+    .catch((e) => {
+      console.error(e);
+      reject(e);
     });
 });
 
@@ -53,31 +49,36 @@ export const getTokenUri = (id) => new Promise((resolve, reject) => {
     });
 });
 
-export const getBaskets = () => new Promise((resolve, reject) => {
-  const contract = getBasketContract();
+export const getVault = () => new Promise((resolve, reject) => {
+  const contract = getVaultContract();
 
   contract.methods
-    .totalSupply()
+    .id()
     .call()
-    .then(async (total) => {
-      const maxUriToShow = Math.min(toNumber(total), 10);
-
-      const results = await Promise.all(
-        [...Array(maxUriToShow).keys()].map(async (_e, index) => {
-          const id = `${index + 1}`;
-          const urlToFetchMetadata = await getTokenUri(id);
-          const data = await getJsonData(urlToFetchMetadata);
-          return data;
-        }),
-      );
-
-      const sortedResult = sortByKeys({ ...results }).map((e) => e[1]);
-      resolve(sortedResult);
+    .then((response) => {
+      resolve(response);
     })
     .catch((e) => {
       console.error(e);
       reject(e);
     });
-
-  return null;
 });
+
+export const getBaskets = async () => {
+  const token = await getVault();
+
+  return new Promise((resolve, reject) => {
+    const contract = getBasketContract();
+    contract.methods
+      .tokenURI(token)
+      .call()
+      .then(async (response) => {
+        const data = await getJsonData(response);
+        resolve([data]);
+      })
+      .catch((e) => {
+        console.error(e);
+        reject(e);
+      });
+  });
+};
