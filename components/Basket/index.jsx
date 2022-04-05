@@ -3,10 +3,10 @@ import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
-  Skeleton, Card, Row, Col, Alert, Typography,
+  Skeleton, Card, Row, Col, Alert, Typography, Divider,
 } from 'antd/lib';
 import { get } from 'lodash';
-import { getBaskets } from './utils';
+import { getBaskets, getReservePrice } from './utils';
 import { BasketContainer } from './styles';
 
 const { Paragraph } = Typography;
@@ -29,7 +29,9 @@ const getCollectionList = (array) => {
 
   if ((get(array[0], 'image') || '').includes('ipfs')) {
     return array.map(({ name, description, image }) => {
-      const imageUrl = image ? `https://ipfs.foundation.app/${(image).replace('ipfs://', '')}` : null;
+      const imageUrl = image
+        ? `https://ipfs.foundation.app/${image.replace('ipfs://', '')}`
+        : null;
       return {
         type: 'image',
         name,
@@ -49,6 +51,7 @@ const getCollectionList = (array) => {
 const Basket = ({ account }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [list, setList] = useState([]);
+  const [reservePrice, setReservePrice] = useState([]);
 
   useEffect(async () => {
     if (account) {
@@ -59,6 +62,9 @@ const Basket = ({ account }) => {
         const data = await getBaskets();
         const transformedList = getCollectionList(data);
         setList(transformedList);
+
+        const price = await getReservePrice();
+        setReservePrice(price);
       } catch (e) {
         console.error(e);
       } finally {
@@ -86,7 +92,6 @@ const Basket = ({ account }) => {
               {type === 'iframe' && (
               <iframe title={`basket-NFT-${index}`} src={url} />
               )}
-
               {type === 'image' && <img alt={name} src={url} style={style} />}
 
               <Meta title={name} />
@@ -96,6 +101,9 @@ const Basket = ({ account }) => {
               >
                 {description}
               </Paragraph>
+
+              <Divider />
+              <Paragraph>{`Reserve Price: ${reservePrice}`}</Paragraph>
             </Card>
           </Col>
         ))}

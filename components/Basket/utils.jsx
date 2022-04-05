@@ -1,6 +1,7 @@
 import { getBasketContract, getVaultContract } from 'common-util/Contracts';
 import { sortBy, map } from 'lodash';
 import axios from 'axios';
+import Web3 from 'web3';
 
 export const sortByKeys = (object) => {
   const keys = Object.keys(object);
@@ -8,6 +9,38 @@ export const sortByKeys = (object) => {
   return map(sortedKeys, (key) => [key, object[key]]);
 };
 
+export const getVault = () => new Promise((resolve, reject) => {
+  const contract = getVaultContract();
+
+  contract.methods
+    .id()
+    .call()
+    .then((response) => {
+      resolve(response);
+    })
+    .catch((e) => {
+      console.error(e);
+      reject(e);
+    });
+});
+
+export const getReservePrice = () => new Promise((resolve, reject) => {
+  const contract = getVaultContract();
+
+  contract.methods
+    .reservePrice()
+    .call()
+    .then((response) => {
+      const inEther = Web3.utils.fromWei(response, 'ether');
+      resolve(inEther);
+    })
+    .catch((e) => {
+      console.error(e);
+      reject(e);
+    });
+});
+
+// helper functions for fetching NFT
 export const getJsonData = (url) => new Promise((resolve, reject) => {
   axios
     .get(url)
@@ -39,21 +72,6 @@ export const getTokenUri = (id) => new Promise((resolve, reject) => {
 
   contract.methods
     .tokenURI(id)
-    .call()
-    .then((response) => {
-      resolve(response);
-    })
-    .catch((e) => {
-      console.error(e);
-      reject(e);
-    });
-});
-
-export const getVault = () => new Promise((resolve, reject) => {
-  const contract = getVaultContract();
-
-  contract.methods
-    .id()
     .call()
     .then((response) => {
       resolve(response);
