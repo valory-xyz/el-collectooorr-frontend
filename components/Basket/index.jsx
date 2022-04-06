@@ -2,15 +2,23 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { useRouter } from 'next/router';
 import {
-  Skeleton, Card, Row, Col, Alert, Typography, Divider,
+  Skeleton,
+  Card,
+  Row,
+  Col,
+  Alert,
+  Typography,
+  Timeline,
 } from 'antd/lib';
 import { get } from 'lodash';
-import { getBaskets, getReservePrice } from './utils';
+import { COLOR } from 'util/theme';
+import { getBaskets } from './utils';
 import { BasketContainer } from './styles';
 
-const { Paragraph } = Typography;
-const { Meta } = Card;
+const { Paragraph, Title } = Typography;
+// const { Meta } = Card;
 
 /**
  * helper function formalize the list type
@@ -45,13 +53,27 @@ const getCollectionList = (array) => {
   return array;
 };
 
+const getImage = (type, {
+  name, index, url, style,
+}) => {
+  if (type === 'iframe') {
+    return <iframe title={`basket-NFT-${index}`} src={url} />;
+  }
+
+  if (type === 'image') return <img alt={name} src={url} style={style} />;
+
+  return null;
+};
+
 /**
  * Basket component
  */
 const Basket = ({ account }) => {
+  const router = useRouter();
+  const id = get(router, 'query.id') || null;
+
   const [isLoading, setIsLoading] = useState(false);
   const [list, setList] = useState([]);
-  const [reservePrice, setReservePrice] = useState([]);
 
   useEffect(async () => {
     if (account) {
@@ -59,12 +81,9 @@ const Basket = ({ account }) => {
       setList([]);
 
       try {
-        const data = await getBaskets();
+        const data = await getBaskets(id);
         const transformedList = getCollectionList(data);
         setList(transformedList);
-
-        const price = await getReservePrice();
-        setReservePrice(price);
       } catch (e) {
         console.error(e);
       } finally {
@@ -81,32 +100,62 @@ const Basket = ({ account }) => {
     return <Alert message="No basket found" type="info" />;
   }
 
+  const timeline = [
+    {
+      type: 'Funding',
+      time: '12/01/2020 12:00 UTC - 30/01/2020 12:00 UTC',
+      isActive: true,
+    },
+    {
+      type: 'Collecting',
+      time: '12/01/2020 12:00 UTC - 30/01/2020 12:00 UTC',
+      isActive: false,
+    },
+    {
+      type: 'Closed',
+      time: '12/01/2020 12:00 UTC - 30/01/2020 12:00 UTC',
+      isActive: false,
+    },
+  ];
+
   return (
     <BasketContainer>
       <Row>
-        {list.map(({
-          name, description, type, url, style,
-        }, index) => (
-          <Col lg={6} xs={12} key={`basket-${index}`} id="mohan">
-            <Card hoverable>
-              {type === 'iframe' && (
-              <iframe title={`basket-NFT-${index}`} src={url} />
-              )}
-              {type === 'image' && <img alt={name} src={url} style={style} />}
+        <Title level={3}>{`Vault #${id}`}</Title>
+      </Row>
 
-              <Meta title={name} />
-
-              <Paragraph
-                ellipsis={{ rows: 2, expandable: true, symbol: 'more' }}
+      <Row>
+        <Col flex={1}>
+          <br />
+          <Timeline>
+            {timeline.map(({ type, time, isActive }) => (
+              <Timeline.Item
+                key={type}
+                color={isActive ? COLOR.PRIMARY : COLOR.GREY_1}
               >
-                {description}
-              </Paragraph>
+                <div>{type}</div>
+                <p>{time}</p>
+              </Timeline.Item>
+            ))}
+          </Timeline>
+        </Col>
 
-              <Divider />
-              <Paragraph>{`Reserve Price: ${reservePrice}`}</Paragraph>
+        <Col flex={1}>
+          <Paragraph>Gallery</Paragraph>
+
+          {list.map(({
+            name, type, url, style,
+          }, index) => (
+            <Card key={`basket-${index}`}>
+              {getImage(type, {
+                index,
+                url,
+                name,
+                style,
+              })}
             </Card>
-          </Col>
-        ))}
+          ))}
+        </Col>
       </Row>
     </BasketContainer>
   );
