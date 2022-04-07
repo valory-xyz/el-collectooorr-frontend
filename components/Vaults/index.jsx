@@ -48,14 +48,14 @@ const Vault = ({ account }) => {
   return (
     <VaultContainer>
       <Row>
-        {list.map((vault, index) => {
+        {list.map((vault) => {
           const {
-            id, name, description, reservePrice, isClosed,
+            id, name, description, reservePrice, isClosed, token,
           } = vault;
 
           return (
-            <Col lg={6} xs={12} key={`vault-${index}`} id="mohan">
-              <Card hoverable onClick={() => router.push(`/vaults/${id}`)}>
+            <Col lg={6} xs={12} key={`vault-${id}`}>
+              <Card hoverable onClick={() => router.push(`/vaults/${token}`)}>
                 <Meta title={name} />
 
                 {description && (

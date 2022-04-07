@@ -1,8 +1,14 @@
-export const BASKET_ADDRESS = '0xF03b9E6707C1E29442e56B15d708e388A71a7177';
+// export const BASKET_ADDRESS = '0x3B3ee1931Dc30C1957379FAc9aba94D1C48a5405'; // SUCCESS KID
+export const BASKET_ADDRESS = '0xF03b9E6707C1E29442e56B15d708e388A71a7177'; // Harambe
+
 
 export const BASKET_CONTRACT = {
   abi: [
-    { inputs: [], stateMutability: 'nonpayable', type: 'constructor' },
+    {
+      inputs: [],
+      stateMutability: 'nonpayable',
+      type: 'constructor',
+    },
     {
       anonymous: false,
       inputs: [
@@ -69,13 +75,75 @@ export const BASKET_CONTRACT = {
           type: 'uint256',
         },
         {
+          indexed: false,
+          internalType: 'uint256',
+          name: 'amount',
+          type: 'uint256',
+        },
+        {
           indexed: true,
           internalType: 'address',
           name: 'from',
           type: 'address',
         },
       ],
-      name: 'Deposit',
+      name: 'DepositERC1155',
+      type: 'event',
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          internalType: 'address',
+          name: 'token',
+          type: 'address',
+        },
+        {
+          indexed: false,
+          internalType: 'uint256[]',
+          name: 'tokenId',
+          type: 'uint256[]',
+        },
+        {
+          indexed: false,
+          internalType: 'uint256[]',
+          name: 'amount',
+          type: 'uint256[]',
+        },
+        {
+          indexed: true,
+          internalType: 'address',
+          name: 'from',
+          type: 'address',
+        },
+      ],
+      name: 'DepositERC1155Bulk',
+      type: 'event',
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          internalType: 'address',
+          name: 'token',
+          type: 'address',
+        },
+        {
+          indexed: false,
+          internalType: 'uint256',
+          name: 'tokenId',
+          type: 'uint256',
+        },
+        {
+          indexed: true,
+          internalType: 'address',
+          name: 'from',
+          type: 'address',
+        },
+      ],
+      name: 'DepositERC721',
       type: 'event',
     },
     {
@@ -88,7 +156,10 @@ export const BASKET_CONTRACT = {
           type: 'address',
         },
         {
-          indexed: true, internalType: 'address', name: 'to', type: 'address',
+          indexed: true,
+          internalType: 'address',
+          name: 'to',
+          type: 'address',
         },
         {
           indexed: true,
@@ -116,10 +187,19 @@ export const BASKET_CONTRACT = {
           type: 'uint256',
         },
         {
-          indexed: true, internalType: 'address', name: 'to', type: 'address',
+          indexed: false,
+          internalType: 'uint256',
+          name: 'amount',
+          type: 'uint256',
+        },
+        {
+          indexed: true,
+          internalType: 'address',
+          name: 'from',
+          type: 'address',
         },
       ],
-      name: 'Withdraw',
+      name: 'WithdrawERC1155',
       type: 'event',
     },
     {
@@ -147,6 +227,31 @@ export const BASKET_CONTRACT = {
         {
           indexed: true,
           internalType: 'address',
+          name: 'token',
+          type: 'address',
+        },
+        {
+          indexed: false,
+          internalType: 'uint256',
+          name: 'tokenId',
+          type: 'uint256',
+        },
+        {
+          indexed: true,
+          internalType: 'address',
+          name: 'to',
+          type: 'address',
+        },
+      ],
+      name: 'WithdrawERC721',
+      type: 'event',
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          internalType: 'address',
           name: 'who',
           type: 'address',
         },
@@ -156,8 +261,16 @@ export const BASKET_CONTRACT = {
     },
     {
       inputs: [
-        { internalType: 'address', name: 'to', type: 'address' },
-        { internalType: 'uint256', name: 'tokenId', type: 'uint256' },
+        {
+          internalType: 'address',
+          name: 'to',
+          type: 'address',
+        },
+        {
+          internalType: 'uint256',
+          name: 'tokenId',
+          type: 'uint256',
+        },
       ],
       name: 'approve',
       outputs: [],
@@ -165,84 +278,228 @@ export const BASKET_CONTRACT = {
       type: 'function',
     },
     {
-      inputs: [{ internalType: 'address', name: 'owner', type: 'address' }],
-      name: 'balanceOf',
-      outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
-      stateMutability: 'view',
-      type: 'function',
-    },
-    {
-      inputs: [],
-      name: 'baseURI',
-      outputs: [{ internalType: 'string', name: '', type: 'string' }],
-      stateMutability: 'view',
-      type: 'function',
-    },
-    {
       inputs: [
-        { internalType: 'address', name: '_token', type: 'address' },
-        { internalType: 'uint256', name: '_tokenId', type: 'uint256' },
+        {
+          internalType: 'address',
+          name: 'owner',
+          type: 'address',
+        },
       ],
-      name: 'depositERC721',
-      outputs: [],
-      stateMutability: 'nonpayable',
-      type: 'function',
-    },
-    {
-      inputs: [{ internalType: 'uint256', name: 'tokenId', type: 'uint256' }],
-      name: 'getApproved',
-      outputs: [{ internalType: 'address', name: '', type: 'address' }],
+      name: 'balanceOf',
+      outputs: [
+        {
+          internalType: 'uint256',
+          name: '',
+          type: 'uint256',
+        },
+      ],
       stateMutability: 'view',
       type: 'function',
     },
     {
       inputs: [
-        { internalType: 'address', name: 'owner', type: 'address' },
-        { internalType: 'address', name: 'operator', type: 'address' },
+        {
+          internalType: 'uint256',
+          name: 'tokenId',
+          type: 'uint256',
+        },
+      ],
+      name: 'getApproved',
+      outputs: [
+        {
+          internalType: 'address',
+          name: '',
+          type: 'address',
+        },
+      ],
+      stateMutability: 'view',
+      type: 'function',
+    },
+    {
+      inputs: [
+        {
+          internalType: 'address',
+          name: 'owner',
+          type: 'address',
+        },
+        {
+          internalType: 'address',
+          name: 'operator',
+          type: 'address',
+        },
       ],
       name: 'isApprovedForAll',
-      outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
-      stateMutability: 'view',
-      type: 'function',
-    },
-    {
-      inputs: [],
-      name: 'isBasket',
-      outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+      outputs: [
+        {
+          internalType: 'bool',
+          name: '',
+          type: 'bool',
+        },
+      ],
       stateMutability: 'view',
       type: 'function',
     },
     {
       inputs: [],
       name: 'name',
-      outputs: [{ internalType: 'string', name: '', type: 'string' }],
+      outputs: [
+        {
+          internalType: 'string',
+          name: '',
+          type: 'string',
+        },
+      ],
       stateMutability: 'view',
       type: 'function',
     },
     {
       inputs: [
-        { internalType: 'address', name: '', type: 'address' },
-        { internalType: 'address', name: '', type: 'address' },
-        { internalType: 'uint256', name: '', type: 'uint256' },
-        { internalType: 'bytes', name: '', type: 'bytes' },
+        {
+          internalType: 'address',
+          name: '',
+          type: 'address',
+        },
+        {
+          internalType: 'address',
+          name: 'from',
+          type: 'address',
+        },
+        {
+          internalType: 'uint256[]',
+          name: 'ids',
+          type: 'uint256[]',
+        },
+        {
+          internalType: 'uint256[]',
+          name: 'amounts',
+          type: 'uint256[]',
+        },
+        {
+          internalType: 'bytes',
+          name: '',
+          type: 'bytes',
+        },
+      ],
+      name: 'onERC1155BatchReceived',
+      outputs: [
+        {
+          internalType: 'bytes4',
+          name: '',
+          type: 'bytes4',
+        },
+      ],
+      stateMutability: 'nonpayable',
+      type: 'function',
+    },
+    {
+      inputs: [
+        {
+          internalType: 'address',
+          name: '',
+          type: 'address',
+        },
+        {
+          internalType: 'address',
+          name: 'from',
+          type: 'address',
+        },
+        {
+          internalType: 'uint256',
+          name: 'id',
+          type: 'uint256',
+        },
+        {
+          internalType: 'uint256',
+          name: 'amount',
+          type: 'uint256',
+        },
+        {
+          internalType: 'bytes',
+          name: '',
+          type: 'bytes',
+        },
+      ],
+      name: 'onERC1155Received',
+      outputs: [
+        {
+          internalType: 'bytes4',
+          name: '',
+          type: 'bytes4',
+        },
+      ],
+      stateMutability: 'nonpayable',
+      type: 'function',
+    },
+    {
+      inputs: [
+        {
+          internalType: 'address',
+          name: '',
+          type: 'address',
+        },
+        {
+          internalType: 'address',
+          name: 'from',
+          type: 'address',
+        },
+        {
+          internalType: 'uint256',
+          name: 'id',
+          type: 'uint256',
+        },
+        {
+          internalType: 'bytes',
+          name: '',
+          type: 'bytes',
+        },
       ],
       name: 'onERC721Received',
-      outputs: [{ internalType: 'bytes4', name: '', type: 'bytes4' }],
+      outputs: [
+        {
+          internalType: 'bytes4',
+          name: '',
+          type: 'bytes4',
+        },
+      ],
       stateMutability: 'nonpayable',
       type: 'function',
     },
     {
-      inputs: [{ internalType: 'uint256', name: 'tokenId', type: 'uint256' }],
+      inputs: [
+        {
+          internalType: 'uint256',
+          name: 'tokenId',
+          type: 'uint256',
+        },
+      ],
       name: 'ownerOf',
-      outputs: [{ internalType: 'address', name: '', type: 'address' }],
+      outputs: [
+        {
+          internalType: 'address',
+          name: '',
+          type: 'address',
+        },
+      ],
       stateMutability: 'view',
       type: 'function',
     },
     {
       inputs: [
-        { internalType: 'address', name: 'from', type: 'address' },
-        { internalType: 'address', name: 'to', type: 'address' },
-        { internalType: 'uint256', name: 'tokenId', type: 'uint256' },
+        {
+          internalType: 'address',
+          name: 'from',
+          type: 'address',
+        },
+        {
+          internalType: 'address',
+          name: 'to',
+          type: 'address',
+        },
+        {
+          internalType: 'uint256',
+          name: 'tokenId',
+          type: 'uint256',
+        },
       ],
       name: 'safeTransferFrom',
       outputs: [],
@@ -251,10 +508,26 @@ export const BASKET_CONTRACT = {
     },
     {
       inputs: [
-        { internalType: 'address', name: 'from', type: 'address' },
-        { internalType: 'address', name: 'to', type: 'address' },
-        { internalType: 'uint256', name: 'tokenId', type: 'uint256' },
-        { internalType: 'bytes', name: '_data', type: 'bytes' },
+        {
+          internalType: 'address',
+          name: 'from',
+          type: 'address',
+        },
+        {
+          internalType: 'address',
+          name: 'to',
+          type: 'address',
+        },
+        {
+          internalType: 'uint256',
+          name: 'tokenId',
+          type: 'uint256',
+        },
+        {
+          internalType: 'bytes',
+          name: '_data',
+          type: 'bytes',
+        },
       ],
       name: 'safeTransferFrom',
       outputs: [],
@@ -263,8 +536,16 @@ export const BASKET_CONTRACT = {
     },
     {
       inputs: [
-        { internalType: 'address', name: 'operator', type: 'address' },
-        { internalType: 'bool', name: 'approved', type: 'bool' },
+        {
+          internalType: 'address',
+          name: 'operator',
+          type: 'address',
+        },
+        {
+          internalType: 'bool',
+          name: 'approved',
+          type: 'bool',
+        },
       ],
       name: 'setApprovalForAll',
       outputs: [],
@@ -272,55 +553,73 @@ export const BASKET_CONTRACT = {
       type: 'function',
     },
     {
-      inputs: [{ internalType: 'bytes4', name: 'interfaceId', type: 'bytes4' }],
+      inputs: [
+        {
+          internalType: 'bytes4',
+          name: 'interfaceId',
+          type: 'bytes4',
+        },
+      ],
       name: 'supportsInterface',
-      outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+      outputs: [
+        {
+          internalType: 'bool',
+          name: '',
+          type: 'bool',
+        },
+      ],
       stateMutability: 'view',
       type: 'function',
     },
     {
       inputs: [],
       name: 'symbol',
-      outputs: [{ internalType: 'string', name: '', type: 'string' }],
-      stateMutability: 'view',
-      type: 'function',
-    },
-    {
-      inputs: [{ internalType: 'uint256', name: 'index', type: 'uint256' }],
-      name: 'tokenByIndex',
-      outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
-      stateMutability: 'view',
-      type: 'function',
-    },
-    {
-      inputs: [
-        { internalType: 'address', name: 'owner', type: 'address' },
-        { internalType: 'uint256', name: 'index', type: 'uint256' },
+      outputs: [
+        {
+          internalType: 'string',
+          name: '',
+          type: 'string',
+        },
       ],
-      name: 'tokenOfOwnerByIndex',
-      outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
-      stateMutability: 'view',
-      type: 'function',
-    },
-    {
-      inputs: [{ internalType: 'uint256', name: 'tokenId', type: 'uint256' }],
-      name: 'tokenURI',
-      outputs: [{ internalType: 'string', name: '', type: 'string' }],
-      stateMutability: 'view',
-      type: 'function',
-    },
-    {
-      inputs: [],
-      name: 'totalSupply',
-      outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
       stateMutability: 'view',
       type: 'function',
     },
     {
       inputs: [
-        { internalType: 'address', name: 'from', type: 'address' },
-        { internalType: 'address', name: 'to', type: 'address' },
-        { internalType: 'uint256', name: 'tokenId', type: 'uint256' },
+        {
+          internalType: 'uint256',
+          name: 'tokenId',
+          type: 'uint256',
+        },
+      ],
+      name: 'tokenURI',
+      outputs: [
+        {
+          internalType: 'string',
+          name: '',
+          type: 'string',
+        },
+      ],
+      stateMutability: 'view',
+      type: 'function',
+    },
+    {
+      inputs: [
+        {
+          internalType: 'address',
+          name: 'from',
+          type: 'address',
+        },
+        {
+          internalType: 'address',
+          name: 'to',
+          type: 'address',
+        },
+        {
+          internalType: 'uint256',
+          name: 'tokenId',
+          type: 'uint256',
+        },
       ],
       name: 'transferFrom',
       outputs: [],
@@ -328,7 +627,36 @@ export const BASKET_CONTRACT = {
       type: 'function',
     },
     {
-      inputs: [{ internalType: 'address', name: '_token', type: 'address' }],
+      inputs: [
+        {
+          internalType: 'address',
+          name: '_token',
+          type: 'address',
+        },
+        {
+          internalType: 'uint256',
+          name: '_tokenId',
+          type: 'uint256',
+        },
+        {
+          internalType: 'uint256',
+          name: '_amount',
+          type: 'uint256',
+        },
+      ],
+      name: 'withdrawERC1155',
+      outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function',
+    },
+    {
+      inputs: [
+        {
+          internalType: 'address',
+          name: '_token',
+          type: 'address',
+        },
+      ],
       name: 'withdrawERC20',
       outputs: [],
       stateMutability: 'nonpayable',
@@ -336,10 +664,36 @@ export const BASKET_CONTRACT = {
     },
     {
       inputs: [
-        { internalType: 'address', name: '_token', type: 'address' },
-        { internalType: 'uint256', name: '_tokenId', type: 'uint256' },
+        {
+          internalType: 'address',
+          name: '_token',
+          type: 'address',
+        },
+        {
+          internalType: 'uint256',
+          name: '_tokenId',
+          type: 'uint256',
+        },
       ],
       name: 'withdrawERC721',
+      outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function',
+    },
+    {
+      inputs: [
+        {
+          internalType: 'address',
+          name: '_token',
+          type: 'address',
+        },
+        {
+          internalType: 'uint256',
+          name: '_tokenId',
+          type: 'uint256',
+        },
+      ],
+      name: 'withdrawERC721Unsafe',
       outputs: [],
       stateMutability: 'nonpayable',
       type: 'function',
@@ -351,6 +705,10 @@ export const BASKET_CONTRACT = {
       stateMutability: 'nonpayable',
       type: 'function',
     },
-    { stateMutability: 'payable', type: 'receive' },
-  ],
+    {
+      stateMutability: 'payable',
+      type: 'receive',
+    },
+  ]
+  ,
 };

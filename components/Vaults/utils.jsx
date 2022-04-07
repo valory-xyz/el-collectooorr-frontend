@@ -5,15 +5,17 @@ export const getVaultInfo = () => new Promise((resolve, reject) => {
   const contract = getVaultContract();
 
   contract.methods
-    .id()
+    .token()
     .call()
     .then(async (response) => {
+      const id = await contract.methods.id().call();
       const name = await contract.methods.name().call();
       const reservePrice = await contract.methods.reservePrice().call();
       const isClosed = await contract.methods.vaultClosed().call();
 
       const vaultInfo = {
-        id: response,
+        token: response,
+        id,
         name,
         reservePrice: Web3.utils.fromWei(reservePrice, 'ether'),
         isClosed,

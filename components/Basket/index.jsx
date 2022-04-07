@@ -15,7 +15,7 @@ import {
 import { get } from 'lodash';
 import { COLOR } from 'util/theme';
 import { getBaskets } from './utils';
-import { BasketContainer } from './styles';
+import { BasketContainer, Gallery } from './styles';
 
 const { Paragraph, Title } = Typography;
 // const { Meta } = Card;
@@ -38,7 +38,7 @@ const getCollectionList = (array) => {
   if ((get(array[0], 'image') || '').includes('ipfs')) {
     return array.map(({ name, description, image }) => {
       const imageUrl = image
-        ? `https://ipfs.foundation.app/${image.replace('ipfs://', '')}`
+        ? `https://ipfs.foundation.app/ipfs/${image.replace('ipfs://', '')}`
         : null;
       return {
         type: 'image',
@@ -121,11 +121,11 @@ const Basket = ({ account }) => {
   return (
     <BasketContainer>
       <Row>
-        <Title level={3}>{`Vault #${id}`}</Title>
+        <Title level={3}>Vault #1</Title>
       </Row>
 
       <Row>
-        <Col flex={1}>
+        <Col md={12}>
           <br />
           <Timeline>
             {timeline.map(({ type, time, isActive }) => (
@@ -140,21 +140,33 @@ const Basket = ({ account }) => {
           </Timeline>
         </Col>
 
-        <Col flex={1}>
+        <Col md={12}>
           <Paragraph>Gallery</Paragraph>
 
-          {list.map(({
-            name, type, url, style,
-          }, index) => (
-            <Card key={`basket-${index}`}>
-              {getImage(type, {
-                index,
-                url,
-                name,
-                style,
-              })}
-            </Card>
-          ))}
+          <Gallery>
+            {list.map(({
+              name, type, url, style, description,
+            }, index) => (
+              <Card key={`basket-${index}`}>
+                {getImage(type, {
+                  index,
+                  url,
+                  name,
+                  style,
+                })}
+
+                <Card.Meta title={name} />
+
+                {description && (
+                <Paragraph
+                  ellipsis={{ rows: 2, expandable: true, symbol: 'more' }}
+                >
+                  {description}
+                </Paragraph>
+                )}
+              </Card>
+            ))}
+          </Gallery>
         </Col>
       </Row>
     </BasketContainer>
