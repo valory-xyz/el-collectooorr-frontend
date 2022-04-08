@@ -26,15 +26,6 @@ const { Paragraph, Title } = Typography;
  * If (ipfs_contract) we will get image
  */
 const getCollectionList = (array) => {
-  if ((get(array[0], 'platform') || '') === 'KINESIS') {
-    return array.map(({ collection_name, animation_url, description }) => ({
-      type: 'iframe',
-      name: collection_name,
-      url: animation_url,
-      description,
-    }));
-  }
-
   if ((get(array[0], 'image') || '').includes('ipfs')) {
     return array.map(({ name, description, image }) => {
       const imageUrl = image
