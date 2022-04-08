@@ -15,6 +15,8 @@ import {
 import { get } from 'lodash';
 import { COLOR } from 'util/theme';
 import { getBaskets } from './utils';
+import Pool from './helpers/Pool';
+import History from './helpers/History';
 import { BasketContainer, Gallery } from './styles';
 
 const { Paragraph, Title } = Typography;
@@ -129,6 +131,12 @@ const Basket = ({ account }) => {
               </Timeline.Item>
             ))}
           </Timeline>
+
+          <br />
+          <Pool />
+
+          <br />
+          <History />
         </Col>
 
         <Col md={12}>
