@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Button } from 'antd';
 import Web3 from 'web3';
 import get from 'lodash/get';
+import isNil from 'lodash/isNil';
+import round from 'lodash/round';
 import { CONSTANTS } from 'util/constants';
 import {
   setUserAccount as setUserAccountFn,
@@ -26,7 +28,8 @@ const Login = ({
         params: [accoundPassed, 'latest'],
       })
       .then((b) => {
-        setUserBalance(Web3.utils.fromWei(b, 'ether'));
+        const balanceInEther = Web3.utils.fromWei(b, 'ether');
+        setUserBalance(round(balanceInEther, 2));
       })
       .catch((e) => {
         setErrorMessage(e.message);
@@ -92,7 +95,7 @@ const Login = ({
     <Container>
       <DetailsContainer>
         <MetamaskContainer>
-          <div>{balance ? `${balance} ETH` : 'NA'}</div>
+          <div>{isNil(balance) ? 'NA' : `${balance} ETH` }</div>
           <div className="dash" />
           <div className="address">{account ? `${account}` : 'NA'}</div>
         </MetamaskContainer>
@@ -103,7 +106,7 @@ const Login = ({
 
 Login.propTypes = {
   account: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-  balance: PropTypes.string,
+  balance: PropTypes.number,
   errorMessage: PropTypes.string,
   setUserAccount: PropTypes.func.isRequired,
   setUserBalance: PropTypes.func.isRequired,
