@@ -1,5 +1,5 @@
 import { FooterContainer } from './styles';
 
-const Footer = () => <FooterContainer>Footer</FooterContainer>;
+const Footer = () => <FooterContainer />;
 
 export default Footer;
