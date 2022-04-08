@@ -28,13 +28,16 @@ const getCollectionList = (array) => {
   }
 
   if ((get(array[0], 'image') || '').includes('ipfs')) {
-    return array.map(({ name, description, image }) => ({
-      type: 'image',
-      name,
-      url: image,
-      style: { height: '138px' },
-      description,
-    }));
+    return array.map(({ name, description, image }) => {
+      const imageUrl = image ? `https://ipfs.foundation.app/${(image).replace('ipfs://', '')}` : null;
+      return {
+        type: 'image',
+        name,
+        url: imageUrl,
+        style: { height: '138px' },
+        description,
+      };
+    });
   }
 
   return array;

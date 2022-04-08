@@ -1,2 +1,2 @@
 export * from './basketContract';
-export * from './tokenVaultContract';
+export * from './vaultContract';
