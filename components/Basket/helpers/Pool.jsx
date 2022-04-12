@@ -1,64 +1,68 @@
-import { Button } from 'antd';
 import React from 'react';
 
 import styled from 'styled-components';
+
+export const PoolContainer = styled.div`
+  .pool-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    h3 {
+      margin: 0;
+    }
+  }
+`;
 
 export const TotalYours = styled.div`
   display: flex;
 `;
 
-export const Total = styled.div`
-  padding-right: 3rem;
+export const Total = styled.div``;
+
+export const ReservePrice = styled.div`
+  padding: 0 4rem;
 `;
 
 export const Yours = styled.div`
   .ant-btn {
-      margin-right: 1rem;
-    }
+    margin-right: 1rem;
+  }
 `;
 
 const Pool = () => (
-  <div>
-    <div>Pool</div>
-    <TotalYours>
-      <Total>
-        <div>TOTAL</div>
-        <div>19.00</div>
-      </Total>
+  <PoolContainer>
+    <div className="pool-header">
+      <h3>Vault</h3>
+      <div>
+        This vault is managed on&nbsp;
+        <a href="http://google.com" target="_blank" rel="noopener noreferrer">
+          Fractional
+        </a>
+      </div>
+    </div>
 
-      <Yours>
-        <div>YOURS</div>
-        <div>0.1 = 0.05% pool stake</div>
-        <div>
-          <Button type="primary" ghost>
-            Deposit
-          </Button>
-          <Button type="primary" ghost>
-            Withdraw
-          </Button>
-        </div>
-      </Yours>
-    </TotalYours>
-
-    <br />
-    <div>Tokens</div>
     <TotalYours>
       <Total>
         <div>TOTAL</div>
         <div>10k VLT1</div>
       </Total>
 
+      <ReservePrice>
+        <div>RESERVE PRICE</div>
+        <div>20 ETH</div>
+        <a href="http://google.com" target="_blank" rel="noopener noreferrer">
+          Vote for new reserve price
+        </a>
+      </ReservePrice>
+
       <Yours>
         <div>YOURS</div>
-        <div>500 VLT1</div>
-        <div>
-          <Button type="primary" ghost>
-            Claim
-          </Button>
-        </div>
+        <div>0 VLT1</div>
+        <div>0% pool share</div>
       </Yours>
     </TotalYours>
-  </div>
+  </PoolContainer>
 );
 
 export default Pool;

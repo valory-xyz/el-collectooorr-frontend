@@ -10,17 +10,17 @@ import {
   Col,
   Alert,
   Typography,
-  Timeline,
+  Progress,
 } from 'antd/lib';
 import { get } from 'lodash';
 import { COLOR } from 'util/theme';
 import { getBaskets } from './utils';
 import Pool from './helpers/Pool';
 import History from './helpers/History';
-import { BasketContainer, Gallery } from './styles';
+import AddFunds from './helpers/AddFunds';
+import { BasketContainer, Gallery, FundingProgress } from './styles';
 
-const { Paragraph, Title } = Typography;
-// const { Meta } = Card;
+const { Paragraph } = Typography;
 
 /**
  * helper function formalize the list type
@@ -93,60 +93,49 @@ const Basket = ({ account }) => {
     return <Alert message="No basket found" type="info" />;
   }
 
-  const timeline = [
-    {
-      type: 'Funding',
-      time: '12/01/2020 12:00 UTC - 30/01/2020 12:00 UTC',
-      isActive: true,
-    },
-    {
-      type: 'Collecting',
-      time: '12/01/2020 12:00 UTC - 30/01/2020 12:00 UTC',
-      isActive: false,
-    },
-    {
-      type: 'Closed',
-      time: '12/01/2020 12:00 UTC - 30/01/2020 12:00 UTC',
-      isActive: false,
-    },
-  ];
-
   return (
     <BasketContainer>
       <Row>
-        <Title level={3}>Vault #1</Title>
-      </Row>
+        <Col md={8}>
+          <div>Fund - open</div>
 
-      <Row>
-        <Col md={12}>
+          <FundingProgress>
+            <Progress
+              percent={10}
+              status="active"
+              strokeColor={COLOR.PRIMARY}
+              strokeWidth={20}
+              showInfo={false}
+            />
+            <div className="funding-process-info">
+              <div>0 ETH</div>
+              <div>5 ETH</div>
+              <div>
+                <span>10 ETH</span>
+                <span>Full</span>
+              </div>
+            </div>
+          </FundingProgress>
+
+          <AddFunds />
           <br />
-          <Timeline>
-            {timeline.map(({ type, time, isActive }) => (
-              <Timeline.Item
-                key={type}
-                color={isActive ? COLOR.PRIMARY : COLOR.GREY_1}
-              >
-                <div>{type}</div>
-                <p>{time}</p>
-              </Timeline.Item>
-            ))}
-          </Timeline>
-
           <br />
-          <Pool />
-
           <br />
           <History />
         </Col>
 
-        <Col md={12}>
+        <Col md={15} offset={1} className="right-columm">
+          <Pool />
+          <br />
+          <br />
+
           <Paragraph>Gallery</Paragraph>
 
           <Gallery>
             {list.map(({
-              name, type, url, style, description,
+              name, type, url, style,
             }, index) => (
-              <Card key={`basket-${index}`}>
+              <Card key={`basket-${index}`} bordered={false}>
                 {getImage(type, {
                   index,
                   url,
@@ -155,14 +144,22 @@ const Basket = ({ account }) => {
                 })}
 
                 <Card.Meta title={name} />
-
-                {description && (
-                <Paragraph
-                  ellipsis={{ rows: 2, expandable: true, symbol: 'more' }}
-                >
-                  {description}
-                </Paragraph>
-                )}
+                <div className="nft-info">
+                  <div>Robert</div>
+                  <div>Live View</div>
+                  <div>
+                    Bought: 0.1 ETH&nbsp;&bull;&nbsp;12/1&nbsp;&bull;&nbsp;
+                    <span>
+                      <a
+                        href="http://google.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Txn
+                      </a>
+                    </span>
+                  </div>
+                </div>
               </Card>
             ))}
           </Gallery>
