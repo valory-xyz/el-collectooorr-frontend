@@ -19,7 +19,10 @@ export default class MyDocument extends Document {
 
     return (
       <Html lang="en">
-        <Head>{styleTags}</Head>
+        <Head>
+          <link href="/fonts/stylesheet.css" rel="stylesheet" />
+          {styleTags}
+        </Head>
 
         <body>
           <Main />

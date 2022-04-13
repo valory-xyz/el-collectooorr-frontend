@@ -10,7 +10,7 @@ export const CustomLayout = styled(Layout)`
     width: 100%;
   }
   .site-layout {
-    padding: 0 50px;
+    padding: 0 1rem;
     margin-top: 64px;
   }
   .site-layout-background {
