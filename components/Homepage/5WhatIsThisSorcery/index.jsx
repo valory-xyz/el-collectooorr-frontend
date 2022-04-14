@@ -1,12 +1,3 @@
-/*
-
-*/
-
-/*
-Built by Ardian Abazi and the Autonolas Agent Dev Academy Cohort 1
-autonolas Twitter
-*/
-
 import React from 'react';
 import Header from 'common-util/Header';
 import { COLOR } from 'util/theme';

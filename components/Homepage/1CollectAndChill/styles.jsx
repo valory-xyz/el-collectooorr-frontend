@@ -15,6 +15,7 @@ export const Container = styled.div`
   border: 1px solid ${COLOR.GREY_1};
   background-image: url("/images/1CollectAndChill/background.png");
   background-size: 100%;
+  margin-bottom: 2rem;
 `;
 
 export const CollectAndChillContainer = styled.div`
@@ -39,6 +40,9 @@ export const CollectAndChillContainer = styled.div`
       padding-bottom: 1.5rem;
       font-size: 17px;
       line-height: normal;
+      .text {
+        margin-bottom: 0.25rem;
+      }
     }
     .column-2 {
       display: flex;

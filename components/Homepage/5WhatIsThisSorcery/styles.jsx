@@ -16,6 +16,7 @@ export const HeaderContainer = styled.div`
   padding: 1.5rem 3rem;
   border-radius: 20px;
   border: 1px solid ${COLOR.GREY_1};
+  background-color: ${COLOR.BLACK};
   img {
     height: 78px;
   }
@@ -62,7 +63,7 @@ export const BodyRowOne = styled.div`
       max-width: 300px;
       line-height: 24px;
       font-size: 20px;
-      font-family: "spacegrotesk__bold";
+      font-family: "spacegrotesk__regular";
     }
   }
   .column-2 {
@@ -109,7 +110,7 @@ export const BodyRowTwo = styled.div`
 export const SorceryFooter = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 12rem;
+  margin-top: 16rem;
   padding: 1rem 2rem;
   border-radius: 10px 10px 20px 20px;
   border-top: 1px solid ${COLOR.GREY_1};

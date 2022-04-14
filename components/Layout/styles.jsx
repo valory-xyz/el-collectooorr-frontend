@@ -12,6 +12,8 @@ export const CustomLayout = styled(Layout)`
   .site-layout {
     padding: 0 1rem;
     margin-top: 64px;
+    background-image: url("/images/background-close-dot.png");
+    background-size: 100%;
   }
   .site-layout-background {
     padding: 24px 0;
@@ -48,11 +50,4 @@ export const Logo = styled.div`
 export const RightMenu = styled.div`
   display: flex;
   align-items: center;
-`;
-
-export const FooterContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 50px;
 `;

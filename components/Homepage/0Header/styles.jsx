@@ -15,6 +15,7 @@ export const HeaderContainer = styled.div`
   padding: 0.5rem 1rem;
   border-radius: 10px;
   border: 1px solid ${COLOR.GREY_1};
+  background-color: ${COLOR.BLACK};
   .column-1 {
     img {
       width: 300px;
@@ -24,8 +25,10 @@ export const HeaderContainer = styled.div`
 
 export const SubHeaderContainer = styled.div`
   padding: 0.5rem 1rem 0.25rem 1rem;
+  margin-bottom: 1rem;
   font-family: "minecraft";
   font-size: 18px;
   border-radius: 10px;
   border: 1px solid ${COLOR.GREY_1};
+  background-color: ${COLOR.BLACK};
 `;

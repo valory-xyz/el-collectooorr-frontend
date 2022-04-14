@@ -2,8 +2,10 @@ import styled from 'styled-components';
 import { COLOR } from 'util/theme';
 
 export const Container = styled.div`
+  margin-bottom: 2rem;
   border: 1px solid ${COLOR.BLUE};
   border-radius: 20px;
+  background-color: ${COLOR.BLACK};
   .header-container {
     padding: 1rem 0 0 0.5rem;
     letter-spacing: 0;
@@ -19,13 +21,13 @@ export const Container = styled.div`
 
 export const EachBenefit = styled.div`
   max-width: 25%;
-  padding: 1rem;
+  padding: 1rem 1.5rem 1.5rem 1rem;
   .image-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 2rem;
     height: 180px;
+    margin-bottom: 2rem;
     img {
       width: 120px;
     }

@@ -4,6 +4,7 @@ import { COLOR } from 'util/theme';
 export const Container = styled.div`
   min-height: 480px;
   padding: 1rem 3rem 1.5rem 0;
+  margin-bottom: 2rem;
   border-radius: 20px;
   border: 1px solid ${COLOR.RED};
   background-image: url("/images/2EvolutionOfNftCollecting/background.png");
@@ -12,6 +13,7 @@ export const Container = styled.div`
   background-position-x: right;
   background-position-y: 24px;
   background-origin: content-box;
+  background-color: ${COLOR.BLACK};
 `;
 
 export const CollectionContainer = styled.div`
@@ -22,11 +24,13 @@ export const CollectionContainer = styled.div`
     .header {
       line-height: 64px;
     }
-    .img {
+    img {
       margin: 1rem 0 1.5rem 0;
     }
     .text {
-      max-width: 280px;
+      max-width: 320px;
+      line-height: 20px;
+      font-size: 16px;
     }
   }
 `;
