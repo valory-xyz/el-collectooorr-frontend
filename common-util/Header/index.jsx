@@ -8,8 +8,6 @@ const H2 = styled.h2`
   font-size: 62px;
   line-height: normal;
   font-family: "spacegrotesk__bold";
-  letter-spacing: 0.05em;
-
   ${MEDIA_QUERY.laptop} {
     font-size: 50px;
   }

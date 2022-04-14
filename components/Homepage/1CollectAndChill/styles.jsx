@@ -1,49 +1,59 @@
 import styled from 'styled-components';
 import { COLOR } from 'util/theme';
+import { CustomButton } from 'common-util/Button';
+
+export const btnStyle = {
+  borderRadius: '0 0 20px 0',
+  height: '60px',
+  width: '100%',
+  fontSize: '26px',
+};
 
 export const Container = styled.div`
-  border: 1px solid ${COLOR.WHITE};
-  border-radius: 16px;
+  min-height: 580px;
+  border-radius: 20px;
+  border: 1px solid ${COLOR.GREY_1};
+  background-image: url("/images/1CollectAndChill/background.png");
+  background-size: 100%;
+`;
 
-  .how-it-works-row {
+export const CollectAndChillContainer = styled.div`
+  width: 660px;
+  padding: 0 0 0 0.75rem;
+  border-radius: 20px 0;
+  background-color: ${COLOR.BLACK};
+  border-right: 1px solid ${COLOR.GREY_1};
+  border-bottom: 1px solid ${COLOR.GREY_1};
+  .header-row {
+    img {
+      margin-top: -1rem;
+    }
+  }
+  .collect-chill-body {
     display: flex;
-    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-top: -1rem;
+    .column-1 {
+      width: 32.5%;
+      padding-bottom: 1.5rem;
+      font-size: 17px;
+      line-height: normal;
+    }
+    .column-2 {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      width: 57.5%;
+      img {
+        width: 132px;
+        margin: 0 1.5rem 1.5rem;
+      }
+    }
   }
 `;
 
-export const EachDiv = styled.div`
-  flex: 0 0 33.333333%;
-  padding: 2rem 4rem 4rem 4rem;
-  .row-1 {
-    font-size: 34px;
-    font-family: "minecraft";
-    margin-bottom: 0.5rem;
-  }
-  .row-2 {
-    display: flex;
-    align-items: center;
-    img {
-      width: 112px;
-      margin-right: 3rem;
-    }
-    .desc {
-      max-width: 154px;
-      line-height: normal;
-    }
-  }
-  &.how-it-works {
-    &-2 {
-      border-right: 1px solid ${COLOR.WHITE};
-      border-left: 1px solid ${COLOR.WHITE};
-    }
-    &-4,
-    &-5,
-    &-6 {
-      border-top: 1px solid ${COLOR.WHITE};
-    }
-    &-5 {
-      border-right: 1px solid ${COLOR.WHITE};
-      border-left: 1px solid ${COLOR.WHITE};
-    }
-  }
+export const RedButton = styled(CustomButton)`
+  border-radius: 0 20px 0 0;
+  width: 100%;
 `;

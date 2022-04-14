@@ -7,7 +7,7 @@ export const COLOR = {
   BLACK: '#000000',
   BORDER_GREY: '#323232',
   TABLE_BLACK: '#1B1B1B',
-  RED: '#EA3324',
+  RED: '#FC0E38',
   BLUE: '#1324FB',
   PURPLE: '#6A26FB',
 };

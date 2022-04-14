@@ -1,10 +1,15 @@
 import React from 'react';
-import Benefits from './Benefits';
+// import CollectAndChill from './1CollectAndChill';
+import EvolutionOfNftCollecting from './2EvolutionOfNftCollecting';
+// import HowItWorks from './4HowItWorks';
+// import Benefits from './3Benefits';
 
 const Homepage = () => (
   <>
-    <div>Homepage</div>
-    <Benefits />
+    {/* <CollectAndChill /> */}
+    <EvolutionOfNftCollecting />
+    {/* <HowItWorks /> */}
+    {/* <Benefits /> */}
   </>
 );
 

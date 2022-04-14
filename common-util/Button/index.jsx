@@ -39,8 +39,10 @@ const getStyle = (k) => {
   }
 };
 
-export const CustomButton = ({ children, variant, ...rest }) => (
-  <Button {...rest} style={{ ...commonStyle, ...getStyle(variant) }}>
+export const CustomButton = ({
+  children, variant, style, ...rest
+}) => (
+  <Button {...rest} style={{ ...commonStyle, ...getStyle(variant), ...(style || {}) }}>
     {children}
   </Button>
 );
@@ -48,11 +50,13 @@ export const CustomButton = ({ children, variant, ...rest }) => (
 CustomButton.propTypes = {
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
   variant: PropTypes.string,
+  style: PropTypes.shape({}),
 };
 
 CustomButton.defaultProps = {
   children: null,
   variant: null,
+  style: {},
 };
 
 export default CustomButton;
