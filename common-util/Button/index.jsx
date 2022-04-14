@@ -8,6 +8,7 @@ export const commonStyle = {
   fontSize: '14px',
   padding: '6px 32px',
   textTransform: 'uppercase',
+  fontFamily: 'spacegrotesk__bold',
 };
 
 /**
@@ -32,6 +33,13 @@ const getStyle = (k) => {
       return {
         borderColor: COLOR.PURPLE,
         backgroundColor: COLOR.PURPLE,
+      };
+
+    case 'green':
+      return {
+        borderColor: COLOR.GREEN_2,
+        backgroundColor: COLOR.GREEN_2,
+        color: COLOR.BLACK,
       };
 
     default:

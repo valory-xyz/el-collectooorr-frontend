@@ -23,9 +23,9 @@ export const EachDiv = styled.div`
   flex: 0 0 33.333333%;
   padding: 2rem 2rem 4rem 4rem;
   .row-1 {
+    margin-bottom: 0.5rem;
     font-size: 38px;
     font-family: "minecraft";
-    margin-bottom: 0.5rem;
   }
   .row-2 {
     display: flex;
