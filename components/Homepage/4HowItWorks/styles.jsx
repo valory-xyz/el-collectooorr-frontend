@@ -57,6 +57,15 @@ export const EachDiv = styled.div`
     &-2 {
       border-right: 1px solid ${COLOR.GREY_1};
       border-left: 1px solid ${COLOR.GREY_1};
+      /* border-image: url("/images/4HowItWorks/border-line.png");
+      border-image-slice: 36;
+      border-image-width: 16px; */
+    }
+    &-3 {
+      /* border-left: 1px solid ${COLOR.GREY_1};
+      border-image: url("/images/4HowItWorks/border-line.png");
+      border-image-slice: 36;
+      border-image-width: 16px; */
     }
     &-4,
     &-5,

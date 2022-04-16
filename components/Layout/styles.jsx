@@ -1,22 +1,25 @@
 import styled from 'styled-components';
 import { Layout } from 'antd';
+import { COLOR, MEDIA_QUERY } from 'util/theme';
 
 export const CustomLayout = styled(Layout)`
   .ant-layout-header {
-    display: flex;
-    justify-content: space-between;
+    z-index: 99999;
     position: fixed;
-    z-index: 1;
+    height: 82px;
     width: 100%;
+    padding: 0 1rem;
+    margin-top: 1rem;
+    background-color: ${COLOR.BLACK};
   }
   .site-layout {
     padding: 0 1rem;
-    margin-top: 64px;
+    margin-top: 90px;
     background-image: url("/images/background-close-dot.png");
     background-size: 100%;
   }
   .site-layout-background {
-    padding: 24px 0;
+    padding: 2rem 0;
     min-height: calc(100vh - 134px);
   }
   .ant-layout-footer {
@@ -26,28 +29,23 @@ export const CustomLayout = styled(Layout)`
     text-decoration: underline;
     text-underline-offset: 2px;
   }
-`;
 
-export const Logo = styled.div`
-  width: 180px;
-  font-weight: bold;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: left;
-  margin-right: 3.5rem;
-  .title-logo {
-    width: 32px;
-    height: 32px;
-    margin-right: 8px;
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-image: url("/images/autonolas-logo.png");
+  ${MEDIA_QUERY.tablet} {
+    .ant-layout-header {
+      ${MEDIA_QUERY.tablet} {
+        position: relative;
+        height: auto;
+      }
+    }
+    .site-layout-background {
+      ${MEDIA_QUERY.tablet} {
+        padding: 1rem 0;
+      }
+    }
+    .site-layout {
+      margin-top: 0;
+    }
   }
 `;
 
-export const RightMenu = styled.div`
-  display: flex;
-  align-items: center;
-`;
+export const RightMenu = styled.div``;

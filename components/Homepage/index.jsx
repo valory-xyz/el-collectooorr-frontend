@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from './0Header';
+import { SubHeaderSection } from './0Header';
 import CollectAndChill from './1CollectAndChill';
 import EvolutionOfNftCollecting from './2EvolutionOfNftCollecting';
 import Benefits from './3Benefits';
@@ -9,7 +9,7 @@ import Footer from './6Footer';
 
 const Homepage = () => (
   <>
-    <Header />
+    <SubHeaderSection />
     <CollectAndChill />
     <EvolutionOfNftCollecting />
     <Benefits />
