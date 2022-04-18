@@ -28,6 +28,10 @@ export const CustomLayout = styled(Layout)`
   a {
     text-decoration: underline;
     text-underline-offset: 2px;
+    color: ${COLOR.GREEN_2};
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   ${MEDIA_QUERY.tablet} {

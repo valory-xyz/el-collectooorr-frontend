@@ -15,6 +15,9 @@ const H2 = styled.h2`
   ${MEDIA_QUERY.tablet} {
     font-size: 42px;
   }
+  ${MEDIA_QUERY.mobileL} {
+    font-size: 38px;
+  }
 `;
 
 const Header = ({ title, ...rest }) => <H2 {...rest}>{title}</H2>;

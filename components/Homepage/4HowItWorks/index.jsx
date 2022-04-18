@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from 'common-util/Header';
+import useCheckMobileScreen from 'common-util/hooks/useCheckMobileScreen';
 import { Container, EachDiv } from './styles';
 
 const data = [
@@ -47,32 +48,54 @@ const data = [
   },
 ];
 
-const HowItWorks = () => (
-  <Container>
-    <div className="header-container">
-      <Header className="header" title="HOW IT WORKS" />
-      <img src="/images/horizontal-arrow.png" alt="" loading="lazy" height={10} />
-      <img src="/images/4HowItWorks/red-element-how-it-works.png" alt="" loading="lazy" />
-    </div>
+const HowItWorks = () => {
+  const isMobile = useCheckMobileScreen();
 
-    <div className="how-it-works-row">
-      {data.map(({
-        id, name, desc, className, imageUrl,
-      }, index) => (
-        <EachDiv key={id} className={`how-it-works-${index + 1} ${className}`}>
-          <div className="row-1">
-            <div className="name">{name}</div>
-          </div>
-          <div className="row-2">
-            <div className="image-container">
-              <img src={imageUrl} alt={`${name}`} loading="lazy" />
+  return (
+    <Container>
+      <div className="header-container">
+        <div className="header-column-1">
+          <Header className="header" title="HOW IT WORKS" />
+
+          <img
+            src="/images/horizontal-arrow.png"
+            alt=""
+            loading="lazy"
+            height={10}
+          />
+        </div>
+        <div className="red-image">
+          <img
+            src="/images/4HowItWorks/red-element-how-it-works.png"
+            alt=""
+            loading="lazy"
+          />
+        </div>
+      </div>
+
+      <div className="how-it-works-row">
+        {data.map(({
+          id, name, desc, className, imageUrl,
+        }, index) => (
+          <EachDiv
+            key={id}
+            className={`how-it-works how-it-works-${index + 1} ${className}`}
+          >
+            <div className="row-1">
+              <div className="name">{name}</div>
+              {isMobile && <div className="desc">{desc}</div>}
             </div>
-            <div className="desc">{desc}</div>
-          </div>
-        </EachDiv>
-      ))}
-    </div>
-  </Container>
-);
+            <div className="row-2">
+              <div className="image-container">
+                <img src={imageUrl} alt={`${name}`} loading="lazy" />
+              </div>
+              {!isMobile && <div className="desc">{desc}</div>}
+            </div>
+          </EachDiv>
+        ))}
+      </div>
+    </Container>
+  );
+};
 
 export default HowItWorks;

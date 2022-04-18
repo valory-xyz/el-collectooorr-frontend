@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { COLOR } from 'util/theme';
+import { COLOR, MEDIA_QUERY } from 'util/theme';
 
 export const btnStyle = {
   borderRadius: '0px 20px 20px 0px',
@@ -19,6 +19,13 @@ export const HeaderContainer = styled.div`
   background-color: ${COLOR.BLACK};
   img {
     height: 78px;
+  }
+
+  ${MEDIA_QUERY.mobileL} {
+    padding: 1rem;
+    .header {
+      font-size: 32px;
+    }
   }
 `;
 
@@ -50,6 +57,20 @@ export const SorceryBody = styled.div`
       width: 25%;
     }
   }
+
+  ${MEDIA_QUERY.tablet} {
+    .info-container {
+      width: 80%;
+    }
+    .row {
+      .column-1 {
+        width: 100%;
+      }
+      .column-2 {
+        width: 100%;
+      }
+    }
+  }
 `;
 
 export const BodyRowOne = styled.div`
@@ -63,7 +84,7 @@ export const BodyRowOne = styled.div`
       max-width: 300px;
       line-height: 24px;
       font-size: 20px;
-      font-family: "spacegrotesk__regular";
+      font-family: "spacegrotesk__semibold";
     }
   }
   .column-2 {
@@ -71,6 +92,17 @@ export const BodyRowOne = styled.div`
     border-bottom: 1px solid ${COLOR.GREY_1};
     img {
       height: 48px;
+    }
+  }
+  ${MEDIA_QUERY.tablet} {
+    border-bottom: 1px solid ${COLOR.GREY_1};
+    .column {
+      padding: 1rem;
+    }
+    .column-1 {
+      .text {
+        font-size: 18px;
+      }
     }
   }
 `;
@@ -105,6 +137,27 @@ export const BodyRowTwo = styled.div`
       padding-bottom: 0.5rem;
     }
   }
+
+  ${MEDIA_QUERY.tablet} {
+    .column-1 {
+      > div {
+        flex-direction: column;
+        align-items: flex-start !important;
+        padding: 1rem;
+        border-top: none;
+        border-right: none;
+        span {
+          &:nth-child(1) {
+            font-family: "minecraft";
+            font-size: 24px;
+          }
+          &:nth-child(2) {
+            margin-left: 0;
+          }
+        }
+      }
+    }
+  }
 `;
 
 export const SorceryFooter = styled.div`
@@ -126,7 +179,7 @@ export const SorceryFooter = styled.div`
     line-height: 24px;
     font-family: "spacegrotesk__medium";
   }
-  img {
+  img.max-arrow {
     width: 112px;
     margin: 0 5rem;
   }
@@ -134,4 +187,26 @@ export const SorceryFooter = styled.div`
     width: 50%;
   }
 
+  ${MEDIA_QUERY.tabletL} {
+    flex-direction: column;
+    margin-top: 5rem;
+    padding: 2rem 1rem;
+    align-items: flex-start;
+    img.max-arrow {
+      display: none;
+    }
+    .btn-container {
+      width: 100%;
+      margin-top: 1.5rem;
+    }
+  }
+
+  ${MEDIA_QUERY.tablet} {
+    img.max-arrow {
+      display: block;
+      width: 74px;
+      margin: 1rem 0;
+      transform: rotate(90deg);
+    }
+  }
 `;

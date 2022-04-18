@@ -15,7 +15,7 @@ const EvolutionOfNftCollecting = () => (
         />
         <div className="text">
           El Collectooorr is an autonomous service that watches for new&nbsp;
-          <a href="http://google.com" target="_blank" rel="noopener noreferrer">
+          <a href="https://www.artblocks.io/" target="_blank" rel="noopener noreferrer">
             Art Blocks
           </a>
           &nbsp;drops and intelligently collects new works for you.

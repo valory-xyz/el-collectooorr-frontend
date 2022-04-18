@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { COLOR } from 'util/theme';
 import { CustomButton } from 'common-util/Button';
+import { COLOR, MEDIA_QUERY } from 'util/theme';
 
 export const btnStyle = {
   borderRadius: '0 0 20px 0',
@@ -16,6 +16,19 @@ export const Container = styled.div`
   background-image: url("/images/1CollectAndChill/background.png");
   background-size: 100%;
   margin-bottom: 2rem;
+
+  ${MEDIA_QUERY.tabletL} {
+    position: relative;
+    min-height: 648px;
+    border-radius: 20px 20px 0 0;
+    background-size: 200%;
+    background-position-x: 60%;
+    background-repeat: no-repeat;
+  }
+
+  ${MEDIA_QUERY.tablet} {
+    min-height: 736px;
+  }
 `;
 
 export const CollectAndChillContainer = styled.div`
@@ -54,6 +67,40 @@ export const CollectAndChillContainer = styled.div`
         margin: 0 1.5rem 1.5rem;
       }
     }
+  }
+
+  ${MEDIA_QUERY.tabletL} {
+    position: absolute;
+    bottom: 0;
+    width: auto;
+    padding: 1rem 0.75rem;
+    border-bottom: none;
+    border-top: 1px solid ${COLOR.GREY_1};
+    border-radius: 20px 20px 0 0;
+    .collect-chill-body {
+      flex-direction: column;
+      align-items: center;
+      margin-top: 0rem;
+      .column-mobile {
+        display: flex;
+        margin-left: auto;
+        img {
+          width: 130px;
+          padding: 1rem 0;
+        }
+      }
+      .column-1 {
+        width: auto;
+        padding-bottom: 1rem;
+      }
+      .column-2 {
+        width: 100%;
+      }
+    }
+  }
+
+  ${MEDIA_QUERY.tablet} {
+    border-right: none;
   }
 `;
 
