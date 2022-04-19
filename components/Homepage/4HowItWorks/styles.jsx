@@ -6,7 +6,8 @@ export const Container = styled.div`
   border-radius: 20px;
   border: 1px solid ${COLOR.GREY_1};
   background-image: url("/images/4HowItWorks/background.png");
-  background-size: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
   .header-container {
     display: flex;
     align-items: center;

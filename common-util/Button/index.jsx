@@ -42,6 +42,13 @@ const getStyle = (k) => {
         color: COLOR.BLACK,
       };
 
+    case 'disabled':
+      return {
+        borderColor: COLOR.GREY_1,
+        backgroundColor: COLOR.GREY_1,
+        color: COLOR.BORDER_GREY,
+      };
+
     default:
       return {};
   }

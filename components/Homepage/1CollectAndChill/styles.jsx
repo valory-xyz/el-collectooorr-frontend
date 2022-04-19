@@ -10,12 +10,27 @@ export const btnStyle = {
 };
 
 export const Container = styled.div`
-  min-height: 580px;
+  min-height: 880px;
+  margin-bottom: 2rem;
   border-radius: 20px;
   border: 1px solid ${COLOR.GREY_1};
   background-image: url("/images/1CollectAndChill/background.png");
-  background-size: 100%;
-  margin-bottom: 2rem;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position-y: 70%;
+  background-position-x: 50%;
+
+  ${MEDIA_QUERY.desktop} {
+    min-height: 580px;
+    background-position-y: 0%;
+    background-position-x: 0%;
+  }
+
+  ${MEDIA_QUERY.laptop} {
+    min-height: 580px;
+    background-position-y: 0%;
+    background-position-x: 0%;
+  }
 
   ${MEDIA_QUERY.tabletL} {
     position: relative;
@@ -23,7 +38,6 @@ export const Container = styled.div`
     border-radius: 20px 20px 0 0;
     background-size: 200%;
     background-position-x: 60%;
-    background-repeat: no-repeat;
   }
 
   ${MEDIA_QUERY.tablet} {

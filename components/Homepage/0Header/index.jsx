@@ -39,8 +39,9 @@ export const HeaderSection = () => {
         )}
       </div>
       <div className="column-2">
-        <CustomButton type="primary" variant="red" style={getBtnStyle(isMobile)}>
-          START COLLECTING
+        <CustomButton type="primary" variant="disabled" disabled style={getBtnStyle(isMobile)}>
+          COMING SOON
+          {/* START COLLECTING */}
         </CustomButton>
       </div>
     </HeaderContainer>

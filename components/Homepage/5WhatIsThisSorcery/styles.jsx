@@ -31,10 +31,12 @@ export const HeaderContainer = styled.div`
 
 export const SorceryBody = styled.div`
   min-height: 480px;
-  background-image: url("/images/5WhatIsThisSorcery/background.png");
-  background-size: 100%;
-  border-radius: 20px;
   border: 1px solid ${COLOR.GREY_1};
+  border-radius: 20px;
+  background-image: url("/images/5WhatIsThisSorcery/background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
   .info-container {
     width: 660px;
     margin-left: auto;
@@ -202,6 +204,7 @@ export const SorceryFooter = styled.div`
   }
 
   ${MEDIA_QUERY.tablet} {
+    margin-bottom: 2rem;
     img.max-arrow {
       display: block;
       width: 74px;
