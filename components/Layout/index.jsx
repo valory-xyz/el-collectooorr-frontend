@@ -1,7 +1,7 @@
 import { Layout } from 'antd';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
-// import Login from '../Login';
+import { URL } from 'util/constants';
 import HeaderComponent from '../Homepage/0Header';
 import { CustomLayout } from './styles';
 
@@ -9,10 +9,10 @@ const { Header, Content } = Layout;
 
 const NavigationBar = ({ children }) => {
   const router = useRouter();
-  console.log({ router });
+  const ishomepage = router.pathname === URL.ROOT;
 
   return (
-    <CustomLayout>
+    <CustomLayout ishomepage={ishomepage}>
       <Header>
         <HeaderComponent />
       </Header>

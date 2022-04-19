@@ -5,7 +5,7 @@ export const getBtnStyle = (isMob) => {
   const style = {
     borderRadius: '0 20px 20px 0',
     width: '216px',
-    height: '42px',
+    height: 'auto',
   };
 
   if (isMob) {

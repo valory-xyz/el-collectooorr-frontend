@@ -1,7 +1,10 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import Marquee from 'react-fast-marquee';
+import { URL } from 'util/constants';
 import { CustomButton } from 'common-util/Button';
 import useCheckMobileScreen from 'common-util/hooks/useCheckMobileScreen';
+import Login from '../../Login';
 import { getBtnStyle, SubHeaderContainer, HeaderContainer } from './styles';
 
 export const Dash = () => (
@@ -10,6 +13,7 @@ export const Dash = () => (
 
 export const HeaderSection = () => {
   const isMobile = useCheckMobileScreen();
+  const router = useRouter();
 
   return (
     <HeaderContainer>
@@ -38,12 +42,22 @@ export const HeaderSection = () => {
           />
         )}
       </div>
-      <div className="column-2">
-        <CustomButton type="primary" variant="disabled" disabled style={getBtnStyle(isMobile)}>
-          COMING SOON
-          {/* START COLLECTING */}
-        </CustomButton>
-      </div>
+
+      {router.pathname !== URL.ROOT ? (
+        <Login />
+      ) : (
+        <div className="column-2">
+          <CustomButton
+            type="primary"
+            variant="disabled"
+            disabled
+            style={getBtnStyle(isMobile)}
+          >
+            COMING SOON
+            {/* START COLLECTING */}
+          </CustomButton>
+        </div>
+      )}
     </HeaderContainer>
   );
 };

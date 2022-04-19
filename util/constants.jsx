@@ -5,4 +5,5 @@ export const CONSTANTS = {
 
 export const URL = {
   ROOT: '/',
+  VAULT: '/vaults',
 };

@@ -3,6 +3,8 @@ import { Layout } from 'antd';
 import { COLOR, MEDIA_QUERY } from 'util/theme';
 
 export const CustomLayout = styled(Layout)`
+  background-image: ${({ ishomepage }) => `${ishomepage ? "url('/images/background-close-dot.png')" : 'none'} !important`};
+  background-size: 100%;
   .ant-layout-header {
     z-index: 99999;
     position: fixed;
@@ -15,8 +17,6 @@ export const CustomLayout = styled(Layout)`
   .site-layout {
     padding: 0 1rem;
     margin-top: 90px;
-    background-image: url("/images/background-close-dot.png");
-    background-size: 100%;
   }
   .site-layout-background {
     padding: 2rem 0;
