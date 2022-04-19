@@ -20,6 +20,10 @@ export const CustomLayout = styled(Layout)`
   .ant-layout-footer {
     text-align: center;
   }
+  a {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
 `;
 
 export const Logo = styled.div`

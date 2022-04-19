@@ -8,6 +8,8 @@ export const COLOR = {
   BORDER_GREY: '#323232',
   TABLE_BLACK: '#1B1B1B',
   RED: '#EA3324',
+  BLUE: '#1324FB',
+  PURPLE: '#6A26FB',
 };
 
 export const FONT_SIZE = {
