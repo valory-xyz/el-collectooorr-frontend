@@ -1,4 +1,5 @@
-export const VAULT_ADDRESS = '0x7e0eaf21357b27477524eded3185e6dc1a4c2486';
+// export const VAULT_ADDRESS = '0x7e0eaf21357b27477524eded3185e6dc1a4c2486'; // Success KID
+export const VAULT_ADDRESS = '0xADe6FDAba1643E4D1eeF68Da7170F234470938c6'; // Harambe
 
 export const VAULT_CONTRACT = {
   abi: [

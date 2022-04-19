@@ -2,15 +2,23 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { useRouter } from 'next/router';
 import {
-  Skeleton, Card, Row, Col, Alert, Typography,
+  Skeleton,
+  Card,
+  Row,
+  Col,
+  Alert,
+  Typography,
+  Timeline,
 } from 'antd/lib';
 import { get } from 'lodash';
+import { COLOR } from 'util/theme';
 import { getBaskets } from './utils';
-import { BasketContainer } from './styles';
+import { BasketContainer, Gallery } from './styles';
 
-const { Paragraph } = Typography;
-const { Meta } = Card;
+const { Paragraph, Title } = Typography;
+// const { Meta } = Card;
 
 /**
  * helper function formalize the list type
@@ -18,18 +26,11 @@ const { Meta } = Card;
  * If (ipfs_contract) we will get image
  */
 const getCollectionList = (array) => {
-  if ((get(array[0], 'platform') || '') === 'KINESIS') {
-    return array.map(({ collection_name, animation_url, description }) => ({
-      type: 'iframe',
-      name: collection_name,
-      url: animation_url,
-      description,
-    }));
-  }
-
   if ((get(array[0], 'image') || '').includes('ipfs')) {
     return array.map(({ name, description, image }) => {
-      const imageUrl = image ? `https://ipfs.foundation.app/${(image).replace('ipfs://', '')}` : null;
+      const imageUrl = image
+        ? `https://ipfs.foundation.app/ipfs/${image.replace('ipfs://', '')}`
+        : null;
       return {
         type: 'image',
         name,
@@ -43,10 +44,25 @@ const getCollectionList = (array) => {
   return array;
 };
 
+const getImage = (type, {
+  name, index, url, style,
+}) => {
+  if (type === 'iframe') {
+    return <iframe title={`basket-NFT-${index}`} src={url} />;
+  }
+
+  if (type === 'image') return <img alt={name} src={url} style={style} />;
+
+  return null;
+};
+
 /**
  * Basket component
  */
 const Basket = ({ account }) => {
+  const router = useRouter();
+  const id = get(router, 'query.id') || null;
+
   const [isLoading, setIsLoading] = useState(false);
   const [list, setList] = useState([]);
 
@@ -56,7 +72,7 @@ const Basket = ({ account }) => {
       setList([]);
 
       try {
-        const data = await getBaskets();
+        const data = await getBaskets(id);
         const transformedList = getCollectionList(data);
         setList(transformedList);
       } catch (e) {
@@ -75,30 +91,74 @@ const Basket = ({ account }) => {
     return <Alert message="No basket found" type="info" />;
   }
 
+  const timeline = [
+    {
+      type: 'Funding',
+      time: '12/01/2020 12:00 UTC - 30/01/2020 12:00 UTC',
+      isActive: true,
+    },
+    {
+      type: 'Collecting',
+      time: '12/01/2020 12:00 UTC - 30/01/2020 12:00 UTC',
+      isActive: false,
+    },
+    {
+      type: 'Closed',
+      time: '12/01/2020 12:00 UTC - 30/01/2020 12:00 UTC',
+      isActive: false,
+    },
+  ];
+
   return (
     <BasketContainer>
       <Row>
-        {list.map(({
-          name, description, type, url, style,
-        }, index) => (
-          <Col lg={6} xs={12} key={`basket-${index}`} id="mohan">
-            <Card hoverable>
-              {type === 'iframe' && (
-              <iframe title={`basket-NFT-${index}`} src={url} />
-              )}
+        <Title level={3}>Vault #1</Title>
+      </Row>
 
-              {type === 'image' && <img alt={name} src={url} style={style} />}
-
-              <Meta title={name} />
-
-              <Paragraph
-                ellipsis={{ rows: 2, expandable: true, symbol: 'more' }}
+      <Row>
+        <Col md={12}>
+          <br />
+          <Timeline>
+            {timeline.map(({ type, time, isActive }) => (
+              <Timeline.Item
+                key={type}
+                color={isActive ? COLOR.PRIMARY : COLOR.GREY_1}
               >
-                {description}
-              </Paragraph>
-            </Card>
-          </Col>
-        ))}
+                <div>{type}</div>
+                <p>{time}</p>
+              </Timeline.Item>
+            ))}
+          </Timeline>
+        </Col>
+
+        <Col md={12}>
+          <Paragraph>Gallery</Paragraph>
+
+          <Gallery>
+            {list.map(({
+              name, type, url, style, description,
+            }, index) => (
+              <Card key={`basket-${index}`}>
+                {getImage(type, {
+                  index,
+                  url,
+                  name,
+                  style,
+                })}
+
+                <Card.Meta title={name} />
+
+                {description && (
+                <Paragraph
+                  ellipsis={{ rows: 2, expandable: true, symbol: 'more' }}
+                >
+                  {description}
+                </Paragraph>
+                )}
+              </Card>
+            ))}
+          </Gallery>
+        </Col>
       </Row>
     </BasketContainer>
   );

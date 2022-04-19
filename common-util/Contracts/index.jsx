@@ -6,10 +6,10 @@ import {
   VAULT_CONTRACT,
 } from 'common-util/AbiAndAddresses';
 
-export const getBasketContract = () => {
+export const getBasketContract = (basketAddress = BASKET_ADDRESS) => {
   window.ethereum.enable();
   const web3 = new Web3(window.web3.currentProvider);
-  const contract = new web3.eth.Contract(BASKET_CONTRACT.abi, BASKET_ADDRESS);
+  const contract = new web3.eth.Contract(BASKET_CONTRACT.abi, basketAddress);
   return contract;
 };
 

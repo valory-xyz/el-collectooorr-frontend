@@ -1,4 +1,4 @@
-import { getBasketContract, getVaultContract } from 'common-util/Contracts';
+import { getBasketContract } from 'common-util/Contracts';
 import { sortBy, map } from 'lodash';
 import axios from 'axios';
 
@@ -8,6 +8,7 @@ export const sortByKeys = (object) => {
   return map(sortedKeys, (key) => [key, object[key]]);
 };
 
+// helper functions for fetching NFT
 export const getJsonData = (url) => new Promise((resolve, reject) => {
   axios
     .get(url)
@@ -49,36 +50,47 @@ export const getTokenUri = (id) => new Promise((resolve, reject) => {
     });
 });
 
-export const getVault = () => new Promise((resolve, reject) => {
-  const contract = getVaultContract();
+export const getBaskets = async (basketToken) => {
+  const contract = getBasketContract(basketToken);
+  const depositedNfts = await contract.getPastEvents('DepositERC721', {
+    fromBlock: 0,
+    toBlock: 'latest',
+  });
 
-  contract.methods
-    .id()
-    .call()
-    .then((response) => {
-      resolve(response);
-    })
-    .catch((e) => {
-      console.error(e);
-      reject(e);
-    });
-});
+  const withdrawnNfts = await contract.getPastEvents('WithdrawERC721', {
+    fromBlock: 0,
+    toBlock: 'latest',
+  });
 
-export const getBaskets = async () => {
-  const token = await getVault();
+  const filteredNts = depositedNfts.filter((depositedNft) => {
+    const isWithdrawn = withdrawnNfts.find(
+      (nft) => nft.returnValues.tokenId === depositedNft.returnValues.tokenId,
+    );
+
+    return !isWithdrawn;
+  });
 
   return new Promise((resolve, reject) => {
-    const contract = getBasketContract();
-    contract.methods
-      .tokenURI(token)
-      .call()
-      .then(async (response) => {
-        const data = await getJsonData(response);
-        resolve([data]);
-      })
-      .catch((e) => {
-        console.error(e);
-        reject(e);
+    try {
+      const promises = [];
+      for (let i = 0; i < filteredNts.length; i += 1) {
+        const { token, tokenId } = filteredNts[i].returnValues;
+        const currentContract = getBasketContract(token);
+        const result = currentContract.methods.tokenURI(tokenId).call();
+        promises.push(result);
+      }
+
+      Promise.all(promises).then(async (list) => {
+        const results = await Promise.all(
+          list.map(async (url) => {
+            const result = await getJsonData(url);
+            return result;
+          }),
+        );
+        resolve(results);
       });
+    } catch (error) {
+      reject(error);
+    }
   });
 };
