@@ -30,7 +30,7 @@ class MyApp extends App {
       <>
         <Head>
           <title>El Collectooorr</title>
-          <meta name="description" content="El Collectooorr" />
+          <meta name="description" content="Deposit ETH and El Collectooorr intelligently waits for and collects Art Blocks drops on your behalf." />
         </Head>
         <Web3ReactProvider getLibrary={getLibrary}>
           <Layout>

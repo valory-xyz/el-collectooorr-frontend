@@ -1,32 +1,25 @@
 import { Layout } from 'antd';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
-import Footer from './Footer';
-import Login from '../Login';
-import { CustomLayout, Logo, RightMenu } from './styles';
+// import Login from '../Login';
+import HeaderComponent from '../Homepage/0Header';
+import { CustomLayout } from './styles';
 
 const { Header, Content } = Layout;
 
 const NavigationBar = ({ children }) => {
   const router = useRouter();
+  console.log({ router });
 
   return (
     <CustomLayout>
       <Header>
-        <Logo onClick={() => router.push('/')} data-testid="el-collectooorr-logo">
-          <div className="title-logo" />
-          El Collectooorr
-        </Logo>
-        <RightMenu>
-          <Login />
-        </RightMenu>
+        <HeaderComponent />
       </Header>
 
       <Content className="site-layout">
         <div className="site-layout-background">{children}</div>
       </Content>
-
-      <Footer />
     </CustomLayout>
   );
 };

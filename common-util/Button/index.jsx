@@ -8,6 +8,7 @@ export const commonStyle = {
   fontSize: '14px',
   padding: '6px 32px',
   textTransform: 'uppercase',
+  fontFamily: 'spacegrotesk__bold',
 };
 
 /**
@@ -34,13 +35,29 @@ const getStyle = (k) => {
         backgroundColor: COLOR.PURPLE,
       };
 
+    case 'green':
+      return {
+        borderColor: COLOR.GREEN_2,
+        backgroundColor: COLOR.GREEN_2,
+        color: COLOR.BLACK,
+      };
+
+    case 'disabled':
+      return {
+        borderColor: COLOR.GREY_1,
+        backgroundColor: COLOR.GREY_1,
+        color: COLOR.BORDER_GREY,
+      };
+
     default:
       return {};
   }
 };
 
-export const CustomButton = ({ children, variant, ...rest }) => (
-  <Button {...rest} style={{ ...commonStyle, ...getStyle(variant) }}>
+export const CustomButton = ({
+  children, variant, style, ...rest
+}) => (
+  <Button {...rest} style={{ ...commonStyle, ...getStyle(variant), ...(style || {}) }}>
     {children}
   </Button>
 );
@@ -48,11 +65,13 @@ export const CustomButton = ({ children, variant, ...rest }) => (
 CustomButton.propTypes = {
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
   variant: PropTypes.string,
+  style: PropTypes.shape({}),
 };
 
 CustomButton.defaultProps = {
   children: null,
   variant: null,
+  style: {},
 };
 
 export default CustomButton;
