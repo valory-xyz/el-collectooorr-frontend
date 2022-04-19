@@ -1,6 +1,4 @@
-// export const BASKET_ADDRESS = '0x3B3ee1931Dc30C1957379FAc9aba94D1C48a5405'; // SUCCESS KID
-export const BASKET_ADDRESS = '0xF03b9E6707C1E29442e56B15d708e388A71a7177'; // Harambe
-
+export const BASKET_ADDRESS = '0xF03b9E6707C1E29442e56B15d708e388A71a7177';
 
 export const BASKET_CONTRACT = {
   abi: [
@@ -709,6 +707,5 @@ export const BASKET_CONTRACT = {
       stateMutability: 'payable',
       type: 'receive',
     },
-  ]
-  ,
+  ],
 };

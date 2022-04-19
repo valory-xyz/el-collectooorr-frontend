@@ -1,4 +1,5 @@
 import Web3 from 'web3';
+import round from 'lodash/round';
 import { getVaultContract } from 'common-util/Contracts';
 
 export const getVaultInfo = () => new Promise((resolve, reject) => {
@@ -12,12 +13,13 @@ export const getVaultInfo = () => new Promise((resolve, reject) => {
       const name = await contract.methods.name().call();
       const reservePrice = await contract.methods.reservePrice().call();
       const isClosed = await contract.methods.vaultClosed().call();
+      const balanceInEther = Web3.utils.fromWei(reservePrice, 'ether');
 
       const vaultInfo = {
         token: response,
         id,
         name,
-        reservePrice: Web3.utils.fromWei(reservePrice, 'ether'),
+        reservePrice: round(balanceInEther, 2),
         isClosed,
       };
       resolve([vaultInfo]);
