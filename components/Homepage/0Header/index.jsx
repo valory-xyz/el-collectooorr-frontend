@@ -2,7 +2,12 @@ import React from 'react';
 import Marquee from 'react-fast-marquee';
 import { CustomButton } from 'common-util/Button';
 import useCheckMobileScreen from 'common-util/hooks/useCheckMobileScreen';
-import { getBtnStyle, SubHeaderContainer, HeaderContainer } from './styles';
+import {
+  getBtnStyle,
+  HeaderContainer,
+  RiskContainer,
+  SubHeaderContainer,
+} from './styles';
 
 export const Dash = () => (
   <>&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;</>
@@ -39,7 +44,12 @@ export const HeaderSection = () => {
         )}
       </div>
       <div className="column-2">
-        <CustomButton type="primary" variant="disabled" disabled style={getBtnStyle(isMobile)}>
+        <CustomButton
+          type="primary"
+          variant="disabled"
+          disabled
+          style={getBtnStyle(isMobile)}
+        >
           COMING SOON
           {/* START COLLECTING */}
         </CustomButton>
@@ -52,6 +62,10 @@ export default HeaderSection;
 
 export const SubHeaderSection = () => (
   <>
+    <RiskContainer>
+      !!! DEPOSIT FUNDS AT YOUR OWN RISK. UNAUDITED PRODUCT !!!
+    </RiskContainer>
+
     <SubHeaderContainer>
       <Marquee pauseOnHover gradient={false}>
         THE WORLD&apos;S FIRST AUTONOMOUS NFT COLLECTOR DAO
