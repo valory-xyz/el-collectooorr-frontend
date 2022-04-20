@@ -9,7 +9,7 @@ const getStatus = (type = null) => {
 
 const History = () => (
   <ServiceContainer className="card-border">
-    <SubHeader>
+    <SubHeader className="pt-0">
       <div className="sub-header">
         <img
           src="/images/Vault/gallery.png"

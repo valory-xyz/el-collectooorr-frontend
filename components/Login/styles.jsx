@@ -1,7 +1,12 @@
 import styled from 'styled-components';
 import { COLOR } from 'util/theme';
 
-export const Container = styled.div``;
+export const Container = styled.div`
+  button {
+    width: auto;
+    height: auto;
+  }
+`;
 
 export const DetailsContainer = styled.div`
   display: flex;
@@ -19,6 +24,7 @@ export const DetailsContainer = styled.div`
 export const MetamaskContainer = styled.div`
   display: flex;
   align-items: center;
+  font-size: 18px;
   .dash {
     margin: 0 0.75rem;
     width: 1px;

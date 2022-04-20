@@ -29,6 +29,12 @@ const getStyle = (k) => {
         backgroundColor: COLOR.BLUE,
       };
 
+    case 'blue-border':
+      return {
+        borderColor: COLOR.BLUE,
+        backgroundColor: 'transparent',
+      };
+
     case 'purple':
       return {
         borderColor: COLOR.PURPLE,
@@ -57,7 +63,10 @@ const getStyle = (k) => {
 export const CustomButton = ({
   children, variant, style, ...rest
 }) => (
-  <Button {...rest} style={{ ...commonStyle, ...getStyle(variant), ...(style || {}) }}>
+  <Button
+    {...rest}
+    style={{ ...commonStyle, ...getStyle(variant), ...(style || {}) }}
+  >
     {children}
   </Button>
 );

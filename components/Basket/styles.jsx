@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { COLOR } from 'util/theme';
+import { COLOR, MEDIA_QUERY } from 'util/theme';
 
 export const BasketContainer = styled.div`
   color: ${COLOR.GREY_1};
@@ -16,6 +16,9 @@ export const BasketContainer = styled.div`
     }
     &-meta {
       margin: 1rem 0;
+      &-title {
+        color: ${COLOR.GREEN_2};
+      }
     }
     .nft-info {
       div:nth-child(3) {
@@ -39,6 +42,27 @@ export const BasketContainer = styled.div`
   }
   a {
     color: ${COLOR.GREY_1};
+  }
+
+  ${MEDIA_QUERY.desktop} {
+    .ant-card:nth-child(even) {
+      margin-right: 0;
+    }
+  }
+
+  ${MEDIA_QUERY.tablet} {
+    .right-columm {
+      padding-left: 0rem;
+    }
+    .ant-card {
+      max-width: 100%;
+      margin-right: 0;
+      &-body {
+        img {
+          height: auto !important;
+        }
+      }
+    }
   }
 `;
 
@@ -73,6 +97,9 @@ export const SubHeader = styled.div`
     font-family: "spacegrotesk__bold";
     color: ${COLOR.GREEN_2};
   }
+  &.pt-0 {
+    padding-top: 0rem;
+  }
 `;
 
 /* ------------- FUNDS ------------- */
@@ -97,8 +124,9 @@ export const AddFunds = styled.div`
       .ant-input {
         flex: 3;
         margin-right: 1rem;
-        padding: 12px;
+        padding: 8px 24px;
         border-radius: 24px;
+        font-size: 18px;
       }
       .ant-btn {
         flex: 1;
@@ -173,6 +201,10 @@ export const ServiceContainer = styled.div`
       margin-right: 6rem;
     }
   }
+
+  ${MEDIA_QUERY.tablet} {
+    margin-bottom: 1rem;
+  }
 `;
 
 /* ------------- VAULT ------------- */
@@ -190,6 +222,9 @@ export const TotalYours = styled.div`
     }
     &:nth-child(2) {
       width: 40%;
+      a {
+        font-size: 14px;
+      }
     }
     .name {
     }
@@ -216,12 +251,12 @@ export const VaultHeader = styled(SubHeader)`
   }
 `;
 
-/* ------------- VAULT ------------- */
+/* ------------- Gallery ------------- */
 export const GalleryContainer = styled.div`
   padding: 1rem;
-  border-radius:  0;
+  border-radius: 0;
   border: 1px solid ${COLOR.BLUE};
-  border-top:transparent ;
+  border-top: transparent;
 `;
 
 export const GalleryList = styled.div`

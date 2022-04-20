@@ -20,6 +20,10 @@ export const HeaderSection = () => {
   const isMobile = useCheckMobileScreen();
   const router = useRouter();
 
+  const handleCollect = () => {};
+
+  const handleHistory = () => {};
+
   return (
     <HeaderContainer>
       <div className="column-1">
@@ -49,7 +53,18 @@ export const HeaderSection = () => {
       </div>
 
       {router.pathname !== URL.ROOT ? (
-        <Login />
+        <>
+          <div className="nav-action-btns">
+            <CustomButton variant="red" onClick={handleCollect}>
+              COLLECT
+            </CustomButton>
+            <CustomButton variant="blue-border" onClick={handleHistory}>
+              HISTORY
+            </CustomButton>
+          </div>
+
+          <Login />
+        </>
       ) : (
         <div className="column-2">
           <CustomButton
