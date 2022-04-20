@@ -3,11 +3,7 @@ import styled from 'styled-components';
 import { COLOR } from 'util/theme';
 import { SubHeader } from '../styles';
 
-export const PoolContainer = styled.div`
-  .managed-by {
-    text-align: right;
-  }
-`;
+export const PoolContainer = styled.div``;
 
 export const TotalYours = styled.div`
   display: flex;
@@ -20,7 +16,6 @@ export const TotalYours = styled.div`
       width: 40%;
     }
     .name {
-      
     }
     .desc {
       margin: 0.25rem 0;
@@ -31,26 +26,36 @@ export const TotalYours = styled.div`
   }
 `;
 
+export const VaultHeader = styled(SubHeader)`
+  position: relative;
+  flex-direction: column;
+  align-items: flex-start;
+  .managed-by {
+    width: 100%;
+    text-align: right;
+
+    /* ??? */
+    position: absolute;
+    right: 14px;
+    top: 6px;
+  }
+`;
+
 const Pool = () => (
   <PoolContainer>
-    <div className="managed-by">
-      This vault is managed on&nbsp;
-      <a href="http://google.com" target="_blank" rel="noopener noreferrer">
-        Fractional
-      </a>
-    </div>
+    <VaultHeader>
+      <div className="managed-by">
+        This vault is managed on&nbsp;
+        <a href="http://google.com" target="_blank" rel="noopener noreferrer">
+          Fractional
+        </a>
+      </div>
 
-    <SubHeader>
-      <div>
-        <img
-          src="/images/Vault/vault.png"
-          alt=""
-          loading="lazy"
-          height={80}
-        />
+      <div className="sub-header">
+        <img src="/images/Vault/vault.png" alt="" loading="lazy" height={60} />
         <h3>Vault</h3>
       </div>
-    </SubHeader>
+    </VaultHeader>
 
     <TotalYours>
       <div className="vault-info total">

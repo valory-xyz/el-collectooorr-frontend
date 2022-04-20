@@ -1,16 +1,12 @@
 import React from 'react';
-import {
-  Input,
-  Button,
-  // Typography
-} from 'antd/lib';
+import { Input } from 'antd/lib';
+import CustomButton from 'common-util/Button';
+import Warning from 'common-util/SVGs/warning';
 import { AddFundsContainer } from '../styles';
-
-// const { Paragraph } = Typography;
 
 const AddFunds = () => {
   const handleAddFunds = () => {
-    console.log('first');
+    window.console.log('first');
   };
 
   return (
@@ -22,9 +18,16 @@ const AddFunds = () => {
 
       <div className="add-funds-input">
         <Input />
-        <Button type="primary" onClick={handleAddFunds}>
+
+        <CustomButton variant="green" onClick={handleAddFunds}>
+          <img
+            src="/images/Vault/button-deposit.png"
+            alt=""
+            loading="lazy"
+            height={12}
+          />
           Add Funds
-        </Button>
+        </CustomButton>
       </div>
 
       <div className="add-funds-info">
@@ -35,9 +38,10 @@ const AddFunds = () => {
             Learn more
           </a>
         </div>
-        <div>
-          Added ETH cannot be retrieved, but a secondary market for VLT1 may
-          emerge.
+        <div className="warning">
+          <Warning />
+          &nbsp; Added ETH cannot be retrieved, but a secondary market for VLT1
+          may emerge.
         </div>
       </div>
     </AddFundsContainer>

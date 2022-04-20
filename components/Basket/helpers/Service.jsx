@@ -1,5 +1,5 @@
 import React from 'react';
-import { ServiceContainer } from '../styles';
+import { SubHeader, ServiceContainer } from '../styles';
 
 // TODO
 const getStatus = (type = null) => {
@@ -9,7 +9,19 @@ const getStatus = (type = null) => {
 
 const History = () => (
   <ServiceContainer>
-    <h3>Service</h3>
+    <SubHeader style={{ marginTop: '2rem' }}>
+      <div className="sub-header">
+        <img
+          src="/images/Vault/gallery.png"
+          alt=""
+          loading="lazy"
+          height={72}
+        />
+        <h3>Service</h3>
+      </div>
+
+      <div />
+    </SubHeader>
 
     <div className="vault-service">
       <div className="vault-status">

@@ -4,23 +4,16 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import {
-  Skeleton,
-  Card,
-  Row,
-  Col,
-  Alert,
-  Typography,
-  Progress,
+  Skeleton, Row, Col, Alert, Progress,
 } from 'antd/lib';
 import { get } from 'lodash';
 import { COLOR } from 'util/theme';
 import { getBaskets } from './utils';
-import Pool from './helpers/Pool';
-import History from './helpers/History';
+import Vault from './helpers/Vault';
+import Service from './helpers/Service';
 import AddFunds from './helpers/AddFunds';
-import { BasketContainer, Gallery, FundingProgress } from './styles';
-
-const { Paragraph } = Typography;
+import Gallery from './helpers/Gallery';
+import { BasketContainer, SubHeader, FundingProgress } from './styles';
 
 /**
  * helper function formalize the list type
@@ -44,18 +37,6 @@ const getCollectionList = (array) => {
   }
 
   return array;
-};
-
-const getImage = (type, {
-  name, index, url, style,
-}) => {
-  if (type === 'iframe') {
-    return <iframe title={`basket-NFT-${index}`} src={url} />;
-  }
-
-  if (type === 'image') return <img alt={name} src={url} style={style} />;
-
-  return null;
 };
 
 /**
@@ -96,15 +77,27 @@ const Basket = ({ account }) => {
   return (
     <BasketContainer>
       <Row>
-        <Col md={8}>
-          <div>Fund - open</div>
+        <Col md={10}>
+          <SubHeader>
+            <div className="sub-header">
+              <img
+                src="/images/Vault/fund.png"
+                alt=""
+                loading="lazy"
+                height={48}
+              />
+              <h3>Fund</h3>
+            </div>
+
+            <div className="vault-status">OPEN</div>
+          </SubHeader>
 
           <FundingProgress>
             <Progress
               percent={10}
               status="active"
               strokeColor={COLOR.PRIMARY}
-              strokeWidth={20}
+              strokeWidth={30}
               showInfo={false}
             />
             <div className="funding-process-info">
@@ -112,57 +105,19 @@ const Basket = ({ account }) => {
               <div>5 ETH</div>
               <div>
                 <span>10 ETH</span>
-                <span>Full</span>
+                <span>(full)</span>
               </div>
             </div>
           </FundingProgress>
 
           <AddFunds />
-          <br />
-          <br />
-          <br />
-          <History />
+
+          <Service />
         </Col>
 
-        <Col md={15} offset={1} className="right-columm">
-          <Pool />
-          <br />
-          <br />
-
-          <Paragraph>Gallery</Paragraph>
-
-          <Gallery>
-            {list.map(({
-              name, type, url, style,
-            }, index) => (
-              <Card key={`basket-${index}`} bordered={false}>
-                {getImage(type, {
-                  index,
-                  url,
-                  name,
-                  style,
-                })}
-
-                <Card.Meta title={name} />
-                <div className="nft-info">
-                  <div>Robert</div>
-                  <div>Live View</div>
-                  <div>
-                    Bought: 0.1 ETH&nbsp;&bull;&nbsp;12/1&nbsp;&bull;&nbsp;
-                    <span>
-                      <a
-                        href="http://google.com"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Txn
-                      </a>
-                    </span>
-                  </div>
-                </div>
-              </Card>
-            ))}
-          </Gallery>
+        <Col md={13} offset={1} className="right-columm">
+          <Vault />
+          <Gallery list={list} />
         </Col>
       </Row>
     </BasketContainer>

@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 import { COLOR } from 'util/theme';
 
-const C_WIDTH = '340px';
-
 export const BasketContainer = styled.div`
+  font-size: 16px;
   .ant-card {
     max-width: 232px;
     width: 100%;
@@ -27,20 +26,11 @@ export const BasketContainer = styled.div`
       border: 0;
       padding: 0;
     }
-    .ant-typography {
-      font-size: 14px;
-    }
   }
 
   .right-columm {
     padding-left: 2rem;
   }
-`;
-
-export const Gallery = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
 `;
 
 export const AddFundsContainer = styled.div`
@@ -54,24 +44,34 @@ export const AddFundsContainer = styled.div`
     &-input {
       display: flex;
       align-items: center;
-      max-width: ${C_WIDTH};
       .ant-input {
-        margin-right: 2rem;
-        padding: 6px 12px;
+        flex: 2;
+        margin-right: 1rem;
+        padding: 12px;
+        border-radius: 24px;
+      }
+      .ant-btn {
+        flex: 1;
+        height: 46px;
+        border-radius: 24px;
+        img {
+          vertical-align: baseline;
+          margin-right: 12px;
+        }
       }
     }
     &-info {
+      max-width: 400px;
       margin-top: 1rem;
+      font-size: 16px;
+      .warning {
+        margin-top: 1rem;
+        color: ${COLOR.RED};
+        svg {
+          margin-bottom: -2px;
+        }
+      }
     }
-  }
-`;
-
-export const ServiceContainer = styled.div`
-  max-width: ${C_WIDTH};
-  .vault-service {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
   }
 `;
 
@@ -81,7 +81,12 @@ export const SubHeader = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 2rem;
-  > div:nth-child(1) {
+  border: 1px solid ${COLOR.RED};
+  border-radius: 20px 20px 0px 0;
+  border-bottom: transparent;
+  padding: 1rem 1rem 0 1rem ;
+
+  .sub-header{
     display: flex;
     align-items: center;
     img {
@@ -101,7 +106,7 @@ export const SubHeader = styled.div`
 
 export const FundingProgress = styled.div`
   position: relative;
-  margin:  1rem 0;
+  margin: 1rem 0;
   .ant-progress {
     .ant-progress-inner {
       border: 1px solid ${COLOR.GREY_2};
@@ -122,6 +127,16 @@ export const FundingProgress = styled.div`
       display: flex;
       flex-direction: column;
       align-items: flex-end;
+    }
+  }
+`;
+
+export const ServiceContainer = styled.div`
+  .vault-service {
+    display: flex;
+    align-items: center;
+    .vault-status {
+      margin-right: 6rem;
     }
   }
 `;
