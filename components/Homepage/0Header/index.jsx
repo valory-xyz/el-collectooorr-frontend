@@ -5,7 +5,12 @@ import { URL } from 'util/constants';
 import { CustomButton } from 'common-util/Button';
 import useCheckMobileScreen from 'common-util/hooks/useCheckMobileScreen';
 import Login from '../../Login';
-import { getBtnStyle, SubHeaderContainer, HeaderContainer } from './styles';
+import {
+  getBtnStyle,
+  HeaderContainer,
+  RiskContainer,
+  SubHeaderContainer,
+} from './styles';
 
 export const Dash = () => (
   <>&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;</>
@@ -66,6 +71,10 @@ export default HeaderSection;
 
 export const SubHeaderSection = () => (
   <>
+    <RiskContainer>
+      !!! DEPOSIT FUNDS AT YOUR OWN RISK. UNAUDITED PRODUCT !!!
+    </RiskContainer>
+
     <SubHeaderContainer>
       <Marquee pauseOnHover gradient={false}>
         THE WORLD&apos;S FIRST AUTONOMOUS NFT COLLECTOR DAO
