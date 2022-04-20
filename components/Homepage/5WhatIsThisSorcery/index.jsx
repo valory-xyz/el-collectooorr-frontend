@@ -29,7 +29,7 @@ const data = [
     id: '003',
     name: '//003',
     nameStyle: { color: COLOR.BLUE },
-    desc: 'Robustly manage on-chain funds: el collectooorr is secured by Gnosis Safe',
+    desc: 'Robustly manage on-chain funds: El Collectooorr is secured by Gnosis Safe',
   },
 ];
 
