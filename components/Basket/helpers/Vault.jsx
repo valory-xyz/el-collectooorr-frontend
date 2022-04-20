@@ -1,48 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
-import { COLOR } from 'util/theme';
-import { SubHeader } from '../styles';
+import { VaultContainer, TotalYours, VaultHeader } from '../styles';
 
-export const PoolContainer = styled.div``;
-
-export const TotalYours = styled.div`
-  display: flex;
-  color: ${COLOR.GREY_1};
-  .vault-info {
-    &:nth-child(1) {
-      width: 25%;
-    }
-    &:nth-child(2) {
-      width: 40%;
-    }
-    .name {
-    }
-    .desc {
-      margin: 0.25rem 0;
-      font-size: 24px;
-      color: ${COLOR.GREEN_3};
-      text-transform: capitalize;
-    }
-  }
-`;
-
-export const VaultHeader = styled(SubHeader)`
-  position: relative;
-  flex-direction: column;
-  align-items: flex-start;
-  .managed-by {
-    width: 100%;
-    text-align: right;
-
-    /* ??? */
-    position: absolute;
-    right: 14px;
-    top: 6px;
-  }
-`;
-
-const Pool = () => (
-  <PoolContainer>
+const Vault = () => (
+  <VaultContainer>
     <VaultHeader>
       <div className="managed-by">
         This vault is managed on&nbsp;
@@ -77,7 +37,7 @@ const Pool = () => (
         <div>0% pool share</div>
       </div>
     </TotalYours>
-  </PoolContainer>
+  </VaultContainer>
 );
 
-export default Pool;
+export default Vault;

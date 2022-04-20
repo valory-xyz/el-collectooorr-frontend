@@ -1,43 +1,35 @@
-import React from 'react';
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
-// import { COLOR } from 'util/theme';
-import { Card } from 'antd/lib';
-import { SubHeader } from '../styles';
+import React from "react";
+import styled from "styled-components";
+import PropTypes from "prop-types";
+import { Card } from "antd/lib";
+import { GalleryList, GalleryContainer, SubHeader } from "../styles";
 
-export const GalleryList = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-`;
-
-export const VaultHeader = styled(SubHeader)`
-  margin-top: 2rem;
-`;
-
-const getImage = (type, {
-  name, index, url, style,
-}) => {
-  if (type === 'iframe') {
+const getImage = (type, { name, index, url, style }) => {
+  if (type === "iframe") {
     return <iframe title={`basket-NFT-${index}`} src={url} />;
   }
-  if (type === 'image') return <img alt={name} src={url} style={style} />;
+
+  if (type === "image") return <img alt={name} src={url} style={style} />;
+
   return null;
 };
 
 const Gallery = ({ list }) => (
-  <div>
-    <VaultHeader>
+  <GalleryContainer>
+    <SubHeader>
       <div className="sub-header">
-        <img src="/images/Vault/gallery.png" alt="" loading="lazy" height={60} />
-        <h3>Gallery</h3>
+        <img
+          src="/images/Vault/gallery.png"
+          alt=""
+          loading="lazy"
+          height={60}
+        />
+        <h4>Gallery</h4>
       </div>
-    </VaultHeader>
+    </SubHeader>
 
     <GalleryList>
-      {list.map(({
-        name, type, url, style,
-      }, index) => (
+      {list.map(({ name, type, url, style }, index) => (
         <Card key={`basket-${index}`} bordered={false}>
           {getImage(type, {
             index,
@@ -66,7 +58,7 @@ const Gallery = ({ list }) => (
         </Card>
       ))}
     </GalleryList>
-  </div>
+  </GalleryContainer>
 );
 
 Gallery.propTypes = {

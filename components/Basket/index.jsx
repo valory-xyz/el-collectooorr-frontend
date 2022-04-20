@@ -4,16 +4,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import {
-  Skeleton, Row, Col, Alert, Progress,
+  Skeleton, Row, Col, Alert,
 } from 'antd/lib';
 import { get } from 'lodash';
-import { COLOR } from 'util/theme';
 import { getBaskets } from './utils';
-import Vault from './helpers/Vault';
+import Fund from './helpers/Fund';
 import Service from './helpers/Service';
-import AddFunds from './helpers/AddFunds';
+import Vault from './helpers/Vault';
 import Gallery from './helpers/Gallery';
-import { BasketContainer, SubHeader, FundingProgress } from './styles';
+import { BasketContainer } from './styles';
 
 /**
  * helper function formalize the list type
@@ -77,45 +76,12 @@ const Basket = ({ account }) => {
   return (
     <BasketContainer>
       <Row>
-        <Col md={10}>
-          <SubHeader>
-            <div className="sub-header">
-              <img
-                src="/images/Vault/fund.png"
-                alt=""
-                loading="lazy"
-                height={48}
-              />
-              <h3>Fund</h3>
-            </div>
-
-            <div className="vault-status">OPEN</div>
-          </SubHeader>
-
-          <FundingProgress>
-            <Progress
-              percent={10}
-              status="active"
-              strokeColor={COLOR.PRIMARY}
-              strokeWidth={30}
-              showInfo={false}
-            />
-            <div className="funding-process-info">
-              <div>0 ETH</div>
-              <div>5 ETH</div>
-              <div>
-                <span>10 ETH</span>
-                <span>(full)</span>
-              </div>
-            </div>
-          </FundingProgress>
-
-          <AddFunds />
-
+        <Col md={12}>
+          <Fund />
           <Service />
         </Col>
 
-        <Col md={13} offset={1} className="right-columm">
+        <Col md={12} className="right-columm">
           <Vault />
           <Gallery list={list} />
         </Col>

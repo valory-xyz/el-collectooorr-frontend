@@ -2,7 +2,10 @@ import styled from 'styled-components';
 import { COLOR } from 'util/theme';
 
 export const BasketContainer = styled.div`
+  color: ${COLOR.GREY_1};
   font-size: 16px;
+  font-family: "spacegrotesk__regular";
+  font-weight: 300;
   .ant-card {
     max-width: 232px;
     width: 100%;
@@ -27,25 +30,72 @@ export const BasketContainer = styled.div`
       padding: 0;
     }
   }
-
   .right-columm {
-    padding-left: 2rem;
+    padding-left: 1rem;
+  }
+  .card-border {
+    padding: 1rem;
+    border-radius: 20px;
+  }
+  a {
+    color: ${COLOR.GREY_1};
   }
 `;
 
-export const AddFundsContainer = styled.div`
+/* ------------- COMMON ------------- */
+export const SubHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  padding-top: 1rem;
+  .sub-header {
+    display: flex;
+    align-items: center;
+    img {
+      margin-right: 2rem;
+      font-size: 24px;
+    }
+    h3,
+    h4 {
+      margin: 0;
+      line-height: normal;
+      font-family: "spacegrotesk__bold";
+    }
+    h3 {
+      font-size: 48px;
+    }
+    h4 {
+      font-size: 36px;
+    }
+  }
+  .vault-status {
+    font-family: "spacegrotesk__bold";
+    color: ${COLOR.GREEN_2};
+  }
+`;
+
+/* ------------- FUNDS ------------- */
+export const FundsContainer = styled.div`
+  border: 1px solid ${COLOR.GREEN_2};
+`;
+
+export const AddFunds = styled.div`
   .add-funds {
     &-header {
       margin-bottom: 1rem;
       h3 {
         margin: 0;
+        font-family: "spacegrotesk__semibold";
+        font-size: 24px;
+        line-height: normal;
       }
     }
     &-input {
       display: flex;
       align-items: center;
       .ant-input {
-        flex: 2;
+        flex: 3;
         margin-right: 1rem;
         padding: 12px;
         border-radius: 24px;
@@ -61,46 +111,27 @@ export const AddFundsContainer = styled.div`
       }
     }
     &-info {
-      max-width: 400px;
-      margin-top: 1rem;
-      font-size: 16px;
-      .warning {
-        margin-top: 1rem;
-        color: ${COLOR.RED};
-        svg {
-          margin-bottom: -2px;
+      max-width: 340px;
+      margin-top: 1.5rem;
+      line-height: normal;
+      > div {
+        &:nth-child(1) {
+          margin-bottom: 0.75rem;
+        }
+        &:nth-child(2) {
+          p {
+            margin: 0;
+          }
+        }
+        &.warning {
+          margin-top: 4rem;
+          color: ${COLOR.RED};
+          svg {
+            margin-bottom: -2px;
+          }
         }
       }
     }
-  }
-`;
-
-// new
-export const SubHeader = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 2rem;
-  border: 1px solid ${COLOR.RED};
-  border-radius: 20px 20px 0px 0;
-  border-bottom: transparent;
-  padding: 1rem 1rem 0 1rem ;
-
-  .sub-header{
-    display: flex;
-    align-items: center;
-    img {
-      margin-right: 2rem;
-      font-size: 24px;
-    }
-    h3 {
-      font-size: 42px;
-      margin: 0;
-      line-height: normal;
-    }
-  }
-  .vault-status {
-    color: ${COLOR.GREEN_2};
   }
 `;
 
@@ -131,7 +162,10 @@ export const FundingProgress = styled.div`
   }
 `;
 
+/* ------------- SERVICE ------------- */
 export const ServiceContainer = styled.div`
+  margin-top: 1rem;
+  border: 1px solid ${COLOR.PURPLE};
   .vault-service {
     display: flex;
     align-items: center;
@@ -139,4 +173,59 @@ export const ServiceContainer = styled.div`
       margin-right: 6rem;
     }
   }
+`;
+
+/* ------------- VAULT ------------- */
+export const VaultContainer = styled.div`
+  padding: 1rem;
+  border-radius: 20px 20px 0 0;
+  border: 1px solid ${COLOR.BLUE};
+`;
+
+export const TotalYours = styled.div`
+  display: flex;
+  .vault-info {
+    &:nth-child(1) {
+      width: 25%;
+    }
+    &:nth-child(2) {
+      width: 40%;
+    }
+    .name {
+    }
+    .desc {
+      margin: 0.25rem 0;
+      font-size: 24px;
+      color: ${COLOR.GREEN_3};
+      text-transform: capitalize;
+    }
+  }
+`;
+
+export const VaultHeader = styled(SubHeader)`
+  position: relative;
+  flex-direction: column;
+  align-items: flex-start;
+  .managed-by {
+    position: absolute;
+    right: 14px;
+    top: -8px;
+    width: 100%;
+    text-align: right;
+    font-size: 14px;
+  }
+`;
+
+/* ------------- VAULT ------------- */
+export const GalleryContainer = styled.div`
+  padding: 1rem;
+  border-radius:  0;
+  border: 1px solid ${COLOR.BLUE};
+  border-top:transparent ;
+`;
+
+export const GalleryList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
 `;

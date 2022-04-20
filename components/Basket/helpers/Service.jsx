@@ -8,8 +8,8 @@ const getStatus = (type = null) => {
 };
 
 const History = () => (
-  <ServiceContainer>
-    <SubHeader style={{ marginTop: '2rem' }}>
+  <ServiceContainer className="card-border">
+    <SubHeader>
       <div className="sub-header">
         <img
           src="/images/Vault/gallery.png"
@@ -17,7 +17,7 @@ const History = () => (
           loading="lazy"
           height={72}
         />
-        <h3>Service</h3>
+        <h4>Service</h4>
       </div>
 
       <div />
