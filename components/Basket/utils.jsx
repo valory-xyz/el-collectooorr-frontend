@@ -9,7 +9,7 @@ export const sortByKeys = (object) => {
 };
 
 // helper functions for fetching NFT
-export const getJsonData = (url) => new Promise((resolve, reject) => {
+const getJsonData = (url) => new Promise((resolve, reject) => {
   axios
     .get(url)
     .then((response) => {
@@ -20,11 +20,11 @@ export const getJsonData = (url) => new Promise((resolve, reject) => {
     });
 });
 
-export const getToken = () => new Promise((resolve, reject) => {
-  const contract = getBasketContract();
+const getOwnerOf = (token, id) => new Promise((resolve, reject) => {
+  const contract = getBasketContract(token);
 
   contract.methods
-    .token()
+    .ownerOf(id)
     .call()
     .then((response) => {
       resolve(response);
@@ -35,21 +35,7 @@ export const getToken = () => new Promise((resolve, reject) => {
     });
 });
 
-export const getTokenUri = (id) => new Promise((resolve, reject) => {
-  const contract = getBasketContract();
-
-  contract.methods
-    .tokenURI(id)
-    .call()
-    .then((response) => {
-      resolve(response);
-    })
-    .catch((e) => {
-      console.error(e);
-      reject(e);
-    });
-});
-
+//
 export const getBaskets = async (basketToken) => {
   const contract = getBasketContract(basketToken);
   const depositedNfts = await contract.getPastEvents('DepositERC721', {
@@ -82,9 +68,11 @@ export const getBaskets = async (basketToken) => {
 
       Promise.all(promises).then(async (list) => {
         const results = await Promise.all(
-          list.map(async (url) => {
+          list.map(async (url, i) => {
+            const { token, tokenId } = filteredNts[i].returnValues;
             const result = await getJsonData(url);
-            return result;
+            const txn = await getOwnerOf(token, tokenId);
+            return { ...result, txn };
           }),
         );
         resolve(results);

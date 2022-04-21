@@ -21,16 +21,19 @@ import { BasketContainer } from './styles';
  */
 const getCollectionList = (array) => {
   if ((get(array[0], 'image') || '').includes('ipfs')) {
-    return array.map(({ name, description, image }) => {
+    return array.map(({
+      name, description, image, txn,
+    }) => {
       const imageUrl = image
         ? `https://ipfs.foundation.app/ipfs/${image.replace('ipfs://', '')}`
         : null;
       return {
         type: 'image',
-        name,
         url: imageUrl,
-        style: { height: '138px' },
+        name,
+        txn: `https://etherscan.io/address/${txn}`,
         description,
+        style: { height: '138px' },
       };
     });
   }

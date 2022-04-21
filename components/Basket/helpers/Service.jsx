@@ -12,7 +12,7 @@ const History = () => (
     <SubHeader className="pt-0">
       <div className="sub-header">
         <img
-          src="/images/Vault/gallery.png"
+          src="/images/Vault/service-icon.png"
           alt=""
           loading="lazy"
           height={72}

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Card } from 'antd/lib';
+import LinkIcon from 'common-util/SVGs/link';
 import { GalleryList, GalleryContainer, SubHeader } from '../styles';
 
 const getImage = (type, {
@@ -31,7 +32,7 @@ const Gallery = ({ list }) => (
 
     <GalleryList>
       {list.map(({
-        name, type, url, style,
+        name, type, url, style, txn,
       }, index) => (
         <Card key={`basket-${index}`} bordered={false}>
           {getImage(type, {
@@ -44,15 +45,19 @@ const Gallery = ({ list }) => (
           <Card.Meta title={name} />
           <div className="nft-info">
             <div>Robert</div>
-            <div>Live View</div>
+            <a
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="live-view"
+            >
+              Live View
+              <LinkIcon />
+            </a>
             <div>
               Bought: 0.1 ETH&nbsp;&bull;&nbsp;12/1&nbsp;&bull;&nbsp;
               <span>
-                <a
-                  href="http://google.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href={txn} target="_blank" rel="noopener noreferrer">
                   Txn
                 </a>
               </span>

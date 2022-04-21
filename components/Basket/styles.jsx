@@ -21,6 +21,13 @@ export const BasketContainer = styled.div`
       }
     }
     .nft-info {
+      .live-view {
+        text-decoration: none;
+        svg {
+          margin-left: 4px;
+          margin-bottom: -2px;
+        }
+      }
       div:nth-child(3) {
         display: flex;
       }
