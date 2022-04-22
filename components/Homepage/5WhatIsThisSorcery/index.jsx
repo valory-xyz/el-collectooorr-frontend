@@ -23,7 +23,7 @@ const data = [
     id: '002',
     name: '//002',
     nameStyle: { color: COLOR.GREEN_2 },
-    desc: 'Make complex decisions based on changing information (what to buy and for how much?)',
+    desc: 'Make complex decisions based on changing information (what to buy and for how much)',
   },
   {
     id: '003',

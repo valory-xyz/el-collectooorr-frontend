@@ -58,11 +58,9 @@ const Footer = () => {
         </a>
 
         <div className="sub-footer-text">
+          <span>WANT TO PUT EL COLLECTOOORR TO WORK FOR YOUR DAO?</span>
           <span>
-            WANT TO PUT EL COLLECTOOORR TO WORK FOR YOUR DAO? REACH OUT
-          </span>
-          <span>
-            TO&nbsp;
+            REACH OUT TO&nbsp;
             <a
               href="mailto:bd@valory.xyz"
               target="_blank"
@@ -70,9 +68,9 @@ const Footer = () => {
             >
               AUTONOLAS BUSINESS DEVELOPMENT
             </a>
-            &nbsp;OR APPLY FOR THE
+            &nbsp;OR&nbsp;
           </span>
-          <span>AGENT DEVELOPER ACADEMY</span>
+          <span>APPLY FOR THE AGENT DEVELOPER ACADEMY</span>
         </div>
       </SubFooter>
     </Container>
