@@ -19,22 +19,27 @@ const Footer = () => {
         <img src="/images/left-arrow.png" alt="" loading="lazy" height={10} />
 
         <div className="text">
-          BUILT BY&nbsp;
-          <a
-            href="https://twitter.com/0x61726469616e"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            ARDIAN ABAZI
-          </a>
-          &nbsp;AND THE&nbsp;
-          <a
-            href="https://autonolas.medium.com/agent-dev-academy-everything-you-need-to-know-cc54b64d5a08"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            AUTONOLAS AGENT DEV ACADEMY COHORT 1
-          </a>
+          <div className="sub-text">
+            BUILT BY&nbsp;
+            <a
+              href="https://twitter.com/0x61726469616e"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              ARDIAN ABAZI
+            </a>
+            &nbsp;AND THE&nbsp;
+            <a
+              href="https://autonolas.medium.com/agent-dev-academy-everything-you-need-to-know-cc54b64d5a08"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              AUTONOLAS AGENT DEV ACADEMY COHORT 1
+            </a>
+          </div>
+          <div className="sub-text">
+            OPERATED BY INDEPENDENT AGENT OPERATORS.
+          </div>
         </div>
 
         {!isMobile && (

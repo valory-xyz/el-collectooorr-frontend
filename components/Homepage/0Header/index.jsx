@@ -83,11 +83,9 @@ export const SubHeaderSection = () => (
       <Marquee pauseOnHover gradient={false}>
         THE WORLD&apos;S FIRST AUTONOMOUS NFT COLLECTOR DAO
         <Dash />
-        THE WORLD&apos;S FIRST AUTONOMOUS NFT
-        <Dash />
         THE WORLD&apos;S FIRST AUTONOMOUS NFT COLLECTOR DAO
         <Dash />
-        THE WORLD&apos;S FIRST AUTONOMOUS NFT
+        THE WORLD&apos;S FIRST AUTONOMOUS NFT COLLECTOR DAO
         <Dash />
       </Marquee>
     </SubHeaderContainer>
