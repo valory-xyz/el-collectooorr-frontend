@@ -17,13 +17,8 @@ export const Container = styled.div`
     align-items: center;
     justify-content: space-between;
     padding: 0 1rem;
-  }
-
-  ${MEDIA_QUERY.laptop} {
-    .built-by {
-      .text {
-        text-align: center;
-      }
+    .text {
+      text-align: center;
     }
   }
 
@@ -31,7 +26,6 @@ export const Container = styled.div`
     .built-by {
       flex-direction: column;
       .text {
-        text-align: left;
         padding: 1rem 0;
       }
     }
