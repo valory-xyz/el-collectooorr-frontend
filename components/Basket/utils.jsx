@@ -35,8 +35,8 @@ const getOwnerOf = (token, id) => new Promise((resolve, reject) => {
     });
 });
 
-// BASKET
-export const getBaskets = async (basketToken) => {
+// -------------- BASKET--------------
+const getFilteredNfts = async (basketToken) => {
   const contract = getBasketContract(basketToken);
   const depositedNfts = await contract.getPastEvents('DepositERC721', {
     fromBlock: 0,
@@ -48,7 +48,7 @@ export const getBaskets = async (basketToken) => {
     toBlock: 'latest',
   });
 
-  const filteredNts = depositedNfts.filter((depositedNft) => {
+  const nfts = depositedNfts.filter((depositedNft) => {
     const isWithdrawn = withdrawnNfts.find(
       (nft) => nft.returnValues.tokenId === depositedNft.returnValues.tokenId,
     );
@@ -56,11 +56,17 @@ export const getBaskets = async (basketToken) => {
     return !isWithdrawn;
   });
 
+  return nfts;
+};
+
+export const getBaskets = async (basketToken) => {
+  const filteredNfts = getFilteredNfts(basketToken);
+
   return new Promise((resolve, reject) => {
     try {
       const promises = [];
-      for (let i = 0; i < filteredNts.length; i += 1) {
-        const { token, tokenId } = filteredNts[i].returnValues;
+      for (let i = 0; i < filteredNfts.length; i += 1) {
+        const { token, tokenId } = filteredNfts[i].returnValues;
         const currentContract = getBasketContract(token);
         const result = currentContract.methods.tokenURI(tokenId).call();
         promises.push(result);
@@ -69,7 +75,7 @@ export const getBaskets = async (basketToken) => {
       Promise.all(promises).then(async (list) => {
         const results = await Promise.all(
           list.map(async (url, i) => {
-            const { token, tokenId } = filteredNts[i].returnValues;
+            const { token, tokenId } = filteredNfts[i].returnValues;
             const result = await getJsonData(url);
             const txn = await getOwnerOf(token, tokenId);
             return { ...result, txn };
@@ -83,7 +89,21 @@ export const getBaskets = async (basketToken) => {
   });
 };
 
-// VAULT
+// -------------- VAULT --------------
+export const getInfo = (functionName) => new Promise((resolve, reject) => {
+  const contract = getVaultContract();
+
+  contract.methods[functionName()]
+    .call()
+    .then((response) => {
+      resolve(response);
+    })
+    .catch((e) => {
+      console.error(e);
+      reject(e);
+    });
+});
+
 export const getVaultStatus = () => new Promise((resolve, reject) => {
   const contract = getVaultContract();
 
@@ -98,3 +118,20 @@ export const getVaultStatus = () => new Promise((resolve, reject) => {
       reject(e);
     });
 });
+
+// export const getVaultReservePrice = () => new Promise((resolve, reject) => {
+//   const contract = getVaultContract();
+
+//   contract.methods
+//     .reservePrice()
+//     .call()
+//     .then((response) => {
+//       resolve(response);
+//     })
+//     .catch((e) => {
+//       console.error(e);
+//       reject(e);
+//     });
+// });
+
+export const getVaultReservePrice = () => getInfo('reservePrice');

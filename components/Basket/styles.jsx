@@ -1,13 +1,17 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { COLOR, MEDIA_QUERY } from 'util/theme';
 
-export const BasketContainer = styled.div`
-  max-width: 1600px;
-  margin: 0 auto;
+const regularFontStyles = css`
   color: ${COLOR.GREY_1};
   font-size: 16px;
   font-family: "spacegrotesk__regular";
   font-weight: 300;
+`;
+
+export const BasketContainer = styled.div`
+  max-width: 1600px;
+  margin: 0 auto;
+  ${regularFontStyles}
   .ant-card {
     max-width: 232px;
     width: 100%;
@@ -100,6 +104,14 @@ export const SubHeader = styled.div`
     }
     h4 {
       font-size: 36px;
+    }
+    /* sub-header for each section */
+    &.gallery-sub-header {
+      h4 {
+        div {
+          ${regularFontStyles}
+        }
+      }
     }
   }
   .vault-status {

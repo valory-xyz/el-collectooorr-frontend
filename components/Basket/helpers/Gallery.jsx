@@ -1,17 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Card } from 'antd/lib';
-import LinkIcon from 'common-util/SVGs/link';
-import { GalleryList, GalleryContainer, SubHeader } from '../styles';
+import React from "react";
+import PropTypes from "prop-types";
+import { Card } from "antd/lib";
+import LinkIcon from "common-util/SVGs/link";
+import { GalleryList, GalleryContainer, SubHeader } from "../styles";
 
-const getImage = (type, {
-  name, index, url, style,
-}) => {
-  if (type === 'iframe') {
+const getImage = (type, { name, index, url, style }) => {
+  if (type === "iframe") {
     return <iframe title={`basket-NFT-${index}`} src={url} />;
   }
 
-  if (type === 'image') {
+  if (type === "image") {
     return (
       <div className="nft-img">
         <img alt={name} src={url} style={style} />
@@ -25,21 +23,22 @@ const getImage = (type, {
 const Gallery = ({ list }) => (
   <GalleryContainer>
     <SubHeader className="pt-0">
-      <div className="sub-header">
+      <div className="sub-header gallery-sub-header">
         <img
           src="/images/Vault/gallery.png"
           alt=""
           loading="lazy"
           height={60}
         />
-        <h4>Gallery</h4>
+        <h4>
+          Gallery
+          <div>{(list || []).length} piece collected</div>
+        </h4>
       </div>
     </SubHeader>
 
     <GalleryList>
-      {list.map(({
-        name, type, url, style, txn,
-      }, index) => (
+      {(list || []).map(({ name, type, url, style, txn }, index) => (
         <Card key={`basket-${index}`} bordered={false}>
           {getImage(type, {
             index,

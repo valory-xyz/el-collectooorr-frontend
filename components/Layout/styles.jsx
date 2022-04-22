@@ -1,9 +1,12 @@
 import styled from 'styled-components';
 import { Layout } from 'antd';
 import { COLOR, MEDIA_QUERY } from 'util/theme';
+import { URL } from 'util/constants';
 
 export const CustomLayout = styled(Layout)`
-  background-image: ${({ ishomepage }) => `${ishomepage ? "url('/images/background-close-dot.png')" : 'none'} !important`};
+  background-image: ${({ pathname }) => `${
+    pathname === URL.ROOT ? "url('/images/background-close-dot.png')" : 'none'
+  } !important`};
   background-size: 100%;
   .ant-layout-header {
     z-index: 99999;
