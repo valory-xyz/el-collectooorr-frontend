@@ -1,5 +1,6 @@
 import React from 'react';
 import Marquee from 'react-fast-marquee';
+import Link from 'next/link';
 import { CustomButton } from 'common-util/Button';
 import useCheckMobileScreen from 'common-util/hooks/useCheckMobileScreen';
 import {
@@ -13,6 +14,12 @@ export const Dash = () => (
   <>&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;</>
 );
 
+const linkToHome = (child) => (
+  <Link href="/">
+    <a href="/">{child}</a>
+  </Link>
+);
+
 export const HeaderSection = () => {
   const isMobile = useCheckMobileScreen();
 
@@ -21,26 +28,32 @@ export const HeaderSection = () => {
       <div className="column-1">
         {isMobile ? (
           <>
-            <img
-              src="/images/0Header/el-collectooorr-logo.png"
-              alt="El collectooorr"
-              loading="lazy"
-              height={64}
-            />
-            <img
-              src="/images/0Header/el-collectooorr-text.png"
-              alt="El collectooorr"
-              loading="lazy"
-              width={150}
-            />
+            {linkToHome(
+              <img
+                src="/images/0Header/el-collectooorr-logo.png"
+                alt="El collectooorr"
+                loading="lazy"
+                height={64}
+              />,
+            )}
+            {linkToHome(
+              <img
+                src="/images/0Header/el-collectooorr-text.png"
+                alt="El collectooorr"
+                loading="lazy"
+                width={150}
+              />,
+            )}
           </>
         ) : (
-          <img
-            src="/images/0Header/logo.png"
-            alt="El collectooorr"
-            loading="lazy"
-            width={300}
-          />
+          linkToHome(
+            <img
+              src="/images/0Header/logo.png"
+              alt="El collectooorr"
+              loading="lazy"
+              width={300}
+            />,
+          )
         )}
       </div>
       <div className="column-2">
