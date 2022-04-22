@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { COLOR } from 'util/theme';
+import { COLOR, MEDIA_QUERY } from 'util/theme';
 
 export const Container = styled.div`
   button {
@@ -39,5 +39,16 @@ export const MetamaskContainer = styled.div`
   }
   .ant-btn {
     margin-left: 0.75rem;
+  }
+
+  ${MEDIA_QUERY.tabletL} {
+    flex-direction: column;
+    align-items: flex-start;
+    > div {
+      line-height: 1.5;
+      &.dash {
+        display: none;
+      }
+    }
   }
 `;

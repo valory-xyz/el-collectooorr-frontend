@@ -19,13 +19,14 @@ export const Dash = () => (
 export const HeaderSection = () => {
   const isMobile = useCheckMobileScreen();
   const router = useRouter();
+  const isRoot = router.pathname === URL.ROOT;
 
   const handleCollect = () => {};
 
   const handleHistory = () => {};
 
   return (
-    <HeaderContainer>
+    <HeaderContainer className={isRoot ? '' : 'not-root-page'}>
       <div className="column-1">
         {isMobile ? (
           <>
@@ -52,7 +53,7 @@ export const HeaderSection = () => {
         )}
       </div>
 
-      {router.pathname !== URL.ROOT ? (
+      {!isRoot ? (
         <>
           <div className="nav-action-btns">
             <CustomButton variant="red" onClick={handleCollect}>

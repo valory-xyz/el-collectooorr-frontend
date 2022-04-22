@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { COLOR, MEDIA_QUERY } from 'util/theme';
+import { MetamaskContainer } from 'components/Login/styles';
 
 export const getBtnStyle = (isMob) => {
   const style = {
@@ -45,6 +46,31 @@ export const HeaderContainer = styled.div`
       flex-direction: column;
       align-items: start;
       gap: 16px;
+    }
+  }
+
+  /* nav-bar for pages except landing-page */
+  ${MEDIA_QUERY.mobileL} {
+    margin-bottom: 0;
+    .column-1 {
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      gap: 16px;
+    }
+    &.not-root-page {
+      flex-direction: column;
+      .column-1 {
+        flex-direction: row;
+        align-items: center;
+      }
+      ${MetamaskContainer} {
+        flex-direction: row;
+        .dash {
+          display: block;
+          margin-top: -4px;
+        }
+      }
     }
   }
 `;
