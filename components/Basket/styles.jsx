@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import { COLOR, MEDIA_QUERY } from 'util/theme';
 
 export const BasketContainer = styled.div`
+  max-width: 1600px;
+  margin: 0 auto;
   color: ${COLOR.GREY_1};
   font-size: 16px;
   font-family: "spacegrotesk__regular";
@@ -270,4 +272,7 @@ export const GalleryList = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
+  .nft-img {
+    background-color: ${COLOR.BORDER_GREY};
+  }
 `;

@@ -1,13 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { SubHeader, ServiceContainer } from '../styles';
 
-// TODO
 const getStatus = (type = null) => {
-  if (type) return 'collecting';
-  return 'Collecting';
+  switch (type) {
+    case '0':
+      return 'Collecting';
+    case '1':
+    default:
+      return 'Closed';
+  }
 };
 
-const History = () => (
+const Service = ({ vaultStatus }) => (
   <ServiceContainer className="card-border">
     <SubHeader className="pt-0">
       <div className="sub-header">
@@ -26,7 +31,7 @@ const History = () => (
     <div className="vault-service">
       <div className="vault-status">
         <div>STATUS</div>
-        <div>{getStatus()}</div>
+        <div>{getStatus(vaultStatus) || '--'}</div>
       </div>
 
       <div className="vault-history">
@@ -41,4 +46,12 @@ const History = () => (
   </ServiceContainer>
 );
 
-export default History;
+Service.propTypes = {
+  vaultStatus: PropTypes.string,
+};
+
+Service.defaultProps = {
+  vaultStatus: null,
+};
+
+export default Service;

@@ -7,7 +7,7 @@ import {
   Skeleton, Row, Col, Alert,
 } from 'antd/lib';
 import { get } from 'lodash';
-import { getBaskets } from './utils';
+import { getBaskets, getVaultStatus } from './utils';
 import Fund from './helpers/Fund';
 import Service from './helpers/Service';
 import Vault from './helpers/Vault';
@@ -49,6 +49,7 @@ const Basket = ({ account }) => {
   const id = get(router, 'query.id') || null;
 
   const [isLoading, setIsLoading] = useState(false);
+  const [vaultStatus, setVaultStatus] = useState(null);
   const [list, setList] = useState([]);
 
   useEffect(async () => {
@@ -57,6 +58,9 @@ const Basket = ({ account }) => {
       setList([]);
 
       try {
+        const status = await getVaultStatus();
+        setVaultStatus(status);
+
         const data = await getBaskets(id);
         const transformedList = getCollectionList(data);
         setList(transformedList);
@@ -81,7 +85,7 @@ const Basket = ({ account }) => {
       <Row>
         <Col md={12}>
           <Fund />
-          <Service />
+          <Service vaultStatus={vaultStatus} />
         </Col>
 
         <Col md={12} className="right-columm">

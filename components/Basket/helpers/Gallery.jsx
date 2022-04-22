@@ -11,7 +11,13 @@ const getImage = (type, {
     return <iframe title={`basket-NFT-${index}`} src={url} />;
   }
 
-  if (type === 'image') return <img alt={name} src={url} style={style} />;
+  if (type === 'image') {
+    return (
+      <div className="nft-img">
+        <img alt={name} src={url} style={style} />
+      </div>
+    );
+  }
 
   return null;
 };

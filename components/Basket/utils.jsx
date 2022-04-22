@@ -1,4 +1,4 @@
-import { getBasketContract } from 'common-util/Contracts';
+import { getBasketContract, getVaultContract } from 'common-util/Contracts';
 import { sortBy, map } from 'lodash';
 import axios from 'axios';
 
@@ -35,7 +35,7 @@ const getOwnerOf = (token, id) => new Promise((resolve, reject) => {
     });
 });
 
-//
+// BASKET
 export const getBaskets = async (basketToken) => {
   const contract = getBasketContract(basketToken);
   const depositedNfts = await contract.getPastEvents('DepositERC721', {
@@ -82,3 +82,19 @@ export const getBaskets = async (basketToken) => {
     }
   });
 };
+
+// VAULT
+export const getVaultStatus = () => new Promise((resolve, reject) => {
+  const contract = getVaultContract();
+
+  contract.methods
+    .auctionState()
+    .call()
+    .then((response) => {
+      resolve(response);
+    })
+    .catch((e) => {
+      console.error(e);
+      reject(e);
+    });
+});
