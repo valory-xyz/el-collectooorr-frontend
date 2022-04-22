@@ -21,6 +21,7 @@ export default class MyDocument extends Document {
       <Html lang="en">
         <Head>
           <link href="/fonts/stylesheet.css" rel="stylesheet" />
+          <link rel="icon" type="images/png" href="/favicon.ico" />
           {styleTags}
         </Head>
 
