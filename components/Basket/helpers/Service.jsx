@@ -1,18 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import LinkIcon from 'common-util/SVGs/link';
 import { SubHeader, ServiceContainer } from '../styles';
 
-const getStatus = (type = null) => {
-  switch (type) {
-    case '0':
-      return 'Collecting';
-    case '1':
-    default:
-      return 'Closed';
-  }
-};
-
-const Service = ({ vaultStatus }) => (
+const Service = ({ isVaultClosed }) => (
   <ServiceContainer className="card-border">
     <SubHeader className="pt-0">
       <div className="sub-header">
@@ -31,7 +22,7 @@ const Service = ({ vaultStatus }) => (
     <div className="vault-service">
       <div className="vault-status">
         <div>STATUS</div>
-        <div>{getStatus(vaultStatus) || '--'}</div>
+        <div>{isVaultClosed ? 'Closed' : 'Collecting'}</div>
       </div>
 
       <div className="vault-history">
@@ -39,6 +30,7 @@ const Service = ({ vaultStatus }) => (
         <div>
           <a href="http://google.com" target="_blank" rel="noopener noreferrer">
             View on Etherscan
+            <LinkIcon />
           </a>
         </div>
       </div>
@@ -47,11 +39,11 @@ const Service = ({ vaultStatus }) => (
 );
 
 Service.propTypes = {
-  vaultStatus: PropTypes.string,
+  isVaultClosed: PropTypes.bool,
 };
 
 Service.defaultProps = {
-  vaultStatus: null,
+  isVaultClosed: false,
 };
 
 export default Service;

@@ -12,40 +12,6 @@ export const BasketContainer = styled.div`
   max-width: 1600px;
   margin: 0 auto;
   ${regularFontStyles}
-  .ant-card {
-    max-width: 232px;
-    width: 100%;
-    margin-bottom: 3rem;
-    margin-right: 3rem;
-    &-body {
-      padding: 0;
-    }
-    &-meta {
-      margin: 1rem 0;
-      &-title {
-        color: ${COLOR.GREEN_2};
-      }
-    }
-    .nft-info {
-      .live-view {
-        text-decoration: none;
-        svg {
-          margin-left: 4px;
-          margin-bottom: -2px;
-        }
-      }
-      div:nth-child(3) {
-        display: flex;
-      }
-    }
-
-    img,
-    iframe {
-      width: 100%;
-      border: 0;
-      padding: 0;
-    }
-  }
   .right-columm {
     padding-left: 1rem;
   }
@@ -54,7 +20,11 @@ export const BasketContainer = styled.div`
     border-radius: 20px;
   }
   a {
-    color: ${COLOR.GREY_1};
+    color: ${COLOR.GREY_1} !important;
+    svg {
+      margin-left: 4px;
+      margin-bottom: -2px;
+    }
   }
 
   ${MEDIA_QUERY.desktop} {
@@ -160,7 +130,7 @@ export const AddFunds = styled.div`
       }
     }
     &-info {
-      max-width: 340px;
+      max-width: 360px;
       margin-top: 1.5rem;
       line-height: normal;
       > div {
@@ -239,7 +209,7 @@ export const TotalYours = styled.div`
   display: flex;
   .vault-info {
     &:nth-child(1) {
-      width: 25%;
+      width: 35%;
     }
     &:nth-child(2) {
       width: 40%;
@@ -278,6 +248,36 @@ export const GalleryContainer = styled.div`
   border-radius: 0;
   border: 1px solid ${COLOR.BLUE};
   border-top: transparent;
+  .ant-card {
+    max-width: 232px;
+    width: 100%;
+    margin-bottom: 3rem;
+    margin-right: 3rem;
+    &-body {
+      padding: 0;
+    }
+    &-meta {
+      margin: 1rem 0;
+      &-title {
+        color: ${COLOR.GREEN_1};
+      }
+    }
+    .nft-info {
+      .live-view {
+        text-decoration: none;
+      }
+      div:nth-child(3) {
+        display: flex;
+      }
+    }
+
+    img,
+    iframe {
+      width: 100%;
+      border: 0;
+      padding: 0;
+    }
+  }
 `;
 
 export const GalleryList = styled.div`

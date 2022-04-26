@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { Progress, Input } from 'antd/lib';
 import { COLOR } from 'util/theme';
 import Warning from 'common-util/SVGs/warning';
@@ -11,7 +11,7 @@ import {
   AddFunds,
 } from '../styles';
 
-const Fund = () => {
+const Fund = ({ vaultSymbol, isVaultClosed }) => {
   const [value, setvalue] = useState(0);
   const handleAddFunds = () => {};
 
@@ -23,7 +23,7 @@ const Fund = () => {
           <h3>Fund</h3>
         </div>
 
-        <div className="vault-status">OPEN</div>
+        <div className="vault-status">{isVaultClosed ? 'CLOSED' : 'OPEN'}</div>
       </SubHeader>
 
       <FundingProgress>
@@ -63,7 +63,10 @@ const Fund = () => {
         </div>
 
         <div className="add-funds-info">
-          <div>You will receive -- VLT1</div>
+          <div>
+            You will receive -- &nbsp;
+            {vaultSymbol}
+          </div>
           <div>
             <p>Management fee of -- ETH will be charged.</p>
             <a
@@ -76,8 +79,10 @@ const Fund = () => {
           </div>
           <div className="warning">
             <Warning />
-            &nbsp;Added ETH cannot be retrieved, but a secondary market for VLT1
-            may emerge.
+            &nbsp;Added ETH cannot be retrieved, but a secondary market for
+            &nbsp;
+            {vaultSymbol}
+            &nbsp; may emerge.
           </div>
         </div>
       </AddFunds>
@@ -85,8 +90,14 @@ const Fund = () => {
   );
 };
 
-Fund.propTypes = {};
+Fund.propTypes = {
+  vaultSymbol: PropTypes.string,
+  isVaultClosed: PropTypes.bool,
+};
 
-Fund.defaultProps = {};
+Fund.defaultProps = {
+  vaultSymbol: null,
+  isVaultClosed: false,
+};
 
 export default Fund;

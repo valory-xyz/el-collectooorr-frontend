@@ -1,6 +1,7 @@
-import { getBasketContract, getVaultContract } from 'common-util/Contracts';
-import { sortBy, map } from 'lodash';
+import Web3 from 'web3';
 import axios from 'axios';
+import { sortBy, map, toInteger } from 'lodash';
+import { getBasketContract, getVaultContract } from 'common-util/Contracts';
 
 export const sortByKeys = (object) => {
   const keys = Object.keys(object);
@@ -60,7 +61,7 @@ const getFilteredNfts = async (basketToken) => {
 };
 
 export const getBaskets = async (basketToken) => {
-  const filteredNfts = getFilteredNfts(basketToken);
+  const filteredNfts = await getFilteredNfts(basketToken);
 
   return new Promise((resolve, reject) => {
     try {
@@ -90,25 +91,11 @@ export const getBaskets = async (basketToken) => {
 };
 
 // -------------- VAULT --------------
-export const getInfo = (functionName) => new Promise((resolve, reject) => {
-  const contract = getVaultContract();
-
-  contract.methods[functionName()]
-    .call()
-    .then((response) => {
-      resolve(response);
-    })
-    .catch((e) => {
-      console.error(e);
-      reject(e);
-    });
-});
-
 export const getVaultStatus = () => new Promise((resolve, reject) => {
   const contract = getVaultContract();
 
   contract.methods
-    .auctionState()
+    .vaultClosed()
     .call()
     .then((response) => {
       resolve(response);
@@ -119,19 +106,48 @@ export const getVaultStatus = () => new Promise((resolve, reject) => {
     });
 });
 
-// export const getVaultReservePrice = () => new Promise((resolve, reject) => {
-//   const contract = getVaultContract();
+export const getVaultReservePrice = () => new Promise((resolve, reject) => {
+  const contract = getVaultContract();
 
-//   contract.methods
-//     .reservePrice()
-//     .call()
-//     .then((response) => {
-//       resolve(response);
-//     })
-//     .catch((e) => {
-//       console.error(e);
-//       reject(e);
-//     });
-// });
+  contract.methods
+    .reservePrice()
+    .call()
+    .then((response) => {
+      const inEth = Web3.utils.fromWei(response, 'ether');
+      resolve(inEth);
+    })
+    .catch((e) => {
+      console.error(e);
+      reject(e);
+    });
+});
 
-export const getVaultReservePrice = () => getInfo('reservePrice');
+export const getVaultSymbol = () => new Promise((resolve, reject) => {
+  const contract = getVaultContract();
+
+  contract.methods
+    .symbol()
+    .call()
+    .then((response) => {
+      resolve(response);
+    })
+    .catch((e) => {
+      console.error(e);
+      reject(e);
+    });
+});
+
+export const getUserBalance = (account) => new Promise((resolve, reject) => {
+  const contract = getVaultContract();
+
+  contract.methods
+    .balanceOf(account)
+    .call()
+    .then((response) => {
+      resolve(toInteger(response));
+    })
+    .catch((e) => {
+      console.error(e);
+      reject(e);
+    });
+});

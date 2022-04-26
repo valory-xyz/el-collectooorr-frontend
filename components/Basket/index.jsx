@@ -7,11 +7,17 @@ import {
   Skeleton, Row, Col, Alert,
 } from 'antd/lib';
 import { get } from 'lodash';
-import { getBaskets, getVaultStatus } from './utils';
 import Fund from './helpers/Fund';
 import Service from './helpers/Service';
 import Vault from './helpers/Vault';
 import Gallery from './helpers/Gallery';
+import {
+  getBaskets,
+  getVaultStatus,
+  getVaultReservePrice,
+  getVaultSymbol,
+  getUserBalance,
+} from './utils';
 import { BasketContainer } from './styles';
 
 /**
@@ -49,7 +55,11 @@ const Basket = ({ account }) => {
   const id = get(router, 'query.id') || null;
 
   const [isLoading, setIsLoading] = useState(false);
-  const [vaultStatus, setVaultStatus] = useState(null);
+  const [isVaultClosed, setVaultStatus] = useState(null);
+  const [vaultReservePrice, setVaultReservePrice] = useState(null);
+  const [vaultSymbol, setVaultSymbol] = useState(null);
+  const [vaultUserBalance, setVaultUserBalance] = useState(null);
+
   const [list, setList] = useState([]);
 
   useEffect(async () => {
@@ -60,6 +70,15 @@ const Basket = ({ account }) => {
       try {
         const status = await getVaultStatus();
         setVaultStatus(status);
+
+        const reservePrice = await getVaultReservePrice();
+        setVaultReservePrice(reservePrice);
+
+        const symbol = await getVaultSymbol();
+        setVaultSymbol(symbol);
+
+        const balance = await getUserBalance(account);
+        setVaultUserBalance(balance);
 
         const data = await getBaskets(id);
         const transformedList = getCollectionList(data);
@@ -72,24 +91,35 @@ const Basket = ({ account }) => {
     }
   }, [account]);
 
-  if (isLoading) {
-    return <Skeleton active />;
+  if (!account) {
+    return (
+      <Alert
+        message="Please connect your wallet!"
+        type="warning"
+        showIcon
+        closable
+      />
+    );
   }
 
-  if (list.length === 0) {
-    return <Alert message="No basket found" type="info" />;
+  if (isLoading) {
+    return <Skeleton active />;
   }
 
   return (
     <BasketContainer>
       <Row>
         <Col md={12}>
-          <Fund />
-          <Service vaultStatus={vaultStatus} />
+          <Fund vaultSymbol={vaultSymbol} isVaultClosed={isVaultClosed} />
+          <Service isVaultClosed={isVaultClosed} />
         </Col>
 
         <Col md={12} className="right-columm">
-          <Vault />
+          <Vault
+            vaultReservePrice={vaultReservePrice}
+            vaultSymbol={vaultSymbol}
+            vaultUserBalance={vaultUserBalance}
+          />
           <Gallery list={list} />
         </Col>
       </Row>
