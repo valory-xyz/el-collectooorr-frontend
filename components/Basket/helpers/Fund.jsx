@@ -11,8 +11,14 @@ import {
   AddFunds,
 } from '../styles';
 
-const Fund = ({ vaultSymbol, isVaultClosed }) => {
+const FEE = 0.05; // 5 percent
+
+const Fund = ({ vaultSymbol, isVaultClosed, balanceOfSafeContract = 0 }) => {
   const [value, setvalue] = useState(0);
+
+  // -5% from the balance to account for fees.
+  const progress = balanceOfSafeContract ? balanceOfSafeContract - FEE : 0;
+
   const handleAddFunds = () => {};
 
   return (
@@ -23,19 +29,21 @@ const Fund = ({ vaultSymbol, isVaultClosed }) => {
           <h3>Fund</h3>
         </div>
 
-        <div className="vault-status">{isVaultClosed ? 'CLOSED' : 'OPEN'}</div>
+        <div className="vault-status">
+          {isVaultClosed ? 'No longer accepting funds' : 'OPEN'}
+        </div>
       </SubHeader>
 
       <FundingProgress>
         <Progress
-          percent={10}
+          percent={progress}
           strokeColor={COLOR.GREEN_2}
           strokeWidth={30}
           showInfo={false}
         />
         <div className="funding-process-info">
           <div>0 ETH</div>
-          <div>5 ETH</div>
+          <div>{`${progress} ETH`}</div>
           <div>
             <span>10 ETH</span>
             <span>(full)</span>
@@ -91,13 +99,15 @@ const Fund = ({ vaultSymbol, isVaultClosed }) => {
 };
 
 Fund.propTypes = {
-  vaultSymbol: PropTypes.string,
   isVaultClosed: PropTypes.bool,
+  vaultSymbol: PropTypes.string,
+  balanceOfSafeContract: PropTypes.number,
 };
 
 Fund.defaultProps = {
-  vaultSymbol: null,
   isVaultClosed: false,
+  vaultSymbol: null,
+  balanceOfSafeContract: 0,
 };
 
 export default Fund;

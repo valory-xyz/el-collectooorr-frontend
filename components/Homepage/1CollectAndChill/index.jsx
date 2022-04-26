@@ -1,10 +1,13 @@
 import React from 'react';
+import { useRouter } from 'next/router';
+import { TOKEN_ID } from 'util/constants';
 import Header from 'common-util/Header';
 import { CustomButton } from 'common-util/Button';
 import useCheckMobileScreen from 'common-util/hooks/useCheckMobileScreen';
 import { btnStyle, Container, CollectAndChillContainer } from './styles';
 
 const CollectAndChill = () => {
+  const router = useRouter();
   const isMobile = useCheckMobileScreen();
   const textBoxImage = (
     <img src="/images/1CollectAndChill/text-box.png" alt="" loading="lazy" />
@@ -43,9 +46,12 @@ const CollectAndChill = () => {
 
           <div className="column-2">
             {!isMobile && textBoxImage}
-            <CustomButton type="primary" variant="disabled" disabled style={btnStyle}>
-              {/* START COLLECTING */}
-              COMING SOON
+            <CustomButton
+              variant="red"
+              onClick={() => router.push(`/vaults/${TOKEN_ID}`)}
+              style={btnStyle}
+            >
+              START COLLECTING
             </CustomButton>
           </div>
         </div>
