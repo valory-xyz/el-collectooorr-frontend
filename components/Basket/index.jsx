@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable camelcase */
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
@@ -7,10 +8,6 @@ import {
   Skeleton, Row, Col, Alert,
 } from 'antd/lib';
 import { get } from 'lodash';
-import Fund from './helpers/Fund';
-import Service from './helpers/Service';
-import Vault from './helpers/Vault';
-import Gallery from './helpers/Gallery';
 import {
   getBaskets,
   getVaultStatus,
@@ -109,19 +106,9 @@ const Basket = ({ account }) => {
   return (
     <BasketContainer>
       <Row>
-        <Col md={12}>
-          <Fund vaultSymbol={vaultSymbol} isVaultClosed={isVaultClosed} />
-          <Service isVaultClosed={isVaultClosed} />
-        </Col>
+        <Col md={12} />
 
-        <Col md={12} className="right-columm">
-          <Vault
-            vaultReservePrice={vaultReservePrice}
-            vaultSymbol={vaultSymbol}
-            vaultUserBalance={vaultUserBalance}
-          />
-          <Gallery list={list} />
-        </Col>
+        <Col md={12} className="right-columm" />
       </Row>
     </BasketContainer>
   );
