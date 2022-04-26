@@ -8,6 +8,8 @@ import {
   Skeleton, Row, Col, Alert,
 } from 'antd/lib';
 import { get } from 'lodash';
+import Service from './helpers/Service';
+import Gallery from './helpers/Gallery';
 import {
   getBaskets,
   getVaultStatus,
@@ -106,9 +108,13 @@ const Basket = ({ account }) => {
   return (
     <BasketContainer>
       <Row>
-        <Col md={12} />
+        <Col md={12}>
+          <Service isVaultClosed={isVaultClosed} />
+        </Col>
 
-        <Col md={12} className="right-columm" />
+        <Col md={12} className="right-columm">
+          <Gallery list={list} />
+        </Col>
       </Row>
     </BasketContainer>
   );
