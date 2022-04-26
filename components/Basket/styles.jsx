@@ -93,6 +93,94 @@ export const SubHeader = styled.div`
   }
 `;
 
+/* ------------- FUNDS ------------- */
+export const FundsContainer = styled.div`
+  border: 1px solid ${COLOR.GREEN_2};
+`;
+
+export const AddFunds = styled.div`
+  .add-funds {
+    &-header {
+      margin-bottom: 1rem;
+      h3 {
+        margin: 0;
+        font-family: "spacegrotesk__semibold";
+        font-size: 24px;
+        line-height: normal;
+      }
+    }
+    &-input {
+      display: flex;
+      align-items: center;
+      .ant-input {
+        flex: 3;
+        margin-right: 1rem;
+        padding: 8px 24px;
+        border-radius: 24px;
+        font-size: 18px;
+      }
+      .ant-btn {
+        flex: 1;
+        height: 46px;
+        border-radius: 24px;
+        img {
+          vertical-align: baseline;
+          margin-right: 12px;
+        }
+      }
+    }
+    &-info {
+      max-width: 360px;
+      margin-top: 1.5rem;
+      line-height: normal;
+      > div {
+        &:nth-child(1) {
+          margin-bottom: 0.75rem;
+        }
+        &:nth-child(2) {
+          p {
+            margin: 0;
+          }
+        }
+        &.warning {
+          margin-top: 4rem;
+          color: ${COLOR.RED};
+          svg {
+            margin-bottom: -2px;
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const FundingProgress = styled.div`
+  position: relative;
+  margin: 1rem 0;
+  .ant-progress {
+    .ant-progress-inner {
+      border: 1px solid ${COLOR.GREY_2};
+    }
+  }
+  .funding-process-info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+    line-height: normal;
+    > div:nth-child(2) {
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translate(-50%, 0);
+    }
+    > div:nth-child(3) {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+  }
+`;
+
 /* ------------- SERVICE ------------- */
 export const ServiceContainer = styled.div`
   margin-top: 1rem;
