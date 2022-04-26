@@ -1,5 +1,5 @@
-import Vaults from './Vaults';
+import Basket from './Basket';
 
-const Home = () => <><Vaults /></>;
+const Home = () => <><Basket /></>;
 
 export default Home;
