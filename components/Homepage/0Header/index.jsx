@@ -1,8 +1,11 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import Marquee from 'react-fast-marquee';
 import Link from 'next/link';
+import { TOKEN_ID, URL } from 'util/constants';
 import { CustomButton } from 'common-util/Button';
 import useCheckMobileScreen from 'common-util/hooks/useCheckMobileScreen';
+import Login from '../../Login';
 import {
   getBtnStyle,
   HeaderContainer,
@@ -22,9 +25,15 @@ const linkToHome = (child) => (
 
 export const HeaderSection = () => {
   const isMobile = useCheckMobileScreen();
+  const router = useRouter();
+  const isRoot = router.pathname === URL.ROOT;
+
+  const handleCollect = () => {};
+
+  const handleHistory = () => {};
 
   return (
-    <HeaderContainer>
+    <HeaderContainer className={isRoot ? '' : 'not-root-page'}>
       <div className="column-1">
         {isMobile ? (
           <>
@@ -56,17 +65,31 @@ export const HeaderSection = () => {
           )
         )}
       </div>
-      <div className="column-2">
-        <CustomButton
-          type="primary"
-          variant="disabled"
-          disabled
-          style={getBtnStyle(isMobile)}
-        >
-          COMING SOON
-          {/* START COLLECTING */}
-        </CustomButton>
-      </div>
+
+      {!isRoot ? (
+        <>
+          <div className="nav-action-btns">
+            <CustomButton variant="red" onClick={handleCollect}>
+              COLLECT
+            </CustomButton>
+            <CustomButton variant="blue-border" onClick={handleHistory}>
+              HISTORY
+            </CustomButton>
+          </div>
+
+          <Login />
+        </>
+      ) : (
+        <div className="column-2">
+          <CustomButton
+            variant="red"
+            style={getBtnStyle(isMobile)}
+            onClick={() => router.push(`/vaults/${TOKEN_ID}`)}
+          >
+            START COLLECTING
+          </CustomButton>
+        </div>
+      )}
     </HeaderContainer>
   );
 };

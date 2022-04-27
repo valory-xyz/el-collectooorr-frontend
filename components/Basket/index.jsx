@@ -1,26 +1,21 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable camelcase */
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import {
-  Skeleton,
-  Card,
-  Row,
-  Col,
-  Alert,
-  Typography,
-  Progress,
+  Skeleton, Row, Col, Alert,
 } from 'antd/lib';
 import { get } from 'lodash';
-import { COLOR } from 'util/theme';
-import { getBaskets } from './utils';
-import Pool from './helpers/Pool';
-import History from './helpers/History';
-import AddFunds from './helpers/AddFunds';
-import { BasketContainer, Gallery, FundingProgress } from './styles';
-
-const { Paragraph } = Typography;
+import {
+  getBaskets,
+  getVaultStatus,
+  getVaultReservePrice,
+  getVaultSymbol,
+  getUserBalance,
+} from './utils';
+import { BasketContainer } from './styles';
 
 /**
  * helper function formalize the list type
@@ -29,33 +24,24 @@ const { Paragraph } = Typography;
  */
 const getCollectionList = (array) => {
   if ((get(array[0], 'image') || '').includes('ipfs')) {
-    return array.map(({ name, description, image }) => {
+    return array.map(({
+      name, description, image, txn,
+    }) => {
       const imageUrl = image
         ? `https://ipfs.foundation.app/ipfs/${image.replace('ipfs://', '')}`
         : null;
       return {
         type: 'image',
-        name,
         url: imageUrl,
-        style: { height: '138px' },
+        name,
+        txn: `https://etherscan.io/address/${txn}`,
         description,
+        style: { height: '138px' },
       };
     });
   }
 
   return array;
-};
-
-const getImage = (type, {
-  name, index, url, style,
-}) => {
-  if (type === 'iframe') {
-    return <iframe title={`basket-NFT-${index}`} src={url} />;
-  }
-
-  if (type === 'image') return <img alt={name} src={url} style={style} />;
-
-  return null;
 };
 
 /**
@@ -66,6 +52,11 @@ const Basket = ({ account }) => {
   const id = get(router, 'query.id') || null;
 
   const [isLoading, setIsLoading] = useState(false);
+  const [isVaultClosed, setVaultStatus] = useState(null);
+  const [vaultReservePrice, setVaultReservePrice] = useState(null);
+  const [vaultSymbol, setVaultSymbol] = useState(null);
+  const [vaultUserBalance, setVaultUserBalance] = useState(null);
+
   const [list, setList] = useState([]);
 
   useEffect(async () => {
@@ -74,6 +65,18 @@ const Basket = ({ account }) => {
       setList([]);
 
       try {
+        const status = await getVaultStatus();
+        setVaultStatus(status);
+
+        const reservePrice = await getVaultReservePrice();
+        setVaultReservePrice(reservePrice);
+
+        const symbol = await getVaultSymbol();
+        setVaultSymbol(symbol);
+
+        const balance = await getUserBalance(account);
+        setVaultUserBalance(balance);
+
         const data = await getBaskets(id);
         const transformedList = getCollectionList(data);
         setList(transformedList);
@@ -85,85 +88,27 @@ const Basket = ({ account }) => {
     }
   }, [account]);
 
-  if (isLoading) {
-    return <Skeleton active />;
+  if (!account) {
+    return (
+      <Alert
+        message="Please connect your wallet!"
+        type="warning"
+        showIcon
+        closable
+      />
+    );
   }
 
-  if (list.length === 0) {
-    return <Alert message="No basket found" type="info" />;
+  if (isLoading) {
+    return <Skeleton active />;
   }
 
   return (
     <BasketContainer>
       <Row>
-        <Col md={8}>
-          <div>Fund - open</div>
+        <Col md={12} />
 
-          <FundingProgress>
-            <Progress
-              percent={10}
-              status="active"
-              strokeColor={COLOR.PRIMARY}
-              strokeWidth={20}
-              showInfo={false}
-            />
-            <div className="funding-process-info">
-              <div>0 ETH</div>
-              <div>5 ETH</div>
-              <div>
-                <span>10 ETH</span>
-                <span>Full</span>
-              </div>
-            </div>
-          </FundingProgress>
-
-          <AddFunds />
-          <br />
-          <br />
-          <br />
-          <History />
-        </Col>
-
-        <Col md={15} offset={1} className="right-columm">
-          <Pool />
-          <br />
-          <br />
-
-          <Paragraph>Gallery</Paragraph>
-
-          <Gallery>
-            {list.map(({
-              name, type, url, style,
-            }, index) => (
-              <Card key={`basket-${index}`} bordered={false}>
-                {getImage(type, {
-                  index,
-                  url,
-                  name,
-                  style,
-                })}
-
-                <Card.Meta title={name} />
-                <div className="nft-info">
-                  <div>Robert</div>
-                  <div>Live View</div>
-                  <div>
-                    Bought: 0.1 ETH&nbsp;&bull;&nbsp;12/1&nbsp;&bull;&nbsp;
-                    <span>
-                      <a
-                        href="http://google.com"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Txn
-                      </a>
-                    </span>
-                  </div>
-                </div>
-              </Card>
-            ))}
-          </Gallery>
-        </Col>
+        <Col md={12} className="right-columm" />
       </Row>
     </BasketContainer>
   );

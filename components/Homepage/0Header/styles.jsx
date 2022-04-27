@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 import { COLOR, MEDIA_QUERY } from 'util/theme';
+import { MetamaskContainer } from 'components/Login/styles';
 
 export const getBtnStyle = (isMob) => {
   const style = {
     borderRadius: '0 20px 20px 0',
     width: '216px',
-    height: '42px',
+    height: 'auto',
   };
 
   if (isMob) {
@@ -28,7 +29,16 @@ export const HeaderContainer = styled.div`
   border-radius: 10px;
   border: 1px solid ${COLOR.GREY_1};
   background-color: ${COLOR.BLACK};
-
+  .nav-action-btns {
+    button {
+      width: auto;
+      height: auto;
+      border-radius: 0px 20px 20px 0px !important ;
+      &:first-child {
+        margin-right: 2rem;
+      }
+    }
+  }
   ${MEDIA_QUERY.tablet} {
     margin-bottom: 0;
     .column-1 {
@@ -36,6 +46,31 @@ export const HeaderContainer = styled.div`
       flex-direction: column;
       align-items: start;
       gap: 16px;
+    }
+  }
+
+  /* nav-bar for pages except landing-page */
+  ${MEDIA_QUERY.mobileL} {
+    margin-bottom: 0;
+    .column-1 {
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      gap: 16px;
+    }
+    &.not-root-page {
+      flex-direction: column;
+      .column-1 {
+        flex-direction: row;
+        align-items: center;
+      }
+      ${MetamaskContainer} {
+        flex-direction: row;
+        .dash {
+          display: block;
+          margin-top: -4px;
+        }
+      }
     }
   }
 `;

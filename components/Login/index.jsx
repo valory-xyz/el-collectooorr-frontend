@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Button } from 'antd';
 import Web3 from 'web3';
 import get from 'lodash/get';
 import isNil from 'lodash/isNil';
 import round from 'lodash/round';
 import { CONSTANTS } from 'util/constants';
+import { CustomButton } from 'common-util/Button';
 import {
   setUserAccount as setUserAccountFn,
   setUserBalance as setUserBalanceFn,
@@ -84,9 +84,9 @@ const Login = ({
   if (!account) {
     return (
       <Container>
-        <Button type="primary" onClick={handleLogin}>
+        <CustomButton variant="green" onClick={handleLogin}>
           Connect MetaMask
-        </Button>
+        </CustomButton>
       </Container>
     );
   }
@@ -95,7 +95,7 @@ const Login = ({
     <Container>
       <DetailsContainer>
         <MetamaskContainer>
-          <div>{isNil(balance) ? 'NA' : `${balance} ETH` }</div>
+          <div>{isNil(balance) ? 'NA' : `${balance} ETH`}</div>
           <div className="dash" />
           <div className="address">{account ? `${account}` : 'NA'}</div>
         </MetamaskContainer>

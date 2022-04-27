@@ -1,6 +1,7 @@
-import { getBasketContract } from 'common-util/Contracts';
-import { sortBy, map } from 'lodash';
+import Web3 from 'web3';
 import axios from 'axios';
+import { sortBy, map, toInteger } from 'lodash';
+import { getBasketContract, getVaultContract } from 'common-util/Contracts';
 
 export const sortByKeys = (object) => {
   const keys = Object.keys(object);
@@ -9,7 +10,7 @@ export const sortByKeys = (object) => {
 };
 
 // helper functions for fetching NFT
-export const getJsonData = (url) => new Promise((resolve, reject) => {
+const getJsonData = (url) => new Promise((resolve, reject) => {
   axios
     .get(url)
     .then((response) => {
@@ -20,11 +21,11 @@ export const getJsonData = (url) => new Promise((resolve, reject) => {
     });
 });
 
-export const getToken = () => new Promise((resolve, reject) => {
-  const contract = getBasketContract();
+const getOwnerOf = (token, id) => new Promise((resolve, reject) => {
+  const contract = getBasketContract(token);
 
   contract.methods
-    .token()
+    .ownerOf(id)
     .call()
     .then((response) => {
       resolve(response);
@@ -35,22 +36,8 @@ export const getToken = () => new Promise((resolve, reject) => {
     });
 });
 
-export const getTokenUri = (id) => new Promise((resolve, reject) => {
-  const contract = getBasketContract();
-
-  contract.methods
-    .tokenURI(id)
-    .call()
-    .then((response) => {
-      resolve(response);
-    })
-    .catch((e) => {
-      console.error(e);
-      reject(e);
-    });
-});
-
-export const getBaskets = async (basketToken) => {
+// -------------- BASKET--------------
+const getFilteredNfts = async (basketToken) => {
   const contract = getBasketContract(basketToken);
   const depositedNfts = await contract.getPastEvents('DepositERC721', {
     fromBlock: 0,
@@ -62,7 +49,7 @@ export const getBaskets = async (basketToken) => {
     toBlock: 'latest',
   });
 
-  const filteredNts = depositedNfts.filter((depositedNft) => {
+  const nfts = depositedNfts.filter((depositedNft) => {
     const isWithdrawn = withdrawnNfts.find(
       (nft) => nft.returnValues.tokenId === depositedNft.returnValues.tokenId,
     );
@@ -70,11 +57,17 @@ export const getBaskets = async (basketToken) => {
     return !isWithdrawn;
   });
 
+  return nfts;
+};
+
+export const getBaskets = async (basketToken) => {
+  const filteredNfts = await getFilteredNfts(basketToken);
+
   return new Promise((resolve, reject) => {
     try {
       const promises = [];
-      for (let i = 0; i < filteredNts.length; i += 1) {
-        const { token, tokenId } = filteredNts[i].returnValues;
+      for (let i = 0; i < filteredNfts.length; i += 1) {
+        const { token, tokenId } = filteredNfts[i].returnValues;
         const currentContract = getBasketContract(token);
         const result = currentContract.methods.tokenURI(tokenId).call();
         promises.push(result);
@@ -82,9 +75,11 @@ export const getBaskets = async (basketToken) => {
 
       Promise.all(promises).then(async (list) => {
         const results = await Promise.all(
-          list.map(async (url) => {
+          list.map(async (url, i) => {
+            const { token, tokenId } = filteredNfts[i].returnValues;
             const result = await getJsonData(url);
-            return result;
+            const txn = await getOwnerOf(token, tokenId);
+            return { ...result, txn };
           }),
         );
         resolve(results);
@@ -94,3 +89,65 @@ export const getBaskets = async (basketToken) => {
     }
   });
 };
+
+// -------------- VAULT --------------
+export const getVaultStatus = () => new Promise((resolve, reject) => {
+  const contract = getVaultContract();
+
+  contract.methods
+    .vaultClosed()
+    .call()
+    .then((response) => {
+      resolve(response);
+    })
+    .catch((e) => {
+      console.error(e);
+      reject(e);
+    });
+});
+
+export const getVaultReservePrice = () => new Promise((resolve, reject) => {
+  const contract = getVaultContract();
+
+  contract.methods
+    .reservePrice()
+    .call()
+    .then((response) => {
+      const inEth = Web3.utils.fromWei(response, 'ether');
+      resolve(inEth);
+    })
+    .catch((e) => {
+      console.error(e);
+      reject(e);
+    });
+});
+
+export const getVaultSymbol = () => new Promise((resolve, reject) => {
+  const contract = getVaultContract();
+
+  contract.methods
+    .symbol()
+    .call()
+    .then((response) => {
+      resolve(response);
+    })
+    .catch((e) => {
+      console.error(e);
+      reject(e);
+    });
+});
+
+export const getUserBalance = (account) => new Promise((resolve, reject) => {
+  const contract = getVaultContract();
+
+  contract.methods
+    .balanceOf(account)
+    .call()
+    .then((response) => {
+      resolve(toInteger(response));
+    })
+    .catch((e) => {
+      console.error(e);
+      reject(e);
+    });
+});

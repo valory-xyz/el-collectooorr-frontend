@@ -14,6 +14,7 @@ export const COLOR = {
   PURPLE: '#6A26FB',
   GREEN_1: '#2AFD8A',
   GREEN_2: '#42FF00',
+  GREEN_3: '#00FFD1',
 };
 
 export const FONT_SIZE = {
