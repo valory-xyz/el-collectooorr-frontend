@@ -26,10 +26,12 @@ const Fund = ({
   isVaultClosed,
   balanceOfSafeContract = 0,
   account,
+  balance,
   setUserBalance,
   setErrorMessage,
 }) => {
   const [value, setvalue] = useState();
+  const isValidValue = value <= balance;
 
   // -5% from the balance to account for fees.
   const progress = balanceOfSafeContract ? balanceOfSafeContract - FEE : 0;
@@ -87,7 +89,11 @@ const Fund = ({
             placeholder="0"
             onChange={(e) => setvalue(e.target.value)}
           />
-          <CustomButton variant="green" onClick={handleAddFunds}>
+          <CustomButton
+            variant={isValidValue ? 'green' : 'disabled'}
+            disabled={!isValidValue}
+            onClick={handleAddFunds}
+          >
             <img
               src="/images/Vault/button-deposit.png"
               alt=""
@@ -128,6 +134,7 @@ const Fund = ({
 
 Fund.propTypes = {
   isVaultClosed: PropTypes.bool,
+  balance: PropTypes.number,
   vaultSymbol: PropTypes.string,
   balanceOfSafeContract: PropTypes.number,
   account: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
@@ -137,14 +144,15 @@ Fund.propTypes = {
 
 Fund.defaultProps = {
   isVaultClosed: false,
+  balance: null,
   vaultSymbol: null,
   balanceOfSafeContract: 0,
   account: null,
 };
 
 const mapStateToProps = (state) => {
-  const { account } = get(state, 'setup', {});
-  return { account };
+  const { account, balance } = get(state, 'setup', {});
+  return { account, balance };
 };
 
 const mapDispatchToProps = {

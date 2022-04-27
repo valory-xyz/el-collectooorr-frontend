@@ -1,5 +1,4 @@
 import Web3 from 'web3';
-import round from 'lodash/round';
 import { CONSTANTS } from 'util/constants';
 
 export const getBalance = (account) => new Promise((resolve, reject) => {
@@ -10,7 +9,7 @@ export const getBalance = (account) => new Promise((resolve, reject) => {
     })
     .then((b) => {
       const balanceInEther = Web3.utils.fromWei(b, 'ether');
-      resolve(round(balanceInEther, 2));
+      resolve(balanceInEther);
     })
     .catch((e) => {
       reject(e.message);

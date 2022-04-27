@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import round from 'lodash/round';
 import get from 'lodash/get';
 import isNil from 'lodash/isNil';
 import { CONSTANTS, METAMASK_ERROR_MSG } from 'util/constants';
@@ -88,7 +89,7 @@ const Login = ({
     <Container>
       <DetailsContainer>
         <MetamaskContainer>
-          <div>{isNil(balance) ? 'NA' : `${balance} ETH`}</div>
+          <div>{isNil(balance) ? 'NA' : `${round(balance, 2)} ETH`}</div>
           <div className="dash" />
           <div className="address">{account ? `${account}` : 'NA'}</div>
         </MetamaskContainer>
