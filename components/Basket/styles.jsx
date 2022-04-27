@@ -112,7 +112,8 @@ export const AddFunds = styled.div`
     &-input {
       display: flex;
       align-items: center;
-      .ant-input {
+      .ant-input,
+      .ant-input-number {
         flex: 3;
         margin-right: 1rem;
         padding: 8px 24px;

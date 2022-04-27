@@ -1,9 +1,17 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Progress, Input } from 'antd/lib';
+import get from 'lodash/get';
 import { COLOR } from 'util/theme';
+import { getBalance } from 'common-util/functions';
 import Warning from 'common-util/SVGs/warning';
 import CustomButton from 'common-util/Button';
+import {
+  setUserBalance as setUserBalanceFn,
+  setErrorMessage as setErrorMessageFn,
+} from 'store/setup/actions';
+import { addFunds } from '../utils';
 import {
   FundsContainer,
   SubHeader,
@@ -13,13 +21,29 @@ import {
 
 const FEE = 0.05; // 5 percent
 
-const Fund = ({ vaultSymbol, isVaultClosed, balanceOfSafeContract = 0 }) => {
-  const [value, setvalue] = useState(0);
+const Fund = ({
+  vaultSymbol,
+  isVaultClosed,
+  balanceOfSafeContract = 0,
+  account,
+  setUserBalance,
+  setErrorMessage,
+}) => {
+  const [value, setvalue] = useState();
 
   // -5% from the balance to account for fees.
   const progress = balanceOfSafeContract ? balanceOfSafeContract - FEE : 0;
 
-  const handleAddFunds = () => {};
+  const handleAddFunds = async () => {
+    await addFunds({ ether: value });
+    // get balance once add funds is processed!
+    try {
+      const result = await getBalance(account);
+      setUserBalance(result);
+    } catch (error) {
+      setErrorMessage(error);
+    }
+  };
 
   return (
     <FundsContainer className="card-border">
@@ -58,7 +82,11 @@ const Fund = ({ vaultSymbol, isVaultClosed, balanceOfSafeContract = 0 }) => {
         </div>
 
         <div className="add-funds-input">
-          <Input value={value} onChange={(e) => setvalue(e.target.value)} />
+          <Input
+            value={value}
+            placeholder="0"
+            onChange={(e) => setvalue(e.target.value)}
+          />
           <CustomButton variant="green" onClick={handleAddFunds}>
             <img
               src="/images/Vault/button-deposit.png"
@@ -102,12 +130,26 @@ Fund.propTypes = {
   isVaultClosed: PropTypes.bool,
   vaultSymbol: PropTypes.string,
   balanceOfSafeContract: PropTypes.number,
+  account: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+  setUserBalance: PropTypes.func.isRequired,
+  setErrorMessage: PropTypes.func.isRequired,
 };
 
 Fund.defaultProps = {
   isVaultClosed: false,
   vaultSymbol: null,
   balanceOfSafeContract: 0,
+  account: null,
 };
 
-export default Fund;
+const mapStateToProps = (state) => {
+  const { account } = get(state, 'setup', {});
+  return { account };
+};
+
+const mapDispatchToProps = {
+  setUserBalance: setUserBalanceFn,
+  setErrorMessage: setErrorMessageFn,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Fund);

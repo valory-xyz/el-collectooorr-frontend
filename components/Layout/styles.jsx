@@ -9,7 +9,7 @@ export const CustomLayout = styled(Layout)`
   } !important`};
   background-size: 100%;
   .ant-layout-header {
-    z-index: 99999;
+    z-index: 1000;
     position: fixed;
     height: 82px;
     width: 100%;

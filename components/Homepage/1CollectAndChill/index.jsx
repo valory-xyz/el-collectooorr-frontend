@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-import { TOKEN_ID } from 'util/constants';
+import { VAULT_TOKEN_ID } from 'util/constants';
 import Header from 'common-util/Header';
 import { CustomButton } from 'common-util/Button';
 import useCheckMobileScreen from 'common-util/hooks/useCheckMobileScreen';
@@ -48,7 +48,7 @@ const CollectAndChill = () => {
             {!isMobile && textBoxImage}
             <CustomButton
               variant="red"
-              onClick={() => router.push(`/vaults/${TOKEN_ID}`)}
+              onClick={() => router.push(`/vaults/${VAULT_TOKEN_ID}`)}
               style={btnStyle}
             >
               START COLLECTING
