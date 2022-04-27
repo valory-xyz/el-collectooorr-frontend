@@ -20,10 +20,12 @@ import {
 } from '../styles';
 
 const FEE = 0.05; // 5 percent
+const TOKEN_ETH_PRICE = 0.001; // 5 percent
 
 const Fund = ({
-  vaultSymbol,
   isVaultClosed,
+  vaultSymbol,
+  vaultUserBalance,
   balanceOfSafeContract = 0,
   account,
   balance,
@@ -35,6 +37,8 @@ const Fund = ({
 
   // -5% from the balance to account for fees.
   const progress = balanceOfSafeContract ? balanceOfSafeContract - FEE : 0;
+
+  const youFunded = vaultUserBalance ? vaultUserBalance * TOKEN_ETH_PRICE : 0;
 
   const handleAddFunds = async () => {
     await addFunds({ ether: value });
@@ -80,7 +84,7 @@ const Fund = ({
       <AddFunds>
         <div className="add-funds-header">
           <div>YOU FUNDED</div>
-          <h3>0 ETH </h3>
+          <h3>{`${youFunded} ETH`}</h3>
         </div>
 
         <div className="add-funds-input">
@@ -134,19 +138,21 @@ const Fund = ({
 
 Fund.propTypes = {
   isVaultClosed: PropTypes.bool,
-  balance: PropTypes.number,
   vaultSymbol: PropTypes.string,
+  vaultUserBalance: PropTypes.number,
   balanceOfSafeContract: PropTypes.number,
   account: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   setUserBalance: PropTypes.func.isRequired,
+  balance: PropTypes.number,
   setErrorMessage: PropTypes.func.isRequired,
 };
 
 Fund.defaultProps = {
   isVaultClosed: false,
-  balance: null,
   vaultSymbol: null,
+  vaultUserBalance: null,
   balanceOfSafeContract: 0,
+  balance: null,
   account: null,
 };
 
