@@ -21,12 +21,14 @@ import {
 
 const FEE = 0.05; // 5 percent
 const TOKEN_ETH_PRICE = 0.001;
+const TOTAL_ETH = 10;
 
 const Fund = ({
   isVaultClosed,
   vaultSymbol,
-  vaultUserBalance,
-  balanceOfSafeContract = 0,
+  userVTKBalance,
+  vaultTotalSupply,
+  vaultBalanceOf,
   account,
   balance,
   setUserBalance,
@@ -36,8 +38,12 @@ const Fund = ({
   const isValidValue = value ? value <= balance : false;
 
   // -5% from the balance to account for fees.
-  const progress = balanceOfSafeContract ? balanceOfSafeContract - FEE : 0;
-  const getYouFunded = () => (vaultUserBalance ? vaultUserBalance * TOKEN_ETH_PRICE : 0);
+  const getProgress = () => {
+    const purchasedTokens = vaultTotalSupply - vaultBalanceOf;
+    const progress = (purchasedTokens * TOKEN_ETH_PRICE);
+    return progress || 0;
+  };
+  const getYouFunded = () => (userVTKBalance ? userVTKBalance * TOKEN_ETH_PRICE : 0);
   const getUserReceiveVtk = () => {
     if (!value) return '--';
     const totalVtk = value / TOKEN_ETH_PRICE;
@@ -75,16 +81,16 @@ const Fund = ({
 
       <FundingProgress>
         <Progress
-          percent={progress}
+          percent={getProgress() * TOTAL_ETH}
           strokeColor={COLOR.GREEN_2}
           strokeWidth={30}
           showInfo={false}
         />
         <div className="funding-process-info">
           <div>0 ETH</div>
-          <div>{`${progress} ETH`}</div>
+          <div>{`${getProgress()} ETH`}</div>
           <div>
-            <span>10 ETH</span>
+            <span>{`${TOTAL_ETH} ETH`}</span>
             <span>(full)</span>
           </div>
         </div>
@@ -152,8 +158,9 @@ const Fund = ({
 Fund.propTypes = {
   isVaultClosed: PropTypes.bool,
   vaultSymbol: PropTypes.string,
-  vaultUserBalance: PropTypes.number,
-  balanceOfSafeContract: PropTypes.number,
+  userVTKBalance: PropTypes.number,
+  vaultBalanceOf: PropTypes.number,
+  vaultTotalSupply: PropTypes.number,
   account: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   setUserBalance: PropTypes.func.isRequired,
   balance: PropTypes.number,
@@ -163,8 +170,9 @@ Fund.propTypes = {
 Fund.defaultProps = {
   isVaultClosed: false,
   vaultSymbol: null,
-  vaultUserBalance: null,
-  balanceOfSafeContract: 0,
+  userVTKBalance: null,
+  vaultBalanceOf: 0,
+  vaultTotalSupply: 0,
   balance: null,
   account: null,
 };

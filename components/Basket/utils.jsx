@@ -141,7 +141,22 @@ export const getVaultSymbol = () => new Promise((resolve, reject) => {
     });
 });
 
-export const getUserBalance = (account) => new Promise((resolve, reject) => {
+export const getVaultTotalSupply = () => new Promise((resolve, reject) => {
+  const contract = getVaultContract();
+
+  contract.methods
+    .totalSupply()
+    .call()
+    .then((response) => {
+      resolve(toInteger(response));
+    })
+    .catch((e) => {
+      console.error(e);
+      reject(e);
+    });
+});
+
+export const getBalanceOf = (account) => new Promise((resolve, reject) => {
   const contract = getVaultContract();
 
   contract.methods

@@ -160,6 +160,7 @@ export const FundingProgress = styled.div`
   margin: 1rem 0;
   .ant-progress {
     .ant-progress-inner {
+      padding: 2px;
       border: 1px solid ${COLOR.GREY_2};
     }
   }
@@ -173,6 +174,10 @@ export const FundingProgress = styled.div`
       top: 8px;
       left: 50%;
       transform: translate(-50%, 0);
+      padding: 0 1.25rem;
+      color: ${COLOR.WHITE};
+      background: ${COLOR.BLUE};
+      border-radius: 1rem;
     }
     > div:nth-child(3) {
       display: flex;

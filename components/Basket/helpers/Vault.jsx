@@ -5,9 +5,9 @@ import { VaultContainer, TotalYours, VaultHeader } from '../styles';
 const TOTAL = 10000;
 const URL = 'https://fractional.art/vaults/harambe-g7xnzq';
 
-const Vault = ({ vaultReservePrice, vaultSymbol, vaultUserBalance }) => {
+const Vault = ({ vaultReservePrice, vaultSymbol, userVTKBalance }) => {
   const symbol = vaultSymbol || 'TKN';
-  const percentage = vaultUserBalance ? vaultUserBalance / TOTAL : 0;
+  const percentage = userVTKBalance ? userVTKBalance / TOTAL : 0;
 
   return (
     <VaultContainer>
@@ -46,7 +46,7 @@ const Vault = ({ vaultReservePrice, vaultSymbol, vaultUserBalance }) => {
 
         <div className="vault-info yours">
           <div className="name">YOURS</div>
-          <div className="desc">{`${vaultUserBalance} ${symbol}`}</div>
+          <div className="desc">{`${userVTKBalance} ${symbol}`}</div>
           <div>{`${percentage}% pool share`}</div>
         </div>
       </TotalYours>
@@ -57,13 +57,13 @@ const Vault = ({ vaultReservePrice, vaultSymbol, vaultUserBalance }) => {
 Vault.propTypes = {
   vaultReservePrice: PropTypes.string,
   vaultSymbol: PropTypes.string,
-  vaultUserBalance: PropTypes.number,
+  userVTKBalance: PropTypes.number,
 };
 
 Vault.defaultProps = {
   vaultReservePrice: null,
   vaultSymbol: null,
-  vaultUserBalance: null,
+  userVTKBalance: null,
 };
 
 export default Vault;

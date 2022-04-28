@@ -7,6 +7,7 @@ import {
   Skeleton, Row, Col, Alert,
 } from 'antd/lib';
 import { get } from 'lodash';
+import { VAULT_ADDRESS } from 'common-util/AbiAndAddresses';
 import Fund from './helpers/Fund';
 import Service from './helpers/Service';
 import Vault from './helpers/Vault';
@@ -16,7 +17,8 @@ import {
   getVaultStatus,
   getVaultReservePrice,
   getVaultSymbol,
-  getUserBalance,
+  getVaultTotalSupply,
+  getBalanceOf,
 } from './utils';
 import { BasketContainer } from './styles';
 
@@ -58,7 +60,9 @@ const Basket = ({ account }) => {
   const [isVaultClosed, setVaultStatus] = useState(null);
   const [vaultReservePrice, setVaultReservePrice] = useState(null);
   const [vaultSymbol, setVaultSymbol] = useState(null);
-  const [vaultUserBalance, setVaultUserBalance] = useState(null);
+  const [vaultBalanceOf, setVaultBalanceOf] = useState(null);
+  const [vaultTotalSupply, setVaultTotalSupply] = useState(null);
+  const [userVTKBalance, setUserVTKBalance] = useState(null);
 
   const [list, setList] = useState([]);
 
@@ -77,8 +81,14 @@ const Basket = ({ account }) => {
         const symbol = await getVaultSymbol();
         setVaultSymbol(symbol);
 
-        const balance = await getUserBalance(account);
-        setVaultUserBalance(balance);
+        const balance = await getBalanceOf(account);
+        setUserVTKBalance(balance);
+
+        const vaultBalance = await getBalanceOf(VAULT_ADDRESS);
+        setVaultBalanceOf(vaultBalance);
+
+        const totalSupply = await getVaultTotalSupply(account);
+        setVaultTotalSupply(totalSupply);
 
         const data = await getBaskets(id);
         const transformedList = getCollectionList(data);
@@ -113,7 +123,9 @@ const Basket = ({ account }) => {
           <Fund
             isVaultClosed={isVaultClosed}
             vaultSymbol={vaultSymbol}
-            vaultUserBalance={vaultUserBalance}
+            vaultBalanceOf={vaultBalanceOf}
+            vaultTotalSupply={vaultTotalSupply}
+            userVTKBalance={userVTKBalance}
           />
           <Service isVaultClosed={isVaultClosed} />
         </Col>
@@ -122,7 +134,7 @@ const Basket = ({ account }) => {
           <Vault
             vaultReservePrice={vaultReservePrice}
             vaultSymbol={vaultSymbol}
-            vaultUserBalance={vaultUserBalance}
+            userVTKBalance={userVTKBalance}
           />
           <Gallery list={list} />
         </Col>
