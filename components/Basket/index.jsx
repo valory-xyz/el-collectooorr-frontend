@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable camelcase */
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
@@ -9,6 +8,7 @@ import {
 } from 'antd/lib';
 import { get } from 'lodash';
 import Service from './helpers/Service';
+import Vault from './helpers/Vault';
 import Gallery from './helpers/Gallery';
 import {
   getBaskets,
@@ -113,6 +113,11 @@ const Basket = ({ account }) => {
         </Col>
 
         <Col md={12} className="right-columm">
+          <Vault
+            vaultReservePrice={vaultReservePrice}
+            vaultSymbol={vaultSymbol}
+            vaultUserBalance={vaultUserBalance}
+          />
           <Gallery list={list} />
         </Col>
       </Row>

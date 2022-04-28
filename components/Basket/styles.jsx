@@ -93,33 +93,6 @@ export const SubHeader = styled.div`
   }
 `;
 
-export const FundingProgress = styled.div`
-  position: relative;
-  margin: 1rem 0;
-  .ant-progress {
-    .ant-progress-inner {
-      border: 1px solid ${COLOR.GREY_2};
-    }
-  }
-  .funding-process-info {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 0.5rem;
-    line-height: normal;
-    > div:nth-child(2) {
-      position: absolute;
-      top: 8px;
-      left: 50%;
-      transform: translate(-50%, 0);
-    }
-    > div:nth-child(3) {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-    }
-  }
-`;
-
 /* ------------- SERVICE ------------- */
 export const ServiceContainer = styled.div`
   margin-top: 1rem;
@@ -134,6 +107,50 @@ export const ServiceContainer = styled.div`
 
   ${MEDIA_QUERY.tablet} {
     margin-bottom: 1rem;
+  }
+`;
+
+/* ------------- VAULT ------------- */
+export const VaultContainer = styled.div`
+  padding: 1rem;
+  border-radius: 20px 20px 0 0;
+  border: 1px solid ${COLOR.BLUE};
+`;
+
+export const TotalYours = styled.div`
+  display: flex;
+  .vault-info {
+    &:nth-child(1) {
+      width: 35%;
+    }
+    &:nth-child(2) {
+      width: 40%;
+      a {
+        font-size: 14px;
+      }
+    }
+    .name {
+    }
+    .desc {
+      margin: 0.25rem 0;
+      font-size: 24px;
+      color: ${COLOR.GREEN_3};
+      text-transform: capitalize;
+    }
+  }
+`;
+
+export const VaultHeader = styled(SubHeader)`
+  position: relative;
+  flex-direction: column;
+  align-items: flex-start;
+  .managed-by {
+    position: absolute;
+    right: 14px;
+    top: -8px;
+    width: 100%;
+    text-align: right;
+    font-size: 14px;
   }
 `;
 
