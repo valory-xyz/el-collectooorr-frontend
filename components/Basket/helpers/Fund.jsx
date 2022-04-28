@@ -20,7 +20,7 @@ import {
 } from '../styles';
 
 const FEE = 0.05; // 5 percent
-const TOKEN_ETH_PRICE = 0.001; // 5 percent
+const TOKEN_ETH_PRICE = 0.001;
 
 const Fund = ({
   isVaultClosed,
@@ -33,13 +33,22 @@ const Fund = ({
   setErrorMessage,
 }) => {
   const [value, setvalue] = useState();
-  const isValidValue = value <= balance;
+  const isValidValue = value ? value <= balance : false;
 
   // -5% from the balance to account for fees.
   const progress = balanceOfSafeContract ? balanceOfSafeContract - FEE : 0;
+  const getYouFunded = () => (vaultUserBalance ? vaultUserBalance * TOKEN_ETH_PRICE : 0);
+  const getUserReceiveVtk = () => {
+    if (!value) return '--';
+    const totalVtk = value / TOKEN_ETH_PRICE;
+    const actualVtk = totalVtk - totalVtk * FEE; // user will receive => total - fee
+    return actualVtk.toLocaleString();
+  };
+  const getManagementFee = () => FEE * 100; // convert to percentage
 
-  const youFunded = vaultUserBalance ? vaultUserBalance * TOKEN_ETH_PRICE : 0;
-
+  /**
+   * handle add funds
+   */
   const handleAddFunds = async () => {
     await addFunds({ ether: value });
     // get balance once add funds is processed!
@@ -84,7 +93,7 @@ const Fund = ({
       <AddFunds>
         <div className="add-funds-header">
           <div>YOU FUNDED</div>
-          <h3>{`${youFunded} ETH`}</h3>
+          <h3>{`${getYouFunded()} ETH`}</h3>
         </div>
 
         <div className="add-funds-input">
@@ -110,11 +119,15 @@ const Fund = ({
 
         <div className="add-funds-info">
           <div>
-            You will receive -- &nbsp;
+            You will receive&nbsp;
+            {getUserReceiveVtk()}
+            &nbsp;
             {vaultSymbol}
           </div>
           <div>
-            <p>Management fee of -- ETH will be charged.</p>
+            <p>
+              {`Management fee of ${getManagementFee()}% ETH will be charged.`}
+            </p>
             <a
               href="http://google.com"
               target="_blank"

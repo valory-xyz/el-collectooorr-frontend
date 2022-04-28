@@ -218,6 +218,9 @@ export const TotalYours = styled.div`
         font-size: 14px;
       }
     }
+    &:nth-child(3) {
+      padding-left: 1rem;
+    }
     .name {
     }
     .desc {
@@ -225,6 +228,7 @@ export const TotalYours = styled.div`
       font-size: 24px;
       color: ${COLOR.GREEN_3};
       text-transform: capitalize;
+      word-break: break-word;
     }
   }
 `;

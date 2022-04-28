@@ -110,7 +110,11 @@ const Basket = ({ account }) => {
     <BasketContainer>
       <Row>
         <Col md={12}>
-          <Fund vaultSymbol={vaultSymbol} isVaultClosed={isVaultClosed} />
+          <Fund
+            isVaultClosed={isVaultClosed}
+            vaultSymbol={vaultSymbol}
+            vaultUserBalance={vaultUserBalance}
+          />
           <Service isVaultClosed={isVaultClosed} />
         </Col>
 

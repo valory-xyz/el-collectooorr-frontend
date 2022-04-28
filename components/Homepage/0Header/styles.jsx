@@ -29,16 +29,6 @@ export const HeaderContainer = styled.div`
   border-radius: 10px;
   border: 1px solid ${COLOR.GREY_1};
   background-color: ${COLOR.BLACK};
-  .nav-action-btns {
-    button {
-      width: auto;
-      height: auto;
-      border-radius: 0px 20px 20px 0px !important ;
-      &:first-child {
-        margin-right: 2rem;
-      }
-    }
-  }
   ${MEDIA_QUERY.tablet} {
     margin-bottom: 0;
     .column-1 {
