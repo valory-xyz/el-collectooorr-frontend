@@ -2,7 +2,8 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import Marquee from 'react-fast-marquee';
 import Link from 'next/link';
-import { VAULT_TOKEN_ID, URL } from 'util/constants';
+import { URL } from 'util/constants';
+// import { TOKEN_ID, URL } from 'util/constants';
 import { CustomButton } from 'common-util/Button';
 import useCheckMobileScreen from 'common-util/hooks/useCheckMobileScreen';
 import Login from '../../Login';
@@ -82,11 +83,15 @@ export const HeaderSection = () => {
       ) : (
         <div className="column-2">
           <CustomButton
-            variant="red"
+            // variant="red"
             style={getBtnStyle(isMobile)}
-            onClick={() => router.push(`/vaults/${VAULT_TOKEN_ID}`)}
+            // onClick={() => router.push(`/vaults/${TOKEN_ID}`)}
+            type="primary"
+            variant="disabled"
+            disabled
           >
-            START COLLECTING
+            {/* START COLLECTING */}
+            COMING SOON
           </CustomButton>
         </div>
       )}
@@ -106,11 +111,9 @@ export const SubHeaderSection = () => (
       <Marquee pauseOnHover gradient={false}>
         THE WORLD&apos;S FIRST AUTONOMOUS NFT COLLECTOR DAO
         <Dash />
-        THE WORLD&apos;S FIRST AUTONOMOUS NFT
-        <Dash />
         THE WORLD&apos;S FIRST AUTONOMOUS NFT COLLECTOR DAO
         <Dash />
-        THE WORLD&apos;S FIRST AUTONOMOUS NFT
+        THE WORLD&apos;S FIRST AUTONOMOUS NFT COLLECTOR DAO
         <Dash />
       </Marquee>
     </SubHeaderContainer>

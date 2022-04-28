@@ -6,7 +6,7 @@ const TOTAL = 10000;
 const URL = 'https://fractional.art/vaults/harambe-g7xnzq';
 
 const Vault = ({ vaultReservePrice, vaultSymbol, vaultUserBalance }) => {
-  const symbol = vaultSymbol || '--';
+  const symbol = vaultSymbol || 'TKN';
   const percentage = vaultUserBalance ? vaultUserBalance / TOTAL : 0;
 
   return (
@@ -47,7 +47,7 @@ const Vault = ({ vaultReservePrice, vaultSymbol, vaultUserBalance }) => {
         <div className="vault-info yours">
           <div className="name">YOURS</div>
           <div className="desc">{`${vaultUserBalance} ${symbol}`}</div>
-          <div>{`${percentage} % pool share`}</div>
+          <div>{`${percentage}% pool share`}</div>
         </div>
       </TotalYours>
     </VaultContainer>
