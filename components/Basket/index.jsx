@@ -52,7 +52,7 @@ const getCollectionList = (array) => {
 /**
  * Basket component
  */
-const Basket = ({ account }) => {
+const Basket = ({ account, balance }) => {
   const router = useRouter();
   const id = get(router, 'query.id') || null;
 
@@ -66,9 +66,13 @@ const Basket = ({ account }) => {
 
   const [list, setList] = useState([]);
 
+  // loader only one first render
+  useEffect(() => {
+    setIsLoading(true);
+  }, []);
+
   useEffect(async () => {
     if (account) {
-      setIsLoading(true);
       setList([]);
 
       try {
@@ -81,8 +85,8 @@ const Basket = ({ account }) => {
         const symbol = await getVaultSymbol();
         setVaultSymbol(symbol);
 
-        const balance = await getBalanceOf(account);
-        setUserVTKBalance(balance);
+        const vtkBalance = await getBalanceOf(account);
+        setUserVTKBalance(vtkBalance);
 
         const vaultBalance = await getBalanceOf(VAULT_ADDRESS);
         setVaultBalanceOf(vaultBalance);
@@ -99,7 +103,11 @@ const Basket = ({ account }) => {
         setIsLoading(false);
       }
     }
-  }, [account]);
+    /**
+     * update API call when account is changed or
+     * balance is updated
+     */
+  }, [account, balance]);
 
   if (!account) {
     return (
@@ -145,15 +153,17 @@ const Basket = ({ account }) => {
 
 Basket.propTypes = {
   account: PropTypes.string,
+  balance: PropTypes.number,
 };
 
 Basket.defaultProps = {
   account: null,
+  balance: null,
 };
 
 const mapStateToProps = (state) => {
-  const { account } = state.setup;
-  return { account };
+  const { account, balance } = state.setup;
+  return { account, balance };
 };
 
 export default connect(mapStateToProps, {})(Basket);

@@ -15,6 +15,9 @@ export const COLOR = {
   GREEN_1: '#2AFD8A',
   GREEN_2: '#42FF00',
   GREEN_3: '#00FFD1',
+
+  // antd
+  ANTD_ORANGE: '#FAAD14',
 };
 
 export const FONT_SIZE = {

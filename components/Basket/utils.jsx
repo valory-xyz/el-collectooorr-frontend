@@ -185,8 +185,19 @@ export const addFunds = async ({ ether }) => {
       to: SEND_ETH_TO,
       value: ethers.utils.parseEther(ether),
     });
+
+    /**
+     * toast will be shown if the transaction is in pending state
+     */
+    notification.warning({
+      message: 'Transaction Pending',
+      style: { border: `1px solid ${COLOR.ANTD_ORANGE}` },
+    });
+
+    // await till the transaction is completed
+    await tx.wait();
     notification.success({
-      message: 'Success',
+      message: 'Transaction Success',
       description: tx.hash,
       style: { border: `1px solid ${COLOR.PRIMARY}` },
     });

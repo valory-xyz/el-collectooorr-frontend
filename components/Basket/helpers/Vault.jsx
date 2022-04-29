@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { VAULT_ADDRESS } from 'common-util/AbiAndAddresses';
 import { VaultContainer, TotalYours, VaultHeader } from '../styles';
 
 const TOTAL = 10000;
-const URL = 'https://fractional.art/vaults/harambe-g7xnzq';
+const URL = `https://fractional.art/vaults/${VAULT_ADDRESS}`;
 
 const Vault = ({ vaultReservePrice, vaultSymbol, userVTKBalance }) => {
   const symbol = vaultSymbol || 'TKN';
