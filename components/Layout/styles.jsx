@@ -36,6 +36,9 @@ export const CustomLayout = styled(Layout)`
       text-decoration: underline;
     }
   }
+  .ant-result-title {
+    color: ${COLOR.WHITE};
+  }
 
   ${MEDIA_QUERY.tablet} {
     .ant-layout-header {

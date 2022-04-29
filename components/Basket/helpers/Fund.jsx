@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Link from 'next/link';
 import { Progress, Input } from 'antd/lib';
 import get from 'lodash/get';
 import { COLOR } from 'util/theme';
@@ -24,7 +25,6 @@ const TOKEN_ETH_PRICE = 0.001;
 const TOTAL_ETH = 10;
 
 const Fund = ({
-  isVaultClosed,
   vaultSymbol,
   userVTKBalance,
   vaultTotalSupply,
@@ -75,7 +75,7 @@ const Fund = ({
         </div>
 
         <div className="vault-status">
-          {isVaultClosed ? 'No longer accepting funds' : 'OPEN'}
+          {vaultBalanceOf === 0 ? 'No longer accepting funds' : 'OPEN'}
         </div>
       </SubHeader>
 
@@ -134,13 +134,12 @@ const Fund = ({
             <p>
               {`Management fee of ${getManagementFee()}% ETH will be charged.`}
             </p>
-            <a
-              href="http://google.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn more
-            </a>
+            <Link href="/coming-soon">
+              <a href="/coming-soon">
+                Learn more
+              </a>
+            </Link>
+
           </div>
           <div className="warning">
             <Warning />
@@ -156,7 +155,6 @@ const Fund = ({
 };
 
 Fund.propTypes = {
-  isVaultClosed: PropTypes.bool,
   vaultSymbol: PropTypes.string,
   userVTKBalance: PropTypes.number,
   vaultBalanceOf: PropTypes.number,
@@ -168,7 +166,6 @@ Fund.propTypes = {
 };
 
 Fund.defaultProps = {
-  isVaultClosed: false,
   vaultSymbol: null,
   userVTKBalance: null,
   vaultBalanceOf: 0,
