@@ -1,5 +1,6 @@
 import React from 'react';
 import useCheckMobileScreen from 'common-util/hooks/useCheckMobileScreen';
+import Twitter from 'common-util/SVGs/twitter';
 import { Container, SubFooter } from './styles';
 
 const Footer = () => {
@@ -60,6 +61,7 @@ const Footer = () => {
           className="autonolas-twitter"
         >
           AUTONOLAS
+          <Twitter />
         </a>
 
         <div className="sub-footer-text">

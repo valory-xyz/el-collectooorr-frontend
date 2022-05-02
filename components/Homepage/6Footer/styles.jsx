@@ -57,7 +57,9 @@ export const SubFooter = styled.div`
   border-radius: 0px 0px 20px 20px;
   border-top-color: transparent;
   .autonolas-twitter {
+    display: flex;
     min-width: 240px;
+    margin-left: 0.5rem;
   }
 
   .sub-footer-text {
