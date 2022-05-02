@@ -2,7 +2,8 @@ import styled from 'styled-components';
 import { COLOR, MEDIA_QUERY } from 'util/theme';
 
 export const Container = styled.div`
-  margin-top: 4rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
   font-size: 20px;
   font-family: "spacegrotesk__regular";
   .footer-logo-container {

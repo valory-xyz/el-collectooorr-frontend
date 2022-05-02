@@ -147,8 +147,8 @@ export const BodyRowTwo = styled.div`
         border-top: none;
         border-right: none;
         span {
-            font-family: "minecraft";
-            font-size: 24px;
+          font-family: "minecraft";
+          font-size: 24px;
         }
         .desc {
           margin-left: 0;
