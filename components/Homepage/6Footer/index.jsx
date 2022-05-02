@@ -59,7 +59,7 @@ const Footer = () => {
           rel="noopener noreferrer"
           className="autonolas-twitter"
         >
-          AUTONOLAS TWITTER
+          AUTONOLAS
         </a>
 
         <div className="sub-footer-text">
@@ -75,7 +75,16 @@ const Footer = () => {
             </a>
             &nbsp;OR&nbsp;
           </span>
-          <span>APPLY FOR THE AGENT DEVELOPER ACADEMY</span>
+          <span>
+            APPLY FOR THE AGENT DEVELOPER&nbsp;
+            <a
+              href="https://autonolas.medium.com/agent-dev-academy-everything-you-need-to-know-cc54b64d5a08"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              ACADEMY
+            </a>
+          </span>
         </div>
       </SubFooter>
     </Container>
