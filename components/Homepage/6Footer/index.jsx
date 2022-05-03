@@ -35,7 +35,7 @@ const Footer = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              AUTONOLAS AGENT DEV ACADEMY COHORT 1
+              AUTONOLAS ACADEMY COHORT 1
             </a>
           </div>
           <div className="sub-text">
@@ -60,7 +60,7 @@ const Footer = () => {
           rel="noopener noreferrer"
           className="autonolas-twitter"
         >
-          AUTONOLAS
+          SUPPORTED BY AUTONOLAS
           <Twitter />
         </a>
 
@@ -78,7 +78,7 @@ const Footer = () => {
             &nbsp;OR&nbsp;
           </span>
           <span>
-            APPLY FOR THE AGENT DEVELOPER&nbsp;
+            APPLY FOR THE&nbsp;
             <a
               href="https://autonolas.medium.com/agent-dev-academy-everything-you-need-to-know-cc54b64d5a08"
               target="_blank"
