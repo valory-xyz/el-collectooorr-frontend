@@ -20,9 +20,9 @@ import {
   AddFunds,
 } from '../styles';
 
-const FEE = 0.05; // 5 percent
-const TOKEN_ETH_PRICE = 0.001;
-const TOTAL_ETH = 10;
+const MANAGEMENT_FEE = 0.05; // 5 percent
+const VTK_ETH_PRICE = 0.001;
+const FUND_CAP_IN_ETH = 10;
 
 const Fund = ({
   vaultSymbol,
@@ -40,17 +40,17 @@ const Fund = ({
   // -5% from the balance to account for fees.
   const getProgress = () => {
     const purchasedTokens = vaultTotalSupply - vaultBalanceOf;
-    const progress = (purchasedTokens * TOKEN_ETH_PRICE);
+    const progress = (purchasedTokens * VTK_ETH_PRICE);
     return progress || 0;
   };
-  const getYouFunded = () => (userVTKBalance ? userVTKBalance * TOKEN_ETH_PRICE : 0);
+  const getYouFunded = () => (userVTKBalance ? userVTKBalance * VTK_ETH_PRICE : 0);
   const getUserReceiveVtk = () => {
     if (!value) return '--';
-    const totalVtk = value / TOKEN_ETH_PRICE;
-    const actualVtk = totalVtk - totalVtk * FEE; // user will receive => total - fee
+    const totalVtk = value / VTK_ETH_PRICE;
+    const actualVtk = totalVtk - totalVtk * MANAGEMENT_FEE; // user will receive => total - fee
     return actualVtk.toLocaleString();
   };
-  const getManagementFee = () => FEE * 100; // convert to percentage
+  const getManagementFee = () => MANAGEMENT_FEE * 100; // convert to percentage
 
   /**
    * handle add funds
@@ -81,7 +81,7 @@ const Fund = ({
 
       <FundingProgress>
         <Progress
-          percent={getProgress() * TOTAL_ETH}
+          percent={getProgress() * FUND_CAP_IN_ETH}
           strokeColor={COLOR.GREEN_2}
           strokeWidth={30}
           showInfo={false}
@@ -90,7 +90,7 @@ const Fund = ({
           <div>0 ETH</div>
           <div>{`${getProgress()} ETH`}</div>
           <div>
-            <span>{`${TOTAL_ETH} ETH`}</span>
+            <span>{`${FUND_CAP_IN_ETH} ETH`}</span>
             <span>(full)</span>
           </div>
         </div>
