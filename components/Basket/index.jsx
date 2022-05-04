@@ -158,7 +158,7 @@ const Basket = ({ account, balance }) => {
 
 Basket.propTypes = {
   account: PropTypes.string,
-  balance: PropTypes.number,
+  balance: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 Basket.defaultProps = {

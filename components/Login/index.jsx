@@ -100,7 +100,7 @@ const Login = ({
 
 Login.propTypes = {
   account: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-  balance: PropTypes.number,
+  balance: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   errorMessage: PropTypes.string,
   setUserAccount: PropTypes.func.isRequired,
   setUserBalance: PropTypes.func.isRequired,

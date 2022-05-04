@@ -173,7 +173,7 @@ Fund.propTypes = {
   vaultTotalSupply: PropTypes.number,
   account: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   setUserBalance: PropTypes.func.isRequired,
-  balance: PropTypes.number,
+  balance: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   setErrorMessage: PropTypes.func.isRequired,
 };
 
