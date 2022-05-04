@@ -172,9 +172,9 @@ Fund.propTypes = {
   vaultBalanceOf: PropTypes.number,
   vaultTotalSupply: PropTypes.number,
   account: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-  setUserBalance: PropTypes.func.isRequired,
   balance: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  setErrorMessage: PropTypes.func.isRequired,
+  setUserBalance: PropTypes.func,
+  setErrorMessage: PropTypes.func,
 };
 
 Fund.defaultProps = {
@@ -184,6 +184,8 @@ Fund.defaultProps = {
   vaultTotalSupply: 0,
   balance: null,
   account: null,
+  setUserBalance: () => {},
+  setErrorMessage: () => {},
 };
 
 const mapStateToProps = (state) => {
