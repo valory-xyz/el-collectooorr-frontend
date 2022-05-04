@@ -23,11 +23,9 @@ const getImage = (type, {
 };
 
 const getNftInfo = (url, info) => {
-  if (!info) return null;
-
   const {
     artist, bought, date, txn,
-  } = info;
+  } = info || {};
 
   return (
     <div className="nft-info">
@@ -44,7 +42,7 @@ const getNftInfo = (url, info) => {
       </a>
 
       <div>
-        {`Bought: ${bought}ETH`}
+        {bought && <>{`Bought: ${bought}ETH`}</>}
         {date && (
           <>
             &nbsp;&bull;&nbsp;
