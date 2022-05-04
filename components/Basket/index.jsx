@@ -19,6 +19,7 @@ import {
   getVaultSymbol,
   getVaultTotalSupply,
   getBalanceOf,
+  getNftsInfo,
 } from './utils';
 import { BasketContainer } from './styles';
 
@@ -65,6 +66,7 @@ const Basket = ({ account, balance }) => {
   const [userVTKBalance, setUserVTKBalance] = useState(null);
 
   const [list, setList] = useState([]);
+  const [nftMetadata, setNftMetadata] = useState([]);
 
   // loader only one first render
   useEffect(() => {
@@ -97,6 +99,9 @@ const Basket = ({ account, balance }) => {
         const data = await getBaskets(id);
         const transformedList = getCollectionList(data);
         setList(transformedList);
+
+        const medataList = await getNftsInfo(data.length);
+        setNftMetadata(medataList);
       } catch (e) {
         console.error(e);
       } finally {
@@ -144,7 +149,7 @@ const Basket = ({ account, balance }) => {
             vaultSymbol={vaultSymbol}
             userVTKBalance={userVTKBalance}
           />
-          <Gallery list={list} />
+          <Gallery list={list} nftMetadata={nftMetadata} />
         </Col>
       </Row>
     </BasketContainer>

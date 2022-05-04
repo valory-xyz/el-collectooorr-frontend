@@ -5,7 +5,12 @@ import { notification } from 'antd/lib';
 import { sortBy, map, toInteger } from 'lodash';
 import { METAMASK_ERROR_MSG, SEND_ETH_TO } from 'util/constants';
 import { COLOR } from 'util/theme';
-import { getBasketContract, getVaultContract } from 'common-util/Contracts';
+import {
+  getArtblockContract,
+  getBasketContract,
+  getVaultContract,
+} from 'common-util/Contracts';
+import { ARTBLOCK_ADDRESS } from 'common-util/AbiAndAddresses/artblockContract';
 
 export const sortByKeys = (object) => {
   const keys = Object.keys(object);
@@ -92,6 +97,52 @@ export const getBaskets = async (basketToken) => {
       reject(error);
     }
   });
+};
+
+export const getNftsInfo = async (totalNft) => {
+  const web3 = new Web3(window.web3.currentProvider);
+  const contract = getBasketContract(ARTBLOCK_ADDRESS);
+
+  const blockNum = await web3.eth.getBlockNumber();
+  const list = await contract.getPastEvents('Mint', {
+    fromBlock: blockNum - 10000,
+  });
+
+  const getMetadata = () => new Promise((resolve, reject) => {
+    const artblockContract = getArtblockContract();
+    try {
+      const promises = [];
+      for (let i = 0; i < totalNft; i += 1) {
+        const { _projectId: pid } = list[i].returnValues;
+        const result = artblockContract.methods.projectDetails(pid).call();
+        promises.push(result);
+      }
+
+      Promise.all(promises).then(async (array) => {
+        const results = await Promise.all(
+          array.map(async (info, i) => {
+            const { value } = await web3.eth.getTransaction(
+              list[i].transactionHash,
+            ); // wei
+            const valueInEther = Web3.utils.fromWei(value, 'ether');
+
+            return {
+              artist: info.artist,
+              bought: valueInEther,
+              date: null,
+              txn: list[i].transactionHash,
+            };
+          }),
+        );
+        resolve(results);
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+
+  const data = await getMetadata();
+  return data;
 };
 
 // -------------- VAULT --------------
