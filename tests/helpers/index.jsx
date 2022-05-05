@@ -5,8 +5,11 @@ const mockStore = configureMockStore();
 export const dummyAddress = '0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199';
 export const emptyStore = mockStore({});
 
-export const initStore = mockStore({
-  setup: { account: dummyAddress },
+export const initStore = (otherValues) => mockStore({
+  setup: {
+    account: dummyAddress,
+    ...otherValues,
+  },
 });
 
 /**
@@ -15,8 +18,10 @@ export const initStore = mockStore({
  * @param {Boolean} isEmptyStore should the store need to be empty?
  * @returns
  */
-export const wrapProvider = (component, isEmptyStore = false) => (
-  <Provider store={isEmptyStore ? emptyStore : initStore}>{component}</Provider>
+export const wrapProvider = (component, otherValues) => (
+  <Provider store={otherValues ? initStore(otherValues) : emptyStore}>
+    {component}
+  </Provider>
 );
 
 export const errorStore = mockStore({

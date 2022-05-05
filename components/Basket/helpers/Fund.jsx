@@ -101,9 +101,9 @@ const Fund = ({
           showInfo={false}
         />
         <div className="funding-process-info">
-          <div>0 ETH</div>
-          <div>{`${getProgress()} ETH`}</div>
-          <div>
+          <div className="progress-start">0 ETH</div>
+          <div className="progress-center">{`${getProgress()} ETH`}</div>
+          <div className="progress-end">
             <span>{`${TOTAL_ETH} ETH`}</span>
             <span>(full)</span>
           </div>
@@ -116,17 +116,19 @@ const Fund = ({
           <h3>{`${getYouFunded()} ETH`}</h3>
         </div>
 
-        <div className="add-funds-input">
+        <div className="add-funds-form">
           <Input
             value={value}
             placeholder="0"
             pattern="^-?[0-9]\d*\.?\d*$"
             onChange={onInputChange}
+            data-testid="add-funds-input"
           />
           <CustomButton
             variant={isBtnDisabled() ? 'disabled' : 'green'}
             disabled={isBtnDisabled()}
             onClick={handleAddFunds}
+            data-testid="add-funds-button"
           >
             <img
               src="/images/Vault/button-deposit.png"
@@ -139,13 +141,13 @@ const Fund = ({
         </div>
 
         <div className="add-funds-info">
-          <div>
-            You will receive&nbsp;
-            {getUserReceiveVtk()}
-            &nbsp;
+          <div className="you-will-receive">
+            You will receive
+            {` ${getUserReceiveVtk()} `}
             {vaultSymbol}
           </div>
-          <div>
+
+          <div className="management-fees">
             <p>
               {`Management fee of ${getManagementFee()}% ETH will be charged.`}
             </p>
@@ -153,12 +155,12 @@ const Fund = ({
               <a href="/coming-soon">Learn more</a>
             </Link>
           </div>
+
           <div className="warning">
             <Warning />
-            &nbsp;Added ETH cannot be retrieved, but a secondary market for
-            &nbsp;
-            {vaultSymbol}
-            &nbsp; may emerge.
+            Added ETH cannot be retrieved, but a secondary market for
+            {` ${vaultSymbol} `}
+            may emerge.
           </div>
         </div>
       </AddFunds>
