@@ -1,8 +1,6 @@
-/* eslint-disable camelcase */
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { useRouter } from 'next/router';
 import {
   Skeleton, Row, Col, Alert,
 } from 'antd/lib';
@@ -54,9 +52,6 @@ const getCollectionList = (array) => {
  * Basket component
  */
 const Basket = ({ account, balance }) => {
-  const router = useRouter();
-  const id = get(router, 'query.id') || null;
-
   const [isLoading, setIsLoading] = useState(false);
   const [isVaultClosed, setVaultStatus] = useState(null);
   const [vaultReservePrice, setVaultReservePrice] = useState(null);
@@ -96,7 +91,7 @@ const Basket = ({ account, balance }) => {
         const totalSupply = await getVaultTotalSupply(account);
         setVaultTotalSupply(totalSupply);
 
-        const data = await getBaskets(id);
+        const data = await getBaskets();
         const transformedList = getCollectionList(data);
         setList(transformedList);
 

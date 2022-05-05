@@ -5,12 +5,12 @@ import { notification } from 'antd/lib';
 import { sortBy, map, toInteger } from 'lodash';
 import { METAMASK_ERROR_MSG, SEND_ETH_TO } from 'util/constants';
 import { COLOR } from 'util/theme';
+import { ARTBLOCK_ADDRESS, BASKET_ADDRESS } from 'common-util/AbiAndAddresses/artblockContract';
 import {
   getArtblockContract,
   getBasketContract,
   getVaultContract,
 } from 'common-util/Contracts';
-import { ARTBLOCK_ADDRESS } from 'common-util/AbiAndAddresses/artblockContract';
 
 export const sortByKeys = (object) => {
   const keys = Object.keys(object);
@@ -69,8 +69,8 @@ const getFilteredNfts = async (basketToken) => {
   return nfts;
 };
 
-export const getBaskets = async (basketToken) => {
-  const filteredNfts = await getFilteredNfts(basketToken);
+export const getBaskets = async () => {
+  const filteredNfts = await getFilteredNfts(BASKET_ADDRESS);
 
   return new Promise((resolve, reject) => {
     try {
