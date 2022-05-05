@@ -51,8 +51,8 @@ describe('<Fund />', () => {
     expect(addFundsInput).toBeEnabled();
 
     /* you receive & management fee */
-    const youWillReceived = container.querySelector('.you-will-receive').textContent;
-    expect(youWillReceived).toBe('You will receive -- VLT1');
+    const youWillReceive = container.querySelector('.you-will-receive').textContent;
+    expect(youWillReceive).toBe('You will receive -- VLT1');
 
     const managementFeeText = container.querySelector('.management-fees').textContent;
     expect(managementFeeText).toBe(
@@ -66,7 +66,7 @@ describe('<Fund />', () => {
     );
   });
 
-  it('disables/enables button on correct when valid funds are added', async () => {
+  it('disables/enables button correctly when valid funds are added', async () => {
     expect.hasAssertions();
 
     const props = {
@@ -101,7 +101,7 @@ describe('<Fund />', () => {
     await waitFor(async () => expect(addFundsBtn).not.toBeEnabled());
     userEvent.clear(addFundsInput);
 
-    // valid inputs
+    // valid input & button should be enabled
     userEvent.type(addFundsInput, '2');
     await waitFor(async () => expect(addFundsBtn).toBeEnabled());
   });
@@ -121,8 +121,8 @@ describe('<Fund />', () => {
     );
 
     const addFundsInput = getByTestId('add-funds-input');
-    const youWillReceived = container.querySelector('.you-will-receive').textContent;
-    expect(youWillReceived).toBe('You will receive -- VLT1');
+    const youWillReceive = container.querySelector('.you-will-receive').textContent;
+    expect(youWillReceive).toBe('You will receive -- VLT1');
 
     await waitFor(() => {
       userEvent.type(addFundsInput, '1');
@@ -155,9 +155,7 @@ describe('<Fund /> => Add funds functionality', () => {
     };
 
     const { container, getByTestId, rerender } = render(
-      wrapProvider(<Fund {...props} />, {
-        balance: 2,
-      }),
+      wrapProvider(<Fund {...props} />, { balance: 2 }),
     );
 
     const addFundsInput = getByTestId('add-funds-input');
@@ -180,7 +178,7 @@ describe('<Fund /> => Add funds functionality', () => {
     // Assuming funds added successfully & re-render with new values
     const propsAfterAddFunds = {
       userVTKBalance: 10,
-      vaultBalanceOf: 1000,
+      vaultBalanceOf: 1000, // reduced from 2000 to 1000
       vaultSymbol: 'VLT1',
       vaultTotalSupply: 10000,
     };
@@ -228,7 +226,7 @@ describe('<Fund /> => Add funds functionality', () => {
     await waitFor(async () => {
       jest.advanceTimersByTime(1000);
 
-      // toast should be present in the document
+      // error toast should be present in the document
       const toastDescription = document.querySelector(
         '.ant-notification .ant-notification-notice-description',
       );
