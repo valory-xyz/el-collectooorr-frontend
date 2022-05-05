@@ -1,14 +1,11 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { getBalance } from 'common-util/functions';
 import Fund from 'components/Basket/helpers/Fund';
 import { addFunds } from 'components/Basket/utils';
 import { wrapProvider } from '../../../helpers';
 
-
-// eslint-disable-next-line jest/no-disabled-tests
-describe.skip('<Fund />', () => {
+describe('<Fund />', () => {
   it('accepts fund and everything renders as expected', async () => {
     expect.hasAssertions();
 
@@ -142,24 +139,14 @@ describe.skip('<Fund />', () => {
   });
 });
 
-
-jest.mock('components/Basket/utils', () => ({
-  addFunds: jest.fn(),
-}));
-
-jest.mock('common-util/functions', () => ({
-  getBalance: jest.fn(),
-}));
-
-const setUserBalance = jest.fn(() => {});
+// mock functions
+jest.mock('components/Basket/utils', () => ({ addFunds: jest.fn() }));
 
 describe('<Fund /> => Add funds functionality', () => {
-  addFunds.mockImplementation(() => Promise.resolve());
-  getBalance.mockImplementation(() => Promise.resolve(10));
-
   it('add funds function works as expected', async () => {
     expect.hasAssertions();
 
+    addFunds.mockImplementation(() => Promise.resolve());
     const props = {
       userVTKBalance: 10,
       vaultBalanceOf: 2000,
@@ -167,8 +154,10 @@ describe('<Fund /> => Add funds functionality', () => {
       vaultTotalSupply: 10000,
     };
 
-    const { getByTestId } = render(
-      wrapProvider(<Fund {...props} setUserBalance={setUserBalance} />, { balance: 2 }),
+    const { container, getByTestId, rerender } = render(
+      wrapProvider(<Fund {...props} />, {
+        balance: 2,
+      }),
     );
 
     const addFundsInput = getByTestId('add-funds-input');
@@ -186,19 +175,67 @@ describe('<Fund /> => Add funds functionality', () => {
 
       // function to be called only once
       expect(addFunds).toHaveBeenCalledTimes(1);
-
-      // balance method to be called only once as well
-      // expect(getBalance).toHaveBeenCalledTimes(1);
-      expect(setUserBalance.mock.calls).toHaveLength(1);
     });
 
-    /**
-     * 1. input 2 ETH
-     * 2. click on the button
-     * 3. mock `addFunds` function
-     * 4. re-render the component with props which will be after `addFunds`
-     * 5. check the progress bar
-     * 4. check the middle part of the progress
-     */
+    // Assuming funds added successfully & re-render with new values
+    const propsAfterAddFunds = {
+      userVTKBalance: 10,
+      vaultBalanceOf: 1000,
+      vaultSymbol: 'VLT1',
+      vaultTotalSupply: 10000,
+    };
+    rerender(wrapProvider(<Fund {...propsAfterAddFunds} />, { balance: 1 }));
+
+    /* check if progress-bar is increased */
+    const progressContainer = container.querySelector('.ant-progress');
+    const progressWidth = progressContainer.querySelector(
+      '.ant-progress-inner > .ant-progress-bg',
+    );
+    expect(progressWidth).toHaveStyle('width: 90%');
+
+    const progress = container.querySelector('.progress-center').textContent;
+    expect(progress).toBe('9 ETH');
+  });
+
+  it('add funds function throws error and handled gracefully', async () => {
+    expect.hasAssertions();
+    jest.useFakeTimers();
+
+    addFunds.mockImplementation(() => Promise.reject(new Error('Random Error')));
+    const props = {
+      userVTKBalance: 10,
+      vaultBalanceOf: 2000,
+      vaultSymbol: 'VLT1',
+      vaultTotalSupply: 10000,
+    };
+
+    const { getByTestId } = render(
+      wrapProvider(<Fund {...props} />, { balance: 2 }),
+    );
+
+    const addFundsInput = getByTestId('add-funds-input');
+    const addFundsBtn = getByTestId('add-funds-button');
+
+    // button will be disabled when there are no inputs
+    expect(addFundsBtn).not.toBeEnabled();
+
+    userEvent.type(addFundsInput, '1');
+    await waitFor(async () => {
+      expect(addFundsBtn).toBeEnabled();
+      userEvent.click(addFundsBtn); // click the "Add Funds" button
+    });
+
+    await waitFor(async () => {
+      jest.advanceTimersByTime(1000);
+
+      // toast should be present in the document
+      const toastDescription = document.querySelector(
+        '.ant-notification .ant-notification-notice-description',
+      );
+      expect(toastDescription).toBeInTheDocument();
+      expect(toastDescription.textContent).toBe(
+        'Some error occured while adding funds',
+      );
+    });
   });
 });

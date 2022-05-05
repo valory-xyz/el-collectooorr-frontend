@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
-import { Progress, Input } from 'antd/lib';
+import { Progress, Input, notification } from 'antd/lib';
 import get from 'lodash/get';
 import { COLOR } from 'util/theme';
 import { getBalance } from 'common-util/functions';
@@ -55,9 +55,18 @@ const Fund = ({
    * handle add funds
    */
   const handleAddFunds = async () => {
-    await addFunds({ ether: value });
-    // get balance once add funds is processed!
     try {
+      await addFunds({ ether: value });
+    } catch (error) {
+      notification.error({
+        message: 'Error',
+        description: 'Some error occured while adding funds',
+        style: { border: `1px solid ${COLOR.RED}` },
+      });
+    }
+
+    try {
+      // get balance once add funds is processed!
       const result = await getBalance(account);
       setUserBalance(result);
     } catch (error) {
@@ -74,6 +83,7 @@ const Fund = ({
   };
 
   const isBtnDisabled = () => {
+    if (Number(value) === 0) return true;
     const hasBalance = value ? value <= balance : false;
     // const vaultBalance = (vaultBalanceOf * TOKEN_ETH_PRICE); // TODO
     // return !hasBalance && (value > vaultBalance);
