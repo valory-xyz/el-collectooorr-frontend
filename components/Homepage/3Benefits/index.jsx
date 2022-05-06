@@ -27,7 +27,7 @@ const data = [
   {
     id: 'benefits-4',
     name: 'SMART BUY',
-    desc: 'El Collectooorr knows its stuff. The algorithm allows buying into the best collections at the best auction prices',
+    desc: 'El Collectooorr knows its stuff. The algorithm buys into the best collections at the best auction prices',
     className: 'benefit-4',
     imageUrl: '/images/3Benefits/benefits-icon-4.png',
   },

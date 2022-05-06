@@ -34,7 +34,7 @@ const Fund = ({
   setUserBalance,
   setErrorMessage,
 }) => {
-  const [value, setvalue] = useState();
+  const [value, setValue] = useState();
 
   // -5% from the balance to account for fees.
   const getProgress = () => {
@@ -66,7 +66,7 @@ const Fund = ({
   };
 
   const onInputChange = (e) => {
-    setvalue((current) => {
+    setValue((current) => {
       const temp = e.target.validity.valid ? e.target.value : current;
       const finalValue = temp > vaultBalanceOf * TOKEN_ETH_PRICE ? current : temp;
       return finalValue;
