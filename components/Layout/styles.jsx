@@ -9,7 +9,7 @@ export const CustomLayout = styled(Layout)`
   } !important`};
   background-size: 100%;
   .ant-layout-header {
-    z-index: 99999;
+    z-index: 1000;
     position: fixed;
     height: 82px;
     width: 100%;
@@ -35,6 +35,9 @@ export const CustomLayout = styled(Layout)`
     &:hover {
       text-decoration: underline;
     }
+  }
+  .ant-result-title {
+    color: ${COLOR.WHITE};
   }
 
   ${MEDIA_QUERY.tablet} {

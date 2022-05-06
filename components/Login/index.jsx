@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Web3 from 'web3';
+import round from 'lodash/round';
 import get from 'lodash/get';
 import isNil from 'lodash/isNil';
-import round from 'lodash/round';
-import { CONSTANTS } from 'util/constants';
+import { CONSTANTS, METAMASK_ERROR_MSG } from 'util/constants';
+import { getBalance } from 'common-util/functions';
 import { CustomButton } from 'common-util/Button';
 import {
   setUserAccount as setUserAccountFn,
@@ -21,19 +21,13 @@ const Login = ({
   setUserBalance,
   setErrorMessage,
 }) => {
-  const getBalance = (accoundPassed) => {
-    window.ethereum
-      .request({
-        method: CONSTANTS.ETH_GETBALANCE,
-        params: [accoundPassed, 'latest'],
-      })
-      .then((b) => {
-        const balanceInEther = Web3.utils.fromWei(b, 'ether');
-        setUserBalance(round(balanceInEther, 2));
-      })
-      .catch((e) => {
-        setErrorMessage(e.message);
-      });
+  const setBalance = async (accountPassed) => {
+    try {
+      const result = await getBalance(accountPassed);
+      setUserBalance(result);
+    } catch (error) {
+      setErrorMessage(error);
+    }
   };
 
   const handleLogin = () => {
@@ -43,13 +37,13 @@ const Login = ({
         .then((result) => {
           // setting only the 1st account
           setUserAccount(result[0]);
-          getBalance(result[0]);
+          setBalance(result[0]);
         })
         .catch((e) => {
           setErrorMessage(e.message);
         });
     } else {
-      setErrorMessage('Please install MetaMask browser extension');
+      setErrorMessage(METAMASK_ERROR_MSG);
     }
   };
 
@@ -58,7 +52,7 @@ const Login = ({
    */
   const handleAccountChange = (newAccount) => {
     setUserAccount(newAccount);
-    getBalance(newAccount.toString());
+    setBalance(newAccount.toString());
   };
 
   // reload the page to on chain change to avoid errors
@@ -95,9 +89,9 @@ const Login = ({
     <Container>
       <DetailsContainer>
         <MetamaskContainer>
-          <div>{isNil(balance) ? 'NA' : `${balance} ETH`}</div>
+          <div>{isNil(balance) ? '--' : `${round(balance, 2)} ETH`}</div>
           <div className="dash" />
-          <div className="address">{account ? `${account}` : 'NA'}</div>
+          <div className="address">{account ? `${account}` : '--'}</div>
         </MetamaskContainer>
       </DetailsContainer>
     </Container>

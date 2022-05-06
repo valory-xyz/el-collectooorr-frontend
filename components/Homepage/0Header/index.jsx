@@ -29,10 +29,6 @@ export const HeaderSection = () => {
   const router = useRouter();
   const isRoot = router.pathname === URL.ROOT;
 
-  const handleCollect = () => {};
-
-  const handleHistory = () => {};
-
   return (
     <HeaderContainer className={isRoot ? '' : 'not-root-page'}>
       <div className="column-1">
@@ -68,18 +64,7 @@ export const HeaderSection = () => {
       </div>
 
       {!isRoot ? (
-        <>
-          <div className="nav-action-btns">
-            <CustomButton variant="red" onClick={handleCollect}>
-              COLLECT
-            </CustomButton>
-            <CustomButton variant="blue-border" onClick={handleHistory}>
-              HISTORY
-            </CustomButton>
-          </div>
-
-          <Login />
-        </>
+        <Login />
       ) : (
         <div className="column-2">
           <CustomButton

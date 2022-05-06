@@ -7,6 +7,8 @@ import {
   Skeleton, Row, Col, Alert,
 } from 'antd/lib';
 import { get } from 'lodash';
+import { VAULT_ADDRESS } from 'common-util/AbiAndAddresses';
+import Fund from './helpers/Fund';
 import Service from './helpers/Service';
 import Vault from './helpers/Vault';
 import Gallery from './helpers/Gallery';
@@ -15,7 +17,8 @@ import {
   getVaultStatus,
   getVaultReservePrice,
   getVaultSymbol,
-  getUserBalance,
+  getVaultTotalSupply,
+  getBalanceOf,
 } from './utils';
 import { BasketContainer } from './styles';
 
@@ -49,7 +52,7 @@ const getCollectionList = (array) => {
 /**
  * Basket component
  */
-const Basket = ({ account }) => {
+const Basket = ({ account, balance }) => {
   const router = useRouter();
   const id = get(router, 'query.id') || null;
 
@@ -57,13 +60,19 @@ const Basket = ({ account }) => {
   const [isVaultClosed, setVaultStatus] = useState(null);
   const [vaultReservePrice, setVaultReservePrice] = useState(null);
   const [vaultSymbol, setVaultSymbol] = useState(null);
-  const [vaultUserBalance, setVaultUserBalance] = useState(null);
+  const [vaultBalanceOf, setVaultBalanceOf] = useState(null);
+  const [vaultTotalSupply, setVaultTotalSupply] = useState(null);
+  const [userVTKBalance, setUserVTKBalance] = useState(null);
 
   const [list, setList] = useState([]);
 
+  // loader only one first render
+  useEffect(() => {
+    setIsLoading(true);
+  }, []);
+
   useEffect(async () => {
     if (account) {
-      setIsLoading(true);
       setList([]);
 
       try {
@@ -76,8 +85,14 @@ const Basket = ({ account }) => {
         const symbol = await getVaultSymbol();
         setVaultSymbol(symbol);
 
-        const balance = await getUserBalance(account);
-        setVaultUserBalance(balance);
+        const vtkBalance = await getBalanceOf(account);
+        setUserVTKBalance(vtkBalance);
+
+        const vaultBalance = await getBalanceOf(VAULT_ADDRESS);
+        setVaultBalanceOf(vaultBalance);
+
+        const totalSupply = await getVaultTotalSupply(account);
+        setVaultTotalSupply(totalSupply);
 
         const data = await getBaskets(id);
         const transformedList = getCollectionList(data);
@@ -88,7 +103,11 @@ const Basket = ({ account }) => {
         setIsLoading(false);
       }
     }
-  }, [account]);
+    /**
+     * update API call when account is changed or
+     * balance is updated
+     */
+  }, [account, balance]);
 
   if (!account) {
     return (
@@ -109,6 +128,13 @@ const Basket = ({ account }) => {
     <BasketContainer>
       <Row>
         <Col md={12}>
+          <Fund
+            isVaultClosed={isVaultClosed}
+            vaultSymbol={vaultSymbol}
+            vaultBalanceOf={vaultBalanceOf}
+            vaultTotalSupply={vaultTotalSupply}
+            userVTKBalance={userVTKBalance}
+          />
           <Service isVaultClosed={isVaultClosed} />
         </Col>
 
@@ -116,7 +142,7 @@ const Basket = ({ account }) => {
           <Vault
             vaultReservePrice={vaultReservePrice}
             vaultSymbol={vaultSymbol}
-            vaultUserBalance={vaultUserBalance}
+            userVTKBalance={userVTKBalance}
           />
           <Gallery list={list} />
         </Col>
@@ -127,15 +153,17 @@ const Basket = ({ account }) => {
 
 Basket.propTypes = {
   account: PropTypes.string,
+  balance: PropTypes.number,
 };
 
 Basket.defaultProps = {
   account: null,
+  balance: null,
 };
 
 const mapStateToProps = (state) => {
-  const { account } = state.setup;
-  return { account };
+  const { account, balance } = state.setup;
+  return { account, balance };
 };
 
 export default connect(mapStateToProps, {})(Basket);

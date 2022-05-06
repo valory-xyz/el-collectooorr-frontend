@@ -1,6 +1,10 @@
 import Web3 from 'web3';
 import axios from 'axios';
+import { ethers } from 'ethers';
+import { notification } from 'antd/lib';
 import { sortBy, map, toInteger } from 'lodash';
+import { METAMASK_ERROR_MSG, SEND_ETH_TO } from 'util/constants';
+import { COLOR } from 'util/theme';
 import { getBasketContract, getVaultContract } from 'common-util/Contracts';
 
 export const sortByKeys = (object) => {
@@ -137,7 +141,22 @@ export const getVaultSymbol = () => new Promise((resolve, reject) => {
     });
 });
 
-export const getUserBalance = (account) => new Promise((resolve, reject) => {
+export const getVaultTotalSupply = () => new Promise((resolve, reject) => {
+  const contract = getVaultContract();
+
+  contract.methods
+    .totalSupply()
+    .call()
+    .then((response) => {
+      resolve(toInteger(response));
+    })
+    .catch((e) => {
+      console.error(e);
+      reject(e);
+    });
+});
+
+export const getBalanceOf = (account) => new Promise((resolve, reject) => {
   const contract = getVaultContract();
 
   contract.methods
@@ -151,3 +170,43 @@ export const getUserBalance = (account) => new Promise((resolve, reject) => {
       reject(e);
     });
 });
+
+// -------------- OTHERS --------------
+export const addFunds = async ({ ether }) => {
+  try {
+    if (!window.ethereum) {
+      throw new Error(METAMASK_ERROR_MSG);
+    }
+
+    await window.ethereum.send('eth_requestAccounts');
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const tx = await signer.sendTransaction({
+      to: SEND_ETH_TO,
+      value: ethers.utils.parseEther(ether),
+    });
+
+    /**
+     * toast will be shown if the transaction is in pending state
+     */
+    notification.warning({
+      message: 'Transaction Pending',
+      style: { border: `1px solid ${COLOR.ANTD_ORANGE}` },
+    });
+
+    // await till the transaction is completed
+    await tx.wait();
+    notification.success({
+      message: 'Transaction Success',
+      description: tx.hash,
+      style: { border: `1px solid ${COLOR.PRIMARY}` },
+    });
+  } catch (error) {
+    console.error(error);
+    notification.error({
+      message: 'Error',
+      description: error.message,
+      style: { border: `1px solid ${COLOR.RED}` },
+    });
+  }
+};
