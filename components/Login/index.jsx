@@ -113,7 +113,7 @@ const Login = ({
     <Container>
       <DetailsContainer>
         <MetamaskContainer>
-          <div>{isNil(balance) ? 'NA' : `${round(balance, 2)} ETH`}</div>
+          <div>{isNil(balance) ? '--' : `${round(balance, 2)} ETH`}</div>
           <div className="dash" />
           <div className="address">{account ? `${account}` : 'NA'}</div>
           <CustomButton variant="red" onClick={handleDisconnect}>
