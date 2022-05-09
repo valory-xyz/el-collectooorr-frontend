@@ -148,7 +148,7 @@ const Basket = ({ account, balance }) => {
               vaultSymbol={vaultSymbol}
               userVTKBalance={userVTKBalance}
             />
-            <Gallery list={list} />
+            <Gallery list={list} nftMetadata={nftMetadata} />
           </Col>
         </Row>
       </BasketContainer>
