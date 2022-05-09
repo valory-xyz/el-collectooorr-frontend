@@ -74,6 +74,9 @@ const Fund = ({
   };
 
   const isBtnDisabled = () => {
+    // disable buttonw when metamask is not connected!
+    if (!account) return true;
+
     const hasBalance = value ? value <= balance : false;
     // const vaultBalance = (vaultBalanceOf * VTK_ETH_PRICE); // TODO
     // return !hasBalance && (value > vaultBalance);
