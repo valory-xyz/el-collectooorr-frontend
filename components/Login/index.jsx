@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import round from 'lodash/round';
@@ -10,16 +11,19 @@ import {
   setUserAccount as setUserAccountFn,
   setUserBalance as setUserBalanceFn,
   setErrorMessage as setErrorMessageFn,
+  setLoaded as setLoadedFn,
 } from 'store/setup/actions';
 import { Container, DetailsContainer, MetamaskContainer } from './styles';
 
 const Login = ({
+  isLoaded,
   account,
   balance,
   errorMessage,
   setUserAccount,
   setUserBalance,
   setErrorMessage,
+  setLoaded,
 }) => {
   const setBalance = async (accountPassed) => {
     try {
@@ -32,6 +36,9 @@ const Login = ({
 
   const handleLogin = () => {
     if (window.ethereum && window.ethereum.isMetaMask) {
+      // remove `disconnect` from localStorage
+      localStorage.removeItem(CONSTANTS.DISCONNECT);
+
       window.ethereum
         .request({ method: CONSTANTS.ETH_REQUESTACCOUNTS })
         .then((result) => {
@@ -46,6 +53,23 @@ const Login = ({
       setErrorMessage(METAMASK_ERROR_MSG);
     }
   };
+
+  // set `disconnect` to localStorage for reference
+  const handleDisconnect = () => {
+    localStorage.setItem(CONSTANTS.DISCONNECT, true);
+    setLoaded(false);
+    setUserAccount(null);
+    setUserBalance(null);
+  };
+
+  /**
+     * if already loaded, set account and balance of the user.
+     */
+  useEffect(() => {
+    if (isLoaded && !account) {
+      handleLogin();
+    }
+  }, [isLoaded]);
 
   /**
    * listener for account, chain changes
@@ -78,7 +102,7 @@ const Login = ({
   if (!account) {
     return (
       <Container>
-        <CustomButton variant="green" onClick={handleLogin}>
+        <CustomButton variant="green" onClick={handleLogin} data-testid="connect-metamask">
           Connect MetaMask
         </CustomButton>
       </Container>
@@ -91,7 +115,10 @@ const Login = ({
         <MetamaskContainer>
           <div>{isNil(balance) ? '--' : `${round(balance, 2)} ETH`}</div>
           <div className="dash" />
-          <div className="address">{account ? `${account}` : '--'}</div>
+          <div className="address">{account ? `${account}` : 'NA'}</div>
+          <CustomButton variant="red" onClick={handleDisconnect}>
+            Disconnect
+          </CustomButton>
         </MetamaskContainer>
       </DetailsContainer>
     </Container>
@@ -99,12 +126,14 @@ const Login = ({
 };
 
 Login.propTypes = {
+  isLoaded: PropTypes.bool.isRequired,
   account: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-  balance: PropTypes.number,
+  balance: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   errorMessage: PropTypes.string,
   setUserAccount: PropTypes.func.isRequired,
   setUserBalance: PropTypes.func.isRequired,
   setErrorMessage: PropTypes.func.isRequired,
+  setLoaded: PropTypes.func.isRequired,
 };
 
 Login.defaultProps = {
@@ -114,14 +143,19 @@ Login.defaultProps = {
 };
 
 const mapStateToProps = (state) => {
-  const { account, balance, errorMessage } = get(state, 'setup', {});
-  return { account, balance, errorMessage };
+  const {
+    isLoaded, account, balance, errorMessage,
+  } = get(state, 'setup', {});
+  return {
+    isLoaded, account, balance, errorMessage,
+  };
 };
 
 const mapDispatchToProps = {
   setUserAccount: setUserAccountFn,
   setUserBalance: setUserBalanceFn,
   setErrorMessage: setErrorMessageFn,
+  setLoaded: setLoadedFn,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

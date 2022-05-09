@@ -2,7 +2,8 @@ import styled from 'styled-components';
 import { COLOR, MEDIA_QUERY } from 'util/theme';
 
 export const Container = styled.div`
-  margin-top: 4rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
   font-size: 20px;
   font-family: "spacegrotesk__regular";
   .footer-logo-container {
@@ -55,8 +56,17 @@ export const SubFooter = styled.div`
   border: 1px solid ${COLOR.GREY_1};
   border-radius: 0px 0px 20px 20px;
   border-top-color: transparent;
-  .autonolas-twitter {
-    min-width: 240px;
+
+  .socials {
+    display: flex;
+    align-items: flex-start;
+    .autonolas-twitter {
+      display: flex;
+      min-width: 240px;
+    }
+    svg {
+      margin-left: 0.5rem;
+    }
   }
 
   .sub-footer-text {

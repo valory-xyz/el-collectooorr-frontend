@@ -65,27 +65,6 @@ export const HeaderContainer = styled.div`
   }
 `;
 
-export const RiskContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 1rem;
-  padding: 0.5rem 1rem;
-  line-height: normal;
-  font-size: 36px;
-  font-family: "spacegrotesk__medium";
-  border-radius: 10px;
-  background-color: ${COLOR.RED};
-
-  ${MEDIA_QUERY.tabletL} {
-    font-size: 24px;
-  }
-
-  ${MEDIA_QUERY.tablet} {
-    font-size: 20px;
-  }
-`;
-
 export const SubHeaderContainer = styled.div`
   padding: 0.5rem 1rem 0.25rem 1rem;
   margin-bottom: 1rem;

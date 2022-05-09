@@ -2,6 +2,7 @@ import { Layout } from 'antd';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import HeaderComponent from '../Homepage/0Header';
+import Footer from '../Homepage/6Footer';
 import { CustomLayout } from './styles';
 
 const { Header, Content } = Layout;
@@ -18,6 +19,8 @@ const NavigationBar = ({ children }) => {
       <Content className="site-layout">
         <div className="site-layout-background">{children}</div>
       </Content>
+
+      <Footer />
     </CustomLayout>
   );
 };

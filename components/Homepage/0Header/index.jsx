@@ -5,14 +5,10 @@ import Link from 'next/link';
 import { URL } from 'util/constants';
 // import { TOKEN_ID, URL } from 'util/constants';
 import { CustomButton } from 'common-util/Button';
+import RiskBanner from 'common-util/RiskBanner';
 import useCheckMobileScreen from 'common-util/hooks/useCheckMobileScreen';
 import Login from '../../Login';
-import {
-  getBtnStyle,
-  HeaderContainer,
-  RiskContainer,
-  SubHeaderContainer,
-} from './styles';
+import { getBtnStyle, HeaderContainer, SubHeaderContainer } from './styles';
 
 export const Dash = () => (
   <>&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;</>
@@ -88,10 +84,7 @@ export default HeaderSection;
 
 export const SubHeaderSection = () => (
   <>
-    <RiskContainer>
-      !!! DEPOSIT FUNDS AT YOUR OWN RISK. UNAUDITED PRODUCT !!!
-    </RiskContainer>
-
+    <RiskBanner />
     <SubHeaderContainer>
       <Marquee pauseOnHover gradient={false}>
         THE WORLD&apos;S FIRST AUTONOMOUS NFT COLLECTOR DAO

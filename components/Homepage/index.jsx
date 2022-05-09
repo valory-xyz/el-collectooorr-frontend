@@ -5,7 +5,6 @@ import EvolutionOfNftCollecting from './2EvolutionOfNftCollecting';
 import Benefits from './3Benefits';
 import HowItWorks from './4HowItWorks';
 import WhatIsThisSorcery from './5WhatIsThisSorcery';
-import Footer from './6Footer';
 
 const Homepage = () => (
   <>
@@ -15,7 +14,6 @@ const Homepage = () => (
     <Benefits />
     <HowItWorks />
     <WhatIsThisSorcery />
-    <Footer />
   </>
 );
 

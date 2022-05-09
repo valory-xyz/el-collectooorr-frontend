@@ -29,7 +29,18 @@ const data = [
     id: '003',
     name: '//003',
     nameStyle: { color: COLOR.BLUE },
-    desc: 'Robustly manage on-chain funds: El Collectooorr is secured by Gnosis Safe',
+    desc: (
+      <>
+        Robustly manage on-chain funds: El Collectooorr is secured by&nbsp;
+        <a
+          href="https://gnosis-safe.io/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Gnosis Safe
+        </a>
+      </>
+    ),
   },
 ];
 
@@ -81,7 +92,7 @@ const WhatIsThisSorcery = () => {
               }) => (
                 <div key={id}>
                   <span style={nameStyle}>{name}</span>
-                  <span>{desc}</span>
+                  <div className="desc">{desc}</div>
                 </div>
               ))}
             </div>

@@ -34,13 +34,12 @@ const Fund = ({
   setUserBalance,
   setErrorMessage,
 }) => {
-  const [value, setvalue] = useState();
-  const isValidValue = value ? value <= balance : false;
+  const [value, setValue] = useState();
 
   // -5% from the balance to account for fees.
   const getProgress = () => {
     const purchasedTokens = vaultTotalSupply - vaultBalanceOf;
-    const progress = (purchasedTokens * VTK_ETH_PRICE);
+    const progress = purchasedTokens * VTK_ETH_PRICE;
     return progress || 0;
   };
   const getYouFunded = () => (userVTKBalance ? userVTKBalance * VTK_ETH_PRICE : 0);
@@ -64,6 +63,21 @@ const Fund = ({
     } catch (error) {
       setErrorMessage(error);
     }
+  };
+
+  const onInputChange = (e) => {
+    setValue((current) => {
+      const temp = e.target.validity.valid ? e.target.value : current;
+      const finalValue = temp > vaultBalanceOf * VTK_ETH_PRICE ? current : temp;
+      return finalValue;
+    });
+  };
+
+  const isBtnDisabled = () => {
+    const hasBalance = value ? value <= balance : false;
+    // const vaultBalance = (vaultBalanceOf * VTK_ETH_PRICE); // TODO
+    // return !hasBalance && (value > vaultBalance);
+    return !hasBalance;
   };
 
   return (
@@ -106,11 +120,12 @@ const Fund = ({
           <Input
             value={value}
             placeholder="0"
-            onChange={(e) => setvalue(e.target.value)}
+            pattern="^-?[0-9]\d*\.?\d*$"
+            onChange={onInputChange}
           />
           <CustomButton
-            variant={isValidValue ? 'green' : 'disabled'}
-            disabled={!isValidValue}
+            variant={isBtnDisabled() ? 'disabled' : 'green'}
+            disabled={isBtnDisabled()}
             onClick={handleAddFunds}
           >
             <img
@@ -135,11 +150,8 @@ const Fund = ({
               {`Management fee of ${getManagementFee()}% ETH will be charged.`}
             </p>
             <Link href="/coming-soon">
-              <a href="/coming-soon">
-                Learn more
-              </a>
+              <a href="/coming-soon">Learn more</a>
             </Link>
-
           </div>
           <div className="warning">
             <Warning />
@@ -161,7 +173,7 @@ Fund.propTypes = {
   vaultTotalSupply: PropTypes.number,
   account: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   setUserBalance: PropTypes.func.isRequired,
-  balance: PropTypes.number,
+  balance: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   setErrorMessage: PropTypes.func.isRequired,
 };
 

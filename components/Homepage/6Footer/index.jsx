@@ -1,6 +1,20 @@
 import React from 'react';
 import useCheckMobileScreen from 'common-util/hooks/useCheckMobileScreen';
+import Twitter from 'common-util/SVGs/twitter';
+import Discord from 'common-util/SVGs/discord';
 import { Container, SubFooter } from './styles';
+
+/* eslint-disable-next-line react/prop-types */
+const getLink = ({ href, children, className = '' }) => (
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    className={className}
+  >
+    {children}
+  </a>
+);
 
 const Footer = () => {
   const isMobile = useCheckMobileScreen();
@@ -34,7 +48,7 @@ const Footer = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              AUTONOLAS AGENT DEV ACADEMY COHORT 1
+              AUTONOLAS ACADEMY COHORT 1
             </a>
           </div>
           <div className="sub-text">
@@ -53,14 +67,23 @@ const Footer = () => {
       </div>
 
       <SubFooter>
-        <a
-          href="https://twitter.com/autonolas"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="autonolas-twitter"
-        >
-          AUTONOLAS TWITTER
-        </a>
+        <div className="socials">
+          {getLink({
+            href: 'https://twitter.com/autonolas',
+            children: 'SUPPORTED BY AUTONOLAS',
+            className: 'autonolas-twitter',
+          })}
+
+          {getLink({
+            href: 'https://twitter.com/autonolas',
+            children: <Twitter />,
+          })}
+
+          {getLink({
+            href: 'https://discord.com/invite/z2PT65jKqQ',
+            children: <Discord />,
+          })}
+        </div>
 
         <div className="sub-footer-text">
           <span>WANT TO PUT EL COLLECTOOORR TO WORK FOR YOUR DAO?</span>
@@ -75,7 +98,16 @@ const Footer = () => {
             </a>
             &nbsp;OR&nbsp;
           </span>
-          <span>APPLY FOR THE AGENT DEVELOPER ACADEMY</span>
+          <span>
+            APPLY FOR THE&nbsp;
+            <a
+              href="https://autonolas.medium.com/agent-dev-academy-everything-you-need-to-know-cc54b64d5a08"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              ACADEMY
+            </a>
+          </span>
         </div>
       </SubFooter>
     </Container>

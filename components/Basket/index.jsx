@@ -8,6 +8,7 @@ import {
 } from 'antd/lib';
 import { get } from 'lodash';
 import { VAULT_ADDRESS } from 'common-util/AbiAndAddresses';
+import RiskBanner from 'common-util/RiskBanner';
 import Fund from './helpers/Fund';
 import Service from './helpers/Service';
 import Vault from './helpers/Vault';
@@ -125,35 +126,39 @@ const Basket = ({ account, balance }) => {
   }
 
   return (
-    <BasketContainer>
-      <Row>
-        <Col md={12}>
-          <Fund
-            isVaultClosed={isVaultClosed}
-            vaultSymbol={vaultSymbol}
-            vaultBalanceOf={vaultBalanceOf}
-            vaultTotalSupply={vaultTotalSupply}
-            userVTKBalance={userVTKBalance}
-          />
-          <Service isVaultClosed={isVaultClosed} />
-        </Col>
+    <>
+      <RiskBanner />
 
-        <Col md={12} className="right-columm">
-          <Vault
-            vaultReservePrice={vaultReservePrice}
-            vaultSymbol={vaultSymbol}
-            userVTKBalance={userVTKBalance}
-          />
-          <Gallery list={list} />
-        </Col>
-      </Row>
-    </BasketContainer>
+      <BasketContainer>
+        <Row>
+          <Col md={12}>
+            <Fund
+              isVaultClosed={isVaultClosed}
+              vaultSymbol={vaultSymbol}
+              vaultBalanceOf={vaultBalanceOf}
+              vaultTotalSupply={vaultTotalSupply}
+              userVTKBalance={userVTKBalance}
+            />
+            <Service isVaultClosed={isVaultClosed} />
+          </Col>
+
+          <Col md={12} className="right-columm">
+            <Vault
+              vaultReservePrice={vaultReservePrice}
+              vaultSymbol={vaultSymbol}
+              userVTKBalance={userVTKBalance}
+            />
+            <Gallery list={list} />
+          </Col>
+        </Row>
+      </BasketContainer>
+    </>
   );
 };
 
 Basket.propTypes = {
   account: PropTypes.string,
-  balance: PropTypes.number,
+  balance: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 Basket.defaultProps = {
