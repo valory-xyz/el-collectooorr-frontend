@@ -95,8 +95,8 @@ const Basket = ({ account, balance }) => {
         const transformedList = getCollectionList(data);
         setList(transformedList);
 
-        const medataList = await getNftsInfo(data.length);
-        setNftMetadata(medataList);
+        const metadataList = await getNftsInfo(data.length);
+        setNftMetadata(metadataList);
       } catch (e) {
         console.error(e);
       } finally {

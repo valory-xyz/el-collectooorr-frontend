@@ -1,3 +1,3 @@
-export * from './artblockContract';
+export * from './artBlocksContract';
 export * from './basketContract';
 export * from './vaultContract';

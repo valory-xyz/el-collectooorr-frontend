@@ -5,9 +5,9 @@ import { notification } from 'antd/lib';
 import { sortBy, map, toInteger } from 'lodash';
 import { METAMASK_ERROR_MSG, SEND_ETH_TO } from 'util/constants';
 import { COLOR } from 'util/theme';
-import { ARTBLOCK_ADDRESS, BASKET_ADDRESS } from 'common-util/AbiAndAddresses/artblockContract';
+import { ARTBLOCKS_ADDRESS, BASKET_ADDRESS } from 'common-util/AbiAndAddresses/artBlocksContract';
 import {
-  getArtblockContract,
+  getArtBlocksContract,
   getBasketContract,
   getVaultContract,
 } from 'common-util/Contracts';
@@ -101,7 +101,7 @@ export const getBaskets = async () => {
 
 export const getNftsInfo = async (totalNft) => {
   const web3 = new Web3(window.web3.currentProvider);
-  const contract = getBasketContract(ARTBLOCK_ADDRESS);
+  const contract = getBasketContract(ARTBLOCKS_ADDRESS);
 
   const blockNum = await web3.eth.getBlockNumber();
   const list = await contract.getPastEvents('Mint', {
@@ -109,12 +109,12 @@ export const getNftsInfo = async (totalNft) => {
   });
 
   const getMetadata = () => new Promise((resolve, reject) => {
-    const artblockContract = getArtblockContract();
+    const artBlocksContract = getArtBlocksContract();
     try {
       const promises = [];
       for (let i = 0; i < totalNft; i += 1) {
         const { _projectId: pid } = list[i].returnValues;
-        const result = artblockContract.methods.projectDetails(pid).call();
+        const result = artBlocksContract.methods.projectDetails(pid).call();
         promises.push(result);
       }
 

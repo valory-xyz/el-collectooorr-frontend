@@ -4,14 +4,14 @@ import {
   BASKET_CONTRACT,
   VAULT_ADDRESS,
   VAULT_CONTRACT,
-  ARTBLOCK_ADDRESS,
-  ARTBLOCK_CONTRACT,
+  ARTBLOCKS_ADDRESS,
+  ARTBLOCKS_CONTRACT,
 } from 'common-util/AbiAndAddresses';
 
-export const getArtblockContract = (address = ARTBLOCK_ADDRESS) => {
+export const getArtBlocksContract = (address = ARTBLOCKS_ADDRESS) => {
   window.ethereum.enable();
   const web3 = new Web3(window.web3.currentProvider);
-  const contract = new web3.eth.Contract(ARTBLOCK_CONTRACT.abi, address);
+  const contract = new web3.eth.Contract(ARTBLOCKS_CONTRACT.abi, address);
   return contract;
 };
 

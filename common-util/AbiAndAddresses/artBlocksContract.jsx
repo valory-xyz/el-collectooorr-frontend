@@ -1,6 +1,6 @@
-export const ARTBLOCK_ADDRESS = '0xa7d8d9ef8D8Ce8992Df33D8b8CF4Aebabd5bD270';
+export const ARTBLOCKS_ADDRESS = '0xa7d8d9ef8D8Ce8992Df33D8b8CF4Aebabd5bD270';
 
-export const ARTBLOCK_CONTRACT = {
+export const ARTBLOCKS_CONTRACT = {
   abi: [
     {
       inputs: [
