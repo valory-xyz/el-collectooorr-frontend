@@ -1,7 +1,20 @@
 import React from 'react';
 import useCheckMobileScreen from 'common-util/hooks/useCheckMobileScreen';
 import Twitter from 'common-util/SVGs/twitter';
+import Discord from 'common-util/SVGs/discord';
 import { Container, SubFooter } from './styles';
+
+/* eslint-disable-next-line react/prop-types */
+const getLink = ({ href, children, className = '' }) => (
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    className={className}
+  >
+    {children}
+  </a>
+);
 
 const Footer = () => {
   const isMobile = useCheckMobileScreen();
@@ -54,15 +67,23 @@ const Footer = () => {
       </div>
 
       <SubFooter>
-        <a
-          href="https://twitter.com/autonolas"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="autonolas-twitter"
-        >
-          SUPPORTED BY AUTONOLAS
-          <Twitter />
-        </a>
+        <div className="socials">
+          {getLink({
+            href: 'https://twitter.com/autonolas',
+            children: 'SUPPORTED BY AUTONOLAS',
+            className: 'autonolas-twitter',
+          })}
+
+          {getLink({
+            href: 'https://twitter.com/autonolas',
+            children: <Twitter />,
+          })}
+
+          {getLink({
+            href: 'https://discord.com/invite/z2PT65jKqQ',
+            children: <Discord />,
+          })}
+        </div>
 
         <div className="sub-footer-text">
           <span>WANT TO PUT EL COLLECTOOORR TO WORK FOR YOUR DAO?</span>

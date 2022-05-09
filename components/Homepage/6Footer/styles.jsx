@@ -56,9 +56,14 @@ export const SubFooter = styled.div`
   border: 1px solid ${COLOR.GREY_1};
   border-radius: 0px 0px 20px 20px;
   border-top-color: transparent;
-  .autonolas-twitter {
+
+  .socials {
     display: flex;
-    min-width: 240px;
+    align-items: flex-start;
+    .autonolas-twitter {
+      display: flex;
+      min-width: 240px;
+    }
     svg {
       margin-left: 0.5rem;
     }
