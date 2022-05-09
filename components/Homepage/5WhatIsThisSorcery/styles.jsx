@@ -122,14 +122,12 @@ export const BodyRowTwo = styled.div`
         align-items: center;
       }
       span {
-        &:nth-child(1) {
-          font-family: "minecraft";
-          font-size: 24px;
-        }
-        &:nth-child(2) {
-          max-width: 260px;
-          margin-left: 2rem;
-        }
+        font-family: "minecraft";
+        font-size: 24px;
+      }
+      .desc {
+        max-width: 260px;
+        margin-left: 2rem;
       }
     }
   }
@@ -149,13 +147,11 @@ export const BodyRowTwo = styled.div`
         border-top: none;
         border-right: none;
         span {
-          &:nth-child(1) {
-            font-family: "minecraft";
-            font-size: 24px;
-          }
-          &:nth-child(2) {
-            margin-left: 0;
-          }
+          font-family: "minecraft";
+          font-size: 24px;
+        }
+        .desc {
+          margin-left: 0;
         }
       }
     }

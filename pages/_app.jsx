@@ -8,6 +8,7 @@ import { Web3ReactProvider } from '@web3-react/core';
 
 import GlobalStyle from 'components/GlobalStyles';
 import Layout from 'components/Layout';
+import MetamaskProvider from 'components/Login/Helpers/MetamaskProvider';
 import initStore from '../store';
 
 require('../styles/antd.less');
@@ -30,12 +31,17 @@ class MyApp extends App {
       <>
         <Head>
           <title>El Collectooorr</title>
-          <meta name="description" content="Deposit ETH and El Collectooorr intelligently waits for and collects Art Blocks drops on your behalf." />
+          <meta
+            name="description"
+            content="Deposit ETH and El Collectooorr intelligently waits for and collects Art Blocks drops on your behalf."
+          />
         </Head>
         <Web3ReactProvider getLibrary={getLibrary}>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          <MetamaskProvider>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </MetamaskProvider>
         </Web3ReactProvider>
         <GlobalStyle />
       </>
