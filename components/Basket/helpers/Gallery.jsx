@@ -22,7 +22,53 @@ const getImage = (type, {
   return null;
 };
 
-const Gallery = ({ list }) => {
+const getNftInfo = (url, info) => {
+  const {
+    artist, bought, date, txn,
+  } = info || {};
+
+  return (
+    <div className="nft-info">
+      {artist && <div>{artist}</div>}
+
+      <a
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="live-view"
+      >
+        Live View
+        <LinkIcon />
+      </a>
+
+      <div>
+        {bought && <>{`Bought: ${bought}ETH`}</>}
+        {date && (
+          <>
+            &nbsp;&bull;&nbsp;
+            {date}
+          </>
+        )}
+        {txn && (
+          <>
+            &nbsp;&bull;&nbsp;
+            <span>
+              <a
+                href={`https://etherscan.io/tx/${txn}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Txn
+              </a>
+            </span>
+          </>
+        )}
+      </div>
+    </div>
+  );
+};
+
+const Gallery = ({ list, nftMetadata }) => {
   const { length } = list || [];
   const text = `${length} piece${length >= 2 ? 's' : ''} collected`;
 
@@ -44,49 +90,21 @@ const Gallery = ({ list }) => {
       </SubHeader>
 
       <GalleryList>
-        {(list || []).map(
-          (
-            {
-              name,
-              type,
+        {(list || []).map(({
+          name, type, url, style,
+        }, index) => (
+          <Card key={`basket-${index}`} bordered={false}>
+            {getImage(type, {
+              index,
               url,
+              name,
               style,
-              // txn,
-            },
-            index,
-          ) => (
-            <Card key={`basket-${index}`} bordered={false}>
-              {getImage(type, {
-                index,
-                url,
-                name,
-                style,
-              })}
+            })}
 
-              <Card.Meta title={name} />
-              <div className="nft-info">
-                {/* <div>Robert</div> */}
-                <a
-                  href={url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="live-view"
-                >
-                  Live View
-                  <LinkIcon />
-                </a>
-                {/* <div>
-              Bought: 0.1 ETH&nbsp;&bull;&nbsp;12/1&nbsp;&bull;&nbsp;
-              <span>
-                <a href={txn} target="_blank" rel="noopener noreferrer">
-                  Txn
-                </a>
-              </span>
-            </div> */}
-              </div>
-            </Card>
-          ),
-        )}
+            <Card.Meta title={name} />
+            {getNftInfo(url, nftMetadata[index])}
+          </Card>
+        ))}
       </GalleryList>
     </GalleryContainer>
   );
@@ -94,10 +112,12 @@ const Gallery = ({ list }) => {
 
 Gallery.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({})),
+  nftMetadata: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 Gallery.defaultProps = {
   list: [],
+  nftMetadata: [],
 };
 
 export default Gallery;

@@ -258,6 +258,31 @@ export const BASKET_CONTRACT = {
       type: 'event',
     },
     {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          internalType: 'address',
+          name: '_to',
+          type: 'address',
+        },
+        {
+          indexed: true,
+          internalType: 'uint256',
+          name: '_tokenId',
+          type: 'uint256',
+        },
+        {
+          indexed: true,
+          internalType: 'uint256',
+          name: '_projectId',
+          type: 'uint256',
+        },
+      ],
+      name: 'Mint',
+      type: 'event',
+    },
+    {
       inputs: [
         {
           internalType: 'address',

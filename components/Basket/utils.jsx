@@ -5,7 +5,12 @@ import { notification } from 'antd/lib';
 import { sortBy, map, toInteger } from 'lodash';
 import { METAMASK_ERROR_MSG, SEND_ETH_TO } from 'util/constants';
 import { COLOR } from 'util/theme';
-import { getBasketContract, getVaultContract } from 'common-util/Contracts';
+import { ARTBLOCKS_ADDRESS, BASKET_ADDRESS } from 'common-util/AbiAndAddresses/artBlocksContract';
+import {
+  getArtBlocksContract,
+  getBasketContract,
+  getVaultContract,
+} from 'common-util/Contracts';
 
 export const sortByKeys = (object) => {
   const keys = Object.keys(object);
@@ -64,8 +69,8 @@ const getFilteredNfts = async (basketToken) => {
   return nfts;
 };
 
-export const getBaskets = async (basketToken) => {
-  const filteredNfts = await getFilteredNfts(basketToken);
+export const getBaskets = async () => {
+  const filteredNfts = await getFilteredNfts(BASKET_ADDRESS);
 
   return new Promise((resolve, reject) => {
     try {
@@ -92,6 +97,52 @@ export const getBaskets = async (basketToken) => {
       reject(error);
     }
   });
+};
+
+export const getNftsInfo = async (totalNft) => {
+  const web3 = new Web3(window.web3.currentProvider);
+  const contract = getBasketContract(ARTBLOCKS_ADDRESS);
+
+  const blockNum = await web3.eth.getBlockNumber();
+  const list = await contract.getPastEvents('Mint', {
+    fromBlock: blockNum - 10000,
+  });
+
+  const getMetadata = () => new Promise((resolve, reject) => {
+    const artBlocksContract = getArtBlocksContract();
+    try {
+      const promises = [];
+      for (let i = 0; i < totalNft; i += 1) {
+        const { _projectId: pid } = list[i].returnValues;
+        const result = artBlocksContract.methods.projectDetails(pid).call();
+        promises.push(result);
+      }
+
+      Promise.all(promises).then(async (array) => {
+        const results = await Promise.all(
+          array.map(async (info, i) => {
+            const { value } = await web3.eth.getTransaction(
+              list[i].transactionHash,
+            ); // wei
+            const valueInEther = Web3.utils.fromWei(value, 'ether');
+
+            return {
+              artist: info.artist,
+              bought: valueInEther,
+              date: null,
+              txn: list[i].transactionHash,
+            };
+          }),
+        );
+        resolve(results);
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+
+  const data = await getMetadata();
+  return data;
 };
 
 // -------------- VAULT --------------

@@ -1,8 +1,6 @@
-/* eslint-disable camelcase */
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { useRouter } from 'next/router';
 import {
   Skeleton, Row, Col, Alert,
 } from 'antd/lib';
@@ -20,6 +18,7 @@ import {
   getVaultSymbol,
   getVaultTotalSupply,
   getBalanceOf,
+  getNftsInfo,
 } from './utils';
 import { BasketContainer } from './styles';
 
@@ -54,9 +53,6 @@ const getCollectionList = (array) => {
  * Basket component
  */
 const Basket = ({ account, balance }) => {
-  const router = useRouter();
-  const id = get(router, 'query.id') || null;
-
   const [isLoading, setIsLoading] = useState(false);
   const [isVaultClosed, setVaultStatus] = useState(null);
   const [vaultReservePrice, setVaultReservePrice] = useState(null);
@@ -66,6 +62,7 @@ const Basket = ({ account, balance }) => {
   const [userVTKBalance, setUserVTKBalance] = useState(null);
 
   const [list, setList] = useState([]);
+  const [nftMetadata, setNftMetadata] = useState([]);
 
   // loader only one first render
   useEffect(() => {
@@ -95,9 +92,12 @@ const Basket = ({ account, balance }) => {
         const totalSupply = await getVaultTotalSupply(account);
         setVaultTotalSupply(totalSupply);
 
-        const data = await getBaskets(id);
+        const data = await getBaskets();
         const transformedList = getCollectionList(data);
         setList(transformedList);
+
+        const metadataList = await getNftsInfo(data.length);
+        setNftMetadata(metadataList);
       } catch (e) {
         console.error(e);
       } finally {
@@ -148,7 +148,7 @@ const Basket = ({ account, balance }) => {
               vaultSymbol={vaultSymbol}
               userVTKBalance={userVTKBalance}
             />
-            <Gallery list={list} />
+            <Gallery list={list} nftMetadata={nftMetadata} />
           </Col>
         </Row>
       </BasketContainer>
