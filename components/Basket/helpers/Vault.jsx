@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import round from 'lodash/round';
 import { VAULT_ADDRESS } from 'common-util/AbiAndAddresses';
 import { VaultContainer, TotalYours, VaultHeader } from '../styles';
 
@@ -48,7 +49,12 @@ const Vault = ({ vaultReservePrice, vaultSymbol, userVTKBalance }) => {
               What&apos;s this?
             </a>
           </div>
-          <div className="desc">{`${vaultReservePrice || '--'} ETH`}</div>
+          <div className="desc">
+            {`${
+              round(vaultReservePrice, 2) || '--'
+            } ETH`}
+
+          </div>
           <a href={URL} target="_blank" rel="noopener noreferrer">
             Vote for new reserve price
           </a>
@@ -57,7 +63,7 @@ const Vault = ({ vaultReservePrice, vaultSymbol, userVTKBalance }) => {
         <div className="vault-info yours">
           <div className="name">YOURS</div>
           <div className="desc">{`${userVTKBalance} ${symbol}`}</div>
-          <div>{`${percentage}% pool share`}</div>
+          <div>{`${round(percentage, 2)}% pool share`}</div>
         </div>
       </TotalYours>
     </VaultContainer>
