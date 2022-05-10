@@ -47,7 +47,11 @@ const Login = ({
           setBalance(result[0]);
         })
         .catch((e) => {
-          setErrorMessage(e.message);
+          if (get(e, 'code') === -32002) {
+            setErrorMessage('Already pending, please wait');
+          } else {
+            setErrorMessage(e.message);
+          }
         });
     } else {
       setErrorMessage(METAMASK_ERROR_MSG);
@@ -63,8 +67,8 @@ const Login = ({
   };
 
   /**
-     * if already loaded, set account and balance of the user.
-     */
+   * if already loaded, set account and balance of the user.
+   */
   useEffect(() => {
     if (isLoaded && !account) {
       handleLogin();
@@ -102,7 +106,11 @@ const Login = ({
   if (!account) {
     return (
       <Container>
-        <CustomButton variant="green" onClick={handleLogin} data-testid="connect-metamask">
+        <CustomButton
+          variant="green"
+          onClick={handleLogin}
+          data-testid="connect-metamask"
+        >
           Connect MetaMask
         </CustomButton>
       </Container>
@@ -147,7 +155,10 @@ const mapStateToProps = (state) => {
     isLoaded, account, balance, errorMessage,
   } = get(state, 'setup', {});
   return {
-    isLoaded, account, balance, errorMessage,
+    isLoaded,
+    account,
+    balance,
+    errorMessage,
   };
 };
 

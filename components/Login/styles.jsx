@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { COLOR, MEDIA_QUERY } from 'util/theme';
 
 export const Container = styled.div`
+  max-width: 500px;
   button {
     width: auto;
     height: auto;
@@ -25,6 +26,7 @@ export const MetamaskContainer = styled.div`
   display: flex;
   align-items: center;
   font-size: 18px;
+  line-height: normal;
   .dash {
     margin: 0 0.75rem;
     width: 1px;

@@ -38,7 +38,16 @@ const Vault = ({ vaultReservePrice, vaultSymbol, userVTKBalance }) => {
         </div>
 
         <div className="vault-info reserve-price">
-          <div className="name">RESERVE PRICE</div>
+          <div className="name">
+            RESERVE PRICE
+            <a
+              href="https://gnosis-safe.io/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              What&apos;s this?
+            </a>
+          </div>
           <div className="desc">{`${vaultReservePrice || '--'} ETH`}</div>
           <a href={URL} target="_blank" rel="noopener noreferrer">
             Vote for new reserve price

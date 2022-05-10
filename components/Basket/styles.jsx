@@ -214,19 +214,25 @@ export const VaultContainer = styled.div`
 export const TotalYours = styled.div`
   display: flex;
   .vault-info {
-    &:nth-child(1) {
-      width: 35%;
+    &.total {
+      width: 30%;
     }
-    &:nth-child(2) {
+    &.reserve-price {
       width: 40%;
       a {
         font-size: 14px;
       }
     }
-    &:nth-child(3) {
+    &.yours {
       padding-left: 1rem;
     }
     .name {
+      display: flex;
+      align-items: center;
+      a {
+        font-size: 12px;
+        margin-left: 0.75rem;
+      }
     }
     .desc {
       margin: 0.25rem 0;
