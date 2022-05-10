@@ -158,10 +158,10 @@ const Fund = ({
           </div>
           <div className="warning">
             <Warning />
-            &nbsp;Added ETH cannot be retrieved, but a secondary market for
-            &nbsp;
+            &nbsp;Added ETH cannot be retrieved, but a secondary market
+            for&nbsp;
             {vaultSymbol}
-            &nbsp; may emerge.
+            &nbsp;may emerge.
           </div>
         </div>
       </AddFunds>

@@ -145,7 +145,7 @@ export const AddFunds = styled.div`
         }
         &.warning {
           margin-top: 4rem;
-          color: ${COLOR.RED};
+          color: ${COLOR.YELLOW_1};
           svg {
             margin-bottom: -2px;
           }

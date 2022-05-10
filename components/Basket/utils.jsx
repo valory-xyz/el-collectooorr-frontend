@@ -5,7 +5,10 @@ import { notification } from 'antd/lib';
 import { sortBy, map, toInteger } from 'lodash';
 import { METAMASK_ERROR_MSG, SEND_ETH_TO } from 'util/constants';
 import { COLOR } from 'util/theme';
-import { ARTBLOCKS_ADDRESS, BASKET_ADDRESS } from 'common-util/AbiAndAddresses/artBlocksContract';
+import {
+  ARTBLOCKS_ADDRESS,
+  BASKET_ADDRESS,
+} from 'common-util/AbiAndAddresses/artBlocksContract';
 import {
   getArtBlocksContract,
   getBasketContract,
@@ -223,6 +226,8 @@ export const getBalanceOf = (account) => new Promise((resolve, reject) => {
 });
 
 // -------------- OTHERS --------------
+const key = 'addFundsToast';
+
 export const addFunds = async ({ ether }) => {
   try {
     if (!window.ethereum) {
@@ -241,15 +246,18 @@ export const addFunds = async ({ ether }) => {
      * toast will be shown if the transaction is in pending state
      */
     notification.warning({
+      key,
       message: 'Transaction Pending',
       style: { border: `1px solid ${COLOR.ANTD_ORANGE}` },
     });
 
-    // await till the transaction is completed
-    await tx.wait();
+    await tx.wait(); // await till the transaction is completed
+
     notification.success({
+      key,
       message: 'Transaction Success',
       description: tx.hash,
+      duration: 5,
       style: { border: `1px solid ${COLOR.PRIMARY}` },
     });
   } catch (error) {
