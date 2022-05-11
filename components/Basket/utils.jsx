@@ -248,6 +248,7 @@ export const addFunds = async ({ ether }) => {
     notification.warning({
       key,
       message: 'Transaction Pending',
+      duration: null,
       style: { border: `1px solid ${COLOR.ANTD_ORANGE}` },
     });
 
