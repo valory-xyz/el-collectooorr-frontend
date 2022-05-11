@@ -39,7 +39,7 @@ const getCollectionList = (array) => {
         name,
         txn: `https://etherscan.io/address/${txn}`,
         description,
-        style: { height: '138px' },
+        style: { height: '242px' },
       };
     });
   }
@@ -116,7 +116,7 @@ const Basket = ({ account, balance }) => {
 
       <BasketContainer>
         <Row>
-          <Col md={10}>
+          <Col md={8}>
             <Fund
               isVaultClosed={isVaultClosed}
               vaultSymbol={vaultSymbol}
@@ -127,7 +127,7 @@ const Basket = ({ account, balance }) => {
             <Service isVaultClosed={isVaultClosed} />
           </Col>
 
-          <Col md={14} className="right-columm">
+          <Col md={16} className="right-columm">
             <Vault
               vaultReservePrice={vaultReservePrice}
               vaultSymbol={vaultSymbol}

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { COLOR, MEDIA_QUERY } from 'util/theme';
 
 export const Container = styled.div`
-  max-width: 500px;
+  max-width: 600px;
   button {
     width: auto;
     height: auto;
@@ -27,6 +27,15 @@ export const MetamaskContainer = styled.div`
   align-items: center;
   font-size: 18px;
   line-height: normal;
+  .unsupported-network {
+    display: flex;
+    align-items: center;
+    margin-right: 1rem;
+    color: ${COLOR.RED};
+    svg {
+      margin-right: 0.5rem;
+    }
+  }
   .dash {
     margin: 0 0.75rem;
     width: 1px;

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import round from 'lodash/round';
 import { VAULT_ADDRESS } from 'common-util/AbiAndAddresses';
 import { VaultContainer, TotalYours, VaultHeader } from '../styles';
 
@@ -9,7 +8,13 @@ const URL = `https://fractional.art/vaults/${VAULT_ADDRESS}`;
 
 const Vault = ({ vaultReservePrice, vaultSymbol, userVTKBalance }) => {
   const symbol = vaultSymbol || 'TKN';
-  const percentage = userVTKBalance ? userVTKBalance / TOTAL : 0;
+  const reservePrice = vaultReservePrice
+    ? Number(vaultReservePrice).toFixed(2)
+    : '--';
+  const getPercentage = () => {
+    const temp = userVTKBalance ? userVTKBalance / TOTAL : 0;
+    return Number(temp).toFixed(2);
+  };
 
   return (
     <VaultContainer>
@@ -49,12 +54,7 @@ const Vault = ({ vaultReservePrice, vaultSymbol, userVTKBalance }) => {
               What&apos;s this?
             </a>
           </div>
-          <div className="desc">
-            {`${
-              round(vaultReservePrice, 2) || '--'
-            } ETH`}
-
-          </div>
+          <div className="desc">{`${reservePrice} ETH`}</div>
           <a href={URL} target="_blank" rel="noopener noreferrer">
             Vote for new reserve price
           </a>
@@ -63,7 +63,7 @@ const Vault = ({ vaultReservePrice, vaultSymbol, userVTKBalance }) => {
         <div className="vault-info yours">
           <div className="name">YOURS</div>
           <div className="desc">{`${userVTKBalance} ${symbol}`}</div>
-          <div>{`${round(percentage, 2)}% pool share`}</div>
+          <div>{`${getPercentage()}% pool share`}</div>
         </div>
       </TotalYours>
     </VaultContainer>

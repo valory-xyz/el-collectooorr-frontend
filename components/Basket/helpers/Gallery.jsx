@@ -70,7 +70,7 @@ const getNftInfo = (url, info) => {
 
 const Gallery = ({ list, nftMetadata }) => {
   const { length } = list || [];
-  const text = `${length} piece${length >= 2 ? 's' : ''} collected`;
+  const text = `${length} piece${length === 1 ? '' : 's'} collected`;
 
   return (
     <GalleryContainer>
