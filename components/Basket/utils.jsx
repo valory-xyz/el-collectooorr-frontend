@@ -264,6 +264,7 @@ export const addFunds = async ({ ether }) => {
   } catch (error) {
     console.error(error);
     notification.error({
+      key,
       message: 'Error',
       description: error.message,
       style: { border: `1px solid ${COLOR.RED}` },

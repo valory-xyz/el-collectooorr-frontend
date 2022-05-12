@@ -87,7 +87,7 @@ const Fund = ({
   };
 
   const fundBtnError = () => {
-    if (value === '') return '';
+    if (value === '' || value === undefined) return '';
     if (!hasBalance) return 'Not enough ETH in wallet';
     return '';
   };
