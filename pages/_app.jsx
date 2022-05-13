@@ -31,9 +31,37 @@ class MyApp extends App {
       <>
         <Head>
           <title>El Collectooorr</title>
+          <meta name="title" content="El Collectooorr" />
           <meta
             name="description"
             content="Deposit ETH and El Collectooorr intelligently waits for and collects Art Blocks drops on your behalf."
+          />
+
+          <meta property="og:type" content="website" />
+          <meta property="og:url" content="https://www.elcollectooorr.art/" />
+          <meta property="og:title" content="El Collectooorr" />
+          <meta
+            property="og:description"
+            content="Deposit ETH and El Collectooorr intelligently waits for and collects Art Blocks drops on your behalf."
+          />
+          <meta
+            property="og:image"
+            content="https://www.elcollectooorr.art/images/1CollectAndChill/background.png"
+          />
+
+          <meta property="twitter:card" content="summary_large_image" />
+          <meta
+            property="twitter:url"
+            content="https://www.elcollectooorr.art/"
+          />
+          <meta property="twitter:title" content="El Collectooorr" />
+          <meta
+            property="twitter:description"
+            content="Deposit ETH and El Collectooorr intelligently waits for and collects Art Blocks drops on your behalf."
+          />
+          <meta
+            property="twitter:image"
+            content="https://www.elcollectooorr.art/images/1CollectAndChill/background.png"
           />
         </Head>
         <Web3ReactProvider getLibrary={getLibrary}>
