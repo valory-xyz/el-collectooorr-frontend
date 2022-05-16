@@ -143,8 +143,8 @@ export const AddFunds = styled.div`
           margin-bottom: 0.75rem;
         }
         &:nth-child(2) {
-          p {
-            margin: 0;
+          a {
+            margin-left: 0.5rem;
           }
         }
         &.warning {

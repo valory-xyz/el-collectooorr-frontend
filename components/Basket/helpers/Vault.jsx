@@ -56,16 +56,28 @@ const Vault = ({ vaultReservePrice, vaultSymbol, userVTKBalance }) => {
                 What&apos;s this?
               </a>
             </Link>
-
           </div>
+
           <div className="desc">{`${reservePrice} ETH`}</div>
+
           <a href={URL} target="_blank" rel="noopener noreferrer">
             Vote for new reserve price
           </a>
         </div>
 
         <div className="vault-info yours">
-          <div className="name">YOURS</div>
+          <div className="name">
+            YOURS
+            <Link href="/coming-soon">
+              <a
+                href="/coming-soon"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                What&apos;s VLT1?
+              </a>
+            </Link>
+          </div>
           <div className="desc">{`${userVTKBalance} ${symbol}`}</div>
           <div>{`${getPercentage()}% pool share`}</div>
         </div>
