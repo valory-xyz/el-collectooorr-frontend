@@ -109,7 +109,7 @@ export const AddFunds = styled.div`
         line-height: normal;
       }
     }
-    &-input {
+    &-form {
       display: flex;
       align-items: center;
       .ant-input,
@@ -148,6 +148,7 @@ export const AddFunds = styled.div`
           color: ${COLOR.RED};
           svg {
             margin-bottom: -2px;
+            margin-right: 4px;
           }
         }
       }

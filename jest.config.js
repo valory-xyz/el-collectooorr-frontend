@@ -1,6 +1,6 @@
 module.exports = {
   verbose: true,
-  collectCoverageFrom: ['components/index.jsx'],
+  collectCoverageFrom: ['components/Basket/helpers/Fund.jsx'],
   setupFilesAfterEnv: ['./jest.setup.js'],
   testEnvironment: 'jsdom',
 };

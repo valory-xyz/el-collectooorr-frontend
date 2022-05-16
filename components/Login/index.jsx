@@ -77,6 +77,7 @@ const Login = ({
   const handleAccountChange = (newAccount) => {
     setUserAccount(newAccount);
     setBalance(newAccount.toString());
+    window.location.reload();
   };
 
   // reload the page to on chain change to avoid errors

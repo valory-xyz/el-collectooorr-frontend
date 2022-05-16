@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
-import { Progress, Input } from 'antd/lib';
+import { Progress, Input, notification } from 'antd/lib';
 import get from 'lodash/get';
 import { COLOR } from 'util/theme';
 import { getBalance } from 'common-util/functions';
@@ -55,9 +55,18 @@ const Fund = ({
    * handle add funds
    */
   const handleAddFunds = async () => {
-    await addFunds({ ether: value });
-    // get balance once add funds is processed!
     try {
+      await addFunds({ ether: value });
+    } catch (error) {
+      notification.error({
+        message: 'Error',
+        description: 'Some error occured while adding funds',
+        style: { border: `1px solid ${COLOR.RED}` },
+      });
+    }
+
+    try {
+      // get balance once add funds is processed!
       const result = await getBalance(account);
       setUserBalance(result);
     } catch (error) {
@@ -74,6 +83,7 @@ const Fund = ({
   };
 
   const isBtnDisabled = () => {
+    if (Number(value) === 0) return true;
     const hasBalance = value ? value <= balance : false;
     // const vaultBalance = (vaultBalanceOf * VTK_ETH_PRICE); // TODO
     // return !hasBalance && (value > vaultBalance);
@@ -101,9 +111,9 @@ const Fund = ({
           showInfo={false}
         />
         <div className="funding-process-info">
-          <div>0 ETH</div>
-          <div>{`${getProgress()} ETH`}</div>
-          <div>
+          <div className="progress-start">0 ETH</div>
+          <div className="progress-center">{`${getProgress()} ETH`}</div>
+          <div className="progress-end">
             <span>{`${FUND_CAP_IN_ETH} ETH`}</span>
             <span>(full)</span>
           </div>
@@ -116,17 +126,19 @@ const Fund = ({
           <h3>{`${getYouFunded()} ETH`}</h3>
         </div>
 
-        <div className="add-funds-input">
+        <div className="add-funds-form">
           <Input
             value={value}
             placeholder="0"
             pattern="^-?[0-9]\d*\.?\d*$"
             onChange={onInputChange}
+            data-testid="add-funds-input"
           />
           <CustomButton
             variant={isBtnDisabled() ? 'disabled' : 'green'}
             disabled={isBtnDisabled()}
             onClick={handleAddFunds}
+            data-testid="add-funds-button"
           >
             <img
               src="/images/Vault/button-deposit.png"
@@ -139,13 +151,13 @@ const Fund = ({
         </div>
 
         <div className="add-funds-info">
-          <div>
-            You will receive&nbsp;
-            {getUserReceiveVtk()}
-            &nbsp;
+          <div className="you-will-receive">
+            You will receive
+            {` ${getUserReceiveVtk()} `}
             {vaultSymbol}
           </div>
-          <div>
+
+          <div className="management-fees">
             <p>
               {`Management fee of ${getManagementFee()}% ETH will be charged.`}
             </p>
@@ -153,12 +165,12 @@ const Fund = ({
               <a href="/coming-soon">Learn more</a>
             </Link>
           </div>
+
           <div className="warning">
             <Warning />
-            &nbsp;Added ETH cannot be retrieved, but a secondary market for
-            &nbsp;
-            {vaultSymbol}
-            &nbsp; may emerge.
+            Added ETH cannot be retrieved, but a secondary market for
+            {` ${vaultSymbol} `}
+            may emerge.
           </div>
         </div>
       </AddFunds>
@@ -172,9 +184,9 @@ Fund.propTypes = {
   vaultBalanceOf: PropTypes.number,
   vaultTotalSupply: PropTypes.number,
   account: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-  setUserBalance: PropTypes.func.isRequired,
   balance: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  setErrorMessage: PropTypes.func.isRequired,
+  setUserBalance: PropTypes.func,
+  setErrorMessage: PropTypes.func,
 };
 
 Fund.defaultProps = {
@@ -184,6 +196,8 @@ Fund.defaultProps = {
   vaultTotalSupply: 0,
   balance: null,
   account: null,
+  setUserBalance: () => {},
+  setErrorMessage: () => {},
 };
 
 const mapStateToProps = (state) => {
