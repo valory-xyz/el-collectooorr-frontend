@@ -46,7 +46,7 @@ class MyApp extends App {
           />
           <meta
             property="og:image"
-            content="https://www.elcollectooorr.art/images/1CollectAndChill/background.png"
+            content="https://www.elcollectooorr.art/images/1CollectAndChill/metadata-background.png"
           />
 
           <meta property="twitter:card" content="summary_large_image" />
