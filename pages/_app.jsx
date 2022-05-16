@@ -61,7 +61,7 @@ class MyApp extends App {
           />
           <meta
             property="twitter:image"
-            content="https://www.elcollectooorr.art/images/1CollectAndChill/background.png"
+            content="https://www.elcollectooorr.art/images/1CollectAndChill/metadata-background.png"
           />
         </Head>
         <Web3ReactProvider getLibrary={getLibrary}>
