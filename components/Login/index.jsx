@@ -1,10 +1,12 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { ethers } from 'ethers';
 import round from 'lodash/round';
 import get from 'lodash/get';
 import isNil from 'lodash/isNil';
-import { CONSTANTS, METAMASK_ERROR_MSG } from 'util/constants';
+import { CHAIN_ID, CONSTANTS, METAMASK_ERROR_MSG } from 'util/constants';
+import Warning from 'common-util/SVGs/warning';
 import { getBalance } from 'common-util/functions';
 import { CustomButton } from 'common-util/Button';
 import {
@@ -25,6 +27,7 @@ const Login = ({
   setErrorMessage,
   setLoaded,
 }) => {
+  const [isNetworkSupported, setIsNetworkSupported] = useState(true);
   const setBalance = async (accountPassed) => {
     try {
       const result = await getBalance(accountPassed);
@@ -33,6 +36,13 @@ const Login = ({
       setErrorMessage(error);
     }
   };
+
+  useEffect(async () => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const { chainId } = await provider.getNetwork();
+    const isValid = CHAIN_ID.includes(Number(chainId));
+    setIsNetworkSupported(isValid);
+  }, []);
 
   const handleLogin = () => {
     if (window.ethereum && window.ethereum.isMetaMask) {
@@ -47,7 +57,11 @@ const Login = ({
           setBalance(result[0]);
         })
         .catch((e) => {
-          setErrorMessage(e.message);
+          if (get(e, 'code') === -32002) {
+            setErrorMessage('Wallet connection pending');
+          } else {
+            setErrorMessage(e.message);
+          }
         });
     } else {
       setErrorMessage(METAMASK_ERROR_MSG);
@@ -63,8 +77,8 @@ const Login = ({
   };
 
   /**
-     * if already loaded, set account and balance of the user.
-     */
+   * if already loaded, set account and balance of the user.
+   */
   useEffect(() => {
     if (isLoaded && !account) {
       handleLogin();
@@ -77,6 +91,7 @@ const Login = ({
   const handleAccountChange = (newAccount) => {
     setUserAccount(newAccount);
     setBalance(newAccount.toString());
+    setErrorMessage(null);
     window.location.reload();
   };
 
@@ -103,7 +118,11 @@ const Login = ({
   if (!account) {
     return (
       <Container>
-        <CustomButton variant="green" onClick={handleLogin} data-testid="connect-metamask">
+        <CustomButton
+          variant="green"
+          onClick={handleLogin}
+          data-testid="connect-metamask"
+        >
           Connect MetaMask
         </CustomButton>
       </Container>
@@ -114,6 +133,12 @@ const Login = ({
     <Container>
       <DetailsContainer>
         <MetamaskContainer>
+          {!isNetworkSupported && (
+            <div className="unsupported-network">
+              <Warning />
+              Unsupported network
+            </div>
+          )}
           <div>{isNil(balance) ? '--' : `${round(balance, 2)} ETH`}</div>
           <div className="dash" />
           <div className="address">{account ? `${account}` : 'NA'}</div>
@@ -148,7 +173,10 @@ const mapStateToProps = (state) => {
     isLoaded, account, balance, errorMessage,
   } = get(state, 'setup', {});
   return {
-    isLoaded, account, balance, errorMessage,
+    isLoaded,
+    account,
+    balance,
+    errorMessage,
   };
 };
 

@@ -130,6 +130,10 @@ export const AddFunds = styled.div`
         }
       }
     }
+    &-input-warning {
+      margin-top: 0.5rem;
+      color: ${COLOR.ORANGE_1};
+    }
     &-info {
       max-width: 360px;
       margin-top: 1.5rem;
@@ -145,7 +149,7 @@ export const AddFunds = styled.div`
         }
         &.warning {
           margin-top: 4rem;
-          color: ${COLOR.RED};
+          color: ${COLOR.ORANGE_1};
           svg {
             margin-bottom: -2px;
             margin-right: 4px;
@@ -215,19 +219,25 @@ export const VaultContainer = styled.div`
 export const TotalYours = styled.div`
   display: flex;
   .vault-info {
-    &:nth-child(1) {
-      width: 35%;
+    &.total {
     }
-    &:nth-child(2) {
-      width: 40%;
+    &.reserve-price {
+      padding: 0 6rem;
       a {
         font-size: 14px;
       }
     }
-    &:nth-child(3) {
+    &.yours {
       padding-left: 1rem;
     }
     .name {
+      display: flex;
+      align-items: center;
+      a {
+        font-size: 12px;
+        margin-left: 0.75rem;
+        color: ${COLOR.BLUE} !important;
+      }
     }
     .desc {
       margin: 0.25rem 0;
@@ -259,10 +269,11 @@ export const GalleryContainer = styled.div`
   border-radius: 0;
   border: 1px solid ${COLOR.BLUE};
   border-top: transparent;
+  border-radius: 0 0 20px 20px;
   .ant-card {
-    max-width: 232px;
+    max-width: 364px;
     width: 100%;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     margin-right: 3rem;
     &-body {
       padding: 0;

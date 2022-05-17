@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {
-  Skeleton, Row, Col, Alert,
-} from 'antd/lib';
+import { Skeleton, Row, Col } from 'antd/lib';
 import { get } from 'lodash';
 import { VAULT_ADDRESS } from 'common-util/AbiAndAddresses';
 import RiskBanner from 'common-util/RiskBanner';
@@ -41,7 +39,7 @@ const getCollectionList = (array) => {
         name,
         txn: `https://etherscan.io/address/${txn}`,
         description,
-        style: { height: '138px' },
+        style: { height: '242px' },
       };
     });
   }
@@ -70,56 +68,43 @@ const Basket = ({ account, balance }) => {
   }, []);
 
   useEffect(async () => {
-    if (account) {
-      setList([]);
+    setList([]);
 
-      try {
-        const status = await getVaultStatus();
-        setVaultStatus(status);
+    try {
+      const status = await getVaultStatus();
+      setVaultStatus(status);
 
-        const reservePrice = await getVaultReservePrice();
-        setVaultReservePrice(reservePrice);
+      const reservePrice = await getVaultReservePrice();
+      setVaultReservePrice(reservePrice);
 
-        const symbol = await getVaultSymbol();
-        setVaultSymbol(symbol);
+      const symbol = await getVaultSymbol();
+      setVaultSymbol(symbol);
 
-        const vtkBalance = await getBalanceOf(account);
-        setUserVTKBalance(vtkBalance);
+      const vtkBalance = await getBalanceOf(account);
+      setUserVTKBalance(vtkBalance);
 
-        const vaultBalance = await getBalanceOf(VAULT_ADDRESS);
-        setVaultBalanceOf(vaultBalance);
+      const vaultBalance = await getBalanceOf(VAULT_ADDRESS);
+      setVaultBalanceOf(vaultBalance);
 
-        const totalSupply = await getVaultTotalSupply(account);
-        setVaultTotalSupply(totalSupply);
+      const totalSupply = await getVaultTotalSupply(account);
+      setVaultTotalSupply(totalSupply);
 
-        const data = await getBaskets();
-        const transformedList = getCollectionList(data);
-        setList(transformedList);
+      const data = await getBaskets();
+      const transformedList = getCollectionList(data);
+      setList(transformedList);
 
-        const metadataList = await getNftsInfo(data.length);
-        setNftMetadata(metadataList);
-      } catch (e) {
-        console.error(e);
-      } finally {
-        setIsLoading(false);
-      }
+      const metadataList = await getNftsInfo(data.length);
+      setNftMetadata(metadataList);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setIsLoading(false);
     }
     /**
      * update API call when account is changed or
      * balance is updated
      */
   }, [account, balance]);
-
-  if (!account) {
-    return (
-      <Alert
-        message="Please connect your wallet!"
-        type="warning"
-        showIcon
-        closable
-      />
-    );
-  }
 
   if (isLoading) {
     return <Skeleton active />;
@@ -131,7 +116,7 @@ const Basket = ({ account, balance }) => {
 
       <BasketContainer>
         <Row>
-          <Col md={12}>
+          <Col md={8}>
             <Fund
               isVaultClosed={isVaultClosed}
               vaultSymbol={vaultSymbol}
@@ -142,7 +127,7 @@ const Basket = ({ account, balance }) => {
             <Service isVaultClosed={isVaultClosed} />
           </Col>
 
-          <Col md={12} className="right-columm">
+          <Col md={16} className="right-columm">
             <Vault
               vaultReservePrice={vaultReservePrice}
               vaultSymbol={vaultSymbol}

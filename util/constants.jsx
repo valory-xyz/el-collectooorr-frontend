@@ -1,6 +1,6 @@
-export const CHAIN_ID = [1, 3, 4, 5, 42];
+export const CHAIN_ID = [1, 4];
 
-export const SUPPORTED_NETWORKS = [1, 3, 4, 5, 42];
+export const SUPPORTED_NETWORKS = [1, 4];
 
 export const CONSTANTS = {
   ETH_GETBALANCE: 'eth_getBalance',

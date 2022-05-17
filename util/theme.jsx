@@ -15,6 +15,8 @@ export const COLOR = {
   GREEN_1: '#2AFD8A',
   GREEN_2: '#42FF00',
   GREEN_3: '#00FFD1',
+  YELLOW_1: '#FAFF00',
+  ORANGE_1: '#FF4D00',
 
   // antd
   ANTD_ORANGE: '#FAAD14',

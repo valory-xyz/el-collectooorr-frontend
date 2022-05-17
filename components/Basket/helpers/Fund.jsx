@@ -35,6 +35,7 @@ const Fund = ({
   setErrorMessage,
 }) => {
   const [value, setValue] = useState();
+  const hasBalance = value ? value <= balance : false;
 
   // -5% from the balance to account for fees.
   const getProgress = () => {
@@ -55,6 +56,10 @@ const Fund = ({
    * handle add funds
    */
   const handleAddFunds = async () => {
+    /**
+     * get balance once add funds is processed & once balance
+     * is updated, all the other API's  will be fetched once again!
+     */
     try {
       await addFunds({ ether: value });
     } catch (error) {
@@ -83,11 +88,19 @@ const Fund = ({
   };
 
   const isBtnDisabled = () => {
+    // disable button when metamask is not connected!
+    if (!account) return true;
+
     if (Number(value) === 0) return true;
-    const hasBalance = value ? value <= balance : false;
     // const vaultBalance = (vaultBalanceOf * VTK_ETH_PRICE); // TODO
     // return !hasBalance && (value > vaultBalance);
     return !hasBalance;
+  };
+
+  const fundBtnError = () => {
+    if (value === '' || value === undefined) return '';
+    if (!hasBalance) return 'Not enough ETH in wallet';
+    return '';
   };
 
   return (
@@ -149,6 +162,10 @@ const Fund = ({
             Add Funds
           </CustomButton>
         </div>
+
+        {fundBtnError() && (
+          <div className="add-funds-input-warning">{fundBtnError()}</div>
+        )}
 
         <div className="add-funds-info">
           <div className="you-will-receive">
