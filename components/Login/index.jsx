@@ -92,6 +92,7 @@ const Login = ({
     setUserAccount(newAccount);
     setBalance(newAccount.toString());
     setErrorMessage(null);
+    window.location.reload();
   };
 
   // reload the page to on chain change to avoid errors
