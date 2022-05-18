@@ -1,5 +1,5 @@
 const WhatIsElCol = () => (
-  <div className="section-what-is-el-col">
+  <div id="section-what-is-el-col">
     <h2>What is El Collectooorr?</h2>
     <br />
     <p>El Collectooorr is a novel experiment in crypto art collection.</p>

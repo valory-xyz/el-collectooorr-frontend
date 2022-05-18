@@ -28,7 +28,7 @@ const DATA = [
 ];
 
 const UserFlow = () => (
-  <div className="section-user-flow">
+  <div id="section-user-flow">
     <h2>User Flow</h2>
     <br />
     <p>

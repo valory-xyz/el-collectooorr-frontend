@@ -1,5 +1,5 @@
 const ManagementFee = () => (
-  <div className="section-management-fee">
+  <div id="section-management-fee">
     <h2>Management Fee</h2>
   </div>
 );

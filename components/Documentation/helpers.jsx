@@ -7,6 +7,7 @@ import { HeaderContainer } from './styles';
  */
 export const DOC_NAV = [
   {
+    id: 'section-what-is-el-col',
     title: 'What is el collectooorr',
     subtitles: [
       { id: 'user-benefits', name: 'User Benefits' },
@@ -22,22 +23,27 @@ export const DOC_NAV = [
     ],
   },
   {
+    id: 'section-user-flow',
     title: 'User Flow',
     subtitles: [],
   },
   {
+    id: 'section-collections',
     title: 'Collections',
     subtitles: [],
   },
   {
+    id: 'section-collection-fractions',
     title: 'Collection tokens',
     subtitles: [],
   },
   {
+    id: 'section-management-fee',
     title: 'Management Fee',
     subtitles: [],
   },
   {
+    id: 'section-technical-architecture',
     title: 'Technical Architecture',
     subtitles: [
       { id: 'on-chain-components', name: 'On-chain components' },

@@ -1,5 +1,5 @@
 const CollectionFractions = () => (
-  <div className="section-collection-fractions">
+  <div id="section-collection-fractions">
     <h2>Collection Fractions</h2>
   </div>
 );

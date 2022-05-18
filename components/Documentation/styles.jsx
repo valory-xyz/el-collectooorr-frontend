@@ -53,12 +53,11 @@ export const DocSection = styled.div`
       padding-left: 0px;
       .ant-anchor-link-title {
         color: ${COLOR.WHITE};
-        &-active {
-          /* font-weight: bold; */
-        }
       }
     }
   }
+
+  /* custom nav-anchor */
   .custom-nav-anchor {
     ${navStyle}
     padding: 12px 40px 12px 0px;
@@ -67,13 +66,14 @@ export const DocSection = styled.div`
       text-decoration: none;
     }
   }
+  .custom-nav-anchor-active a.ant-anchor-link-title {
+    color: ${COLOR.GREEN_2} !important;
+  }
 
   ${MEDIA_QUERY.laptop} {
     .reading-section {
-      .img-wrapper {
-        img {
-          width: calc(100vw - 22rem);
-        }
+      .img-wrapper img {
+        width: calc(100vw - 22rem);
       }
     }
   }
@@ -111,14 +111,12 @@ export const DocNavigation = styled(Collapse)`
     padding-left: 0 !important;
     ${navStyle}
   }
+  &.custom-ant-collapse-active .ant-collapse-header {
+    color: ${COLOR.GREEN_2} !important;
+  }
   > .ant-collapse-item-active {
-    > .ant-collapse-header {
-      color: ${COLOR.GREEN_2} !important;
-    }
-    &.no-sub-nav {
-      .ant-collapse-content-box {
-        padding: 0 !important;
-      }
+    &.no-sub-nav .ant-collapse-content-box {
+      padding: 0 !important;
     }
   }
   & > .ant-collapse-item:last-child,
