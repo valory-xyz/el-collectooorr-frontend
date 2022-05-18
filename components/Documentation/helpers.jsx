@@ -1,3 +1,10 @@
+import PropTypes from 'prop-types';
+import Header from 'common-util/Header';
+import { HeaderContainer } from './styles';
+
+/**
+ * navigation titles
+ */
 export const DOC_NAV = [
   {
     title: 'What is el collectooorr',
@@ -15,7 +22,7 @@ export const DOC_NAV = [
     ],
   },
   {
-    title: 'How it works',
+    title: 'User Flow',
     subtitles: [],
   },
   {
@@ -49,4 +56,30 @@ export const DOC_NAV = [
   },
 ];
 
-export const CONTENT = [];
+/**
+ * Documentation Header
+ */
+export const DocumentationHeader = ({ isMobile }) => (
+  <HeaderContainer>
+    <div>
+      <Header className="header" title="DOCUMENTATION" />
+      <img src="/images/horizontal-arrow.png" alt="" loading="lazy" />
+      {!isMobile && (
+        <img src="/images/horizontal-arrow.png" alt="" loading="lazy" />
+      )}
+    </div>
+
+    <div>
+      <img
+        src="/images/Documentation/documentation.png"
+        alt=""
+        loading="lazy"
+        width={174}
+      />
+    </div>
+  </HeaderContainer>
+);
+
+DocumentationHeader.propTypes = {
+  isMobile: PropTypes.bool.isRequired,
+};

@@ -1,16 +1,15 @@
 import { useState, useEffect } from 'react';
 import { Skeleton, Collapse, Anchor } from 'antd/lib';
 import { kebabCase, get } from 'lodash';
-import Header from 'common-util/Header';
 import useCheckMobileScreen from 'common-util/hooks/useCheckMobileScreen';
 import { SubHeaderSection } from '../Homepage/0Header';
-import WhatIsElCol from './1_WhatIsElCol';
-import UserFlow from './2_UserFlow';
-import Collections from './3_Collections';
-import CollectionFractions from './4_CollectionFractions';
-import ManagementFee from './5_ManagementFee';
-import TechnicalArchitecture from './6_TechnicalArchitecture';
-import { DOC_NAV } from './constants';
+import WhatIsElCol from './content/1_WhatIsElCol';
+import UserFlow from './content/2_UserFlow';
+import Collections from './content/3_Collections';
+import CollectionFractions from './content/4_CollectionFractions';
+import ManagementFee from './content/5_ManagementFee';
+import TechnicalArchitecture from './content/6_TechnicalArchitecture';
+import { DOC_NAV, DocumentationHeader } from './helpers';
 import { Container, DocNavigation, DocSection } from './styles';
 
 const { Link } = Anchor;
@@ -33,28 +32,33 @@ const Documentation = () => {
   return (
     <Container>
       <SubHeaderSection />
-
-      <div className="header-container">
-        <Header className="header" title="DOCUMENTATION" />
-        <img src="/images/horizontal-arrow.png" alt="" loading="lazy" />
-        {!isMobile && (
-          <img src="/images/horizontal-arrow.png" alt="" loading="lazy" />
-        )}
-      </div>
-      <br />
+      <DocumentationHeader isMobile={isMobile} />
 
       <DocSection>
         <div className="navigation-section">
-          <DocNavigation
-            defaultActiveKey={[firstKey]}
-            ghost
-            // expandIcon={() => null}
-            expandIconPosition="right"
-          >
-            {DOC_NAV.map(({ title, subtitles }) => {
-              const key = kebabCase(title);
-              const hasSubNav = subtitles.length !== 0;
+          {DOC_NAV.map(({ title, subtitles }) => {
+            const key = kebabCase(title);
+            const hasSubNav = subtitles.length !== 0;
+            if (!hasSubNav) {
               return (
+                <Anchor
+                  affix={false}
+                  key={key}
+                  offsetTop={isMobile ? 20 : 120}
+                  className="custom-nav-anchor"
+                >
+                  <Link href={`#${key}`} title={title} />
+                </Anchor>
+              );
+            }
+
+            return (
+              <DocNavigation
+                defaultActiveKey={[firstKey]}
+                key={`navigation-${key}`}
+                ghost
+                expandIconPosition="right"
+              >
                 <Panel
                   header={title}
                   key={key}
@@ -64,14 +68,14 @@ const Documentation = () => {
                     <Anchor affix={false} offsetTop={isMobile ? 20 : 120}>
                       {subtitles.map(({ name, id }) => {
                         const subKey = id || kebabCase(name);
-                        return <Link href={`#${subKey}`} title={name} />;
+                        return <Link key={subKey} href={`#${subKey}`} title={name} />;
                       })}
                     </Anchor>
                   )}
                 </Panel>
-              );
-            })}
-          </DocNavigation>
+              </DocNavigation>
+            );
+          })}
         </div>
 
         <div className="reading-section">

@@ -1,48 +1,18 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Collapse } from 'antd/lib';
 import { COLOR, MEDIA_QUERY } from 'util/theme';
 
+const navStyle = css`
+  border-bottom: 1px solid ${COLOR.WHITE};
+  font-size: 18px;
+  text-transform: uppercase;
+`;
+
 export const Container = styled.div``;
 
-export const DocNavigation = styled(Collapse)`
-  .ant-collapse-header {
-    padding-left: 0 !important;
-    border-bottom: 1px solid ${COLOR.WHITE};
-    font-size: 18px;
-    text-transform: uppercase;
-  }
-  > .ant-collapse-item-active {
-    > .ant-collapse-header {
-      color: ${COLOR.GREEN_2} !important;
-    }
-    &.no-sub-nav {
-      .ant-collapse-content-box {
-        padding: 0 !important;
-      }
-    }
-  }
-  & > .ant-collapse-item:last-child,
-  & > .ant-collapse-item:last-child > .ant-collapse-header {
-    border-radius: 0px !important;
-  }
-
-  .ant-anchor {
-    .ant-anchor-ink {
-      display: none;
-    }
-    .ant-anchor-link {
-      padding-left: 0px;
-      .ant-anchor-link-title {
-        color: ${COLOR.WHITE};
-        &-active {
-          /* font-weight: bold; */
-        }
-      }
-    }
-  }
-
-  ${MEDIA_QUERY.desktop} {
-  }
+export const HeaderContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
 
 export const DocSection = styled.div`
@@ -73,6 +43,28 @@ export const DocSection = styled.div`
         width: calc(100vw - 30rem);
         max-width: 1200px;
       }
+    }
+  }
+  .ant-anchor {
+    .ant-anchor-ink {
+      display: none;
+    }
+    .ant-anchor-link {
+      padding-left: 0px;
+      .ant-anchor-link-title {
+        color: ${COLOR.WHITE};
+        &-active {
+          /* font-weight: bold; */
+        }
+      }
+    }
+  }
+  .custom-nav-anchor {
+    ${navStyle}
+    padding: 12px 40px 12px 0px;
+    a.ant-anchor-link-title {
+      font-size: 18px;
+      text-decoration: none;
     }
   }
 
@@ -111,5 +103,29 @@ export const DocSection = styled.div`
     .reading-section {
       padding: 0 1rem;
     }
+  }
+`;
+
+export const DocNavigation = styled(Collapse)`
+  .ant-collapse-header {
+    padding-left: 0 !important;
+    ${navStyle}
+  }
+  > .ant-collapse-item-active {
+    > .ant-collapse-header {
+      color: ${COLOR.GREEN_2} !important;
+    }
+    &.no-sub-nav {
+      .ant-collapse-content-box {
+        padding: 0 !important;
+      }
+    }
+  }
+  & > .ant-collapse-item:last-child,
+  & > .ant-collapse-item:last-child > .ant-collapse-header {
+    border-radius: 0px !important;
+  }
+
+  ${MEDIA_QUERY.desktop} {
   }
 `;
