@@ -15,6 +15,22 @@ export const HeaderContainer = styled.div`
   justify-content: space-between;
 `;
 
+export const WrapperDiv = styled.div`
+  width: 100%;
+  margin: 1rem 0;
+  padding: 0.5rem 0;
+  border: 1px solid ${COLOR.GREEN_2};
+  border-radius: 4px;
+  overflow: auto;
+  cursor: pointer;
+  .text {
+    padding: 0 1rem;
+  }
+  .documentation-chapters {
+    transition: 0.2s;
+  }
+`;
+
 export const DocSection = styled.div`
   display: flex;
   align-items: flex-start;
@@ -61,6 +77,7 @@ export const DocSection = styled.div`
   .custom-nav-anchor {
     ${navStyle}
     padding: 12px 40px 12px 0px;
+    padding-left: ${({ isMobile }) => (isMobile ? '16px' : '0')};
     a.ant-anchor-link-title {
       font-size: 18px;
       text-decoration: none;
@@ -107,6 +124,17 @@ export const DocSection = styled.div`
 `;
 
 export const DocNavigation = styled(Collapse)`
+  &.doc-mobile-navigation {
+    .ant-collapse-header {
+      padding-left: 1rem !important;
+    }
+    .ant-collapse-content-box {
+      padding-left: 2rem;
+    }
+    &.last-navigation-item .ant-collapse-header {
+      border-bottom-color: transparent;
+    }
+  }
   .ant-collapse-header {
     padding-left: 0 !important;
     ${navStyle}
@@ -114,11 +142,7 @@ export const DocNavigation = styled(Collapse)`
   &.custom-ant-collapse-active .ant-collapse-header {
     color: ${COLOR.GREEN_2} !important;
   }
-  > .ant-collapse-item-active {
-    &.no-sub-nav .ant-collapse-content-box {
-      padding: 0 !important;
-    }
-  }
+
   & > .ant-collapse-item:last-child,
   & > .ant-collapse-item:last-child > .ant-collapse-header {
     border-radius: 0px !important;

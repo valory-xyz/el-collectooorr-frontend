@@ -1,6 +1,7 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import Header from 'common-util/Header';
-import { HeaderContainer } from './styles';
+import { HeaderContainer, WrapperDiv } from './styles';
 
 /**
  * navigation titles
@@ -75,17 +76,55 @@ export const DocumentationHeader = ({ isMobile }) => (
       )}
     </div>
 
-    <div>
-      <img
-        src="/images/Documentation/documentation.png"
-        alt=""
-        loading="lazy"
-        width={174}
-      />
-    </div>
+    {!isMobile && (
+      <div>
+        <img
+          src="/images/Documentation/documentation.png"
+          alt=""
+          loading="lazy"
+          width={174}
+        />
+      </div>
+    )}
   </HeaderContainer>
 );
 
 DocumentationHeader.propTypes = {
   isMobile: PropTypes.bool.isRequired,
+};
+
+/**
+ * navigation wrapper
+ */
+export const NavWrapper = ({ isMobile, children }) => {
+  const [isOpen, setOpen] = useState(null);
+  const handleOpen = () => {
+    setOpen(!isOpen);
+  };
+
+  if (isMobile) {
+    return (
+      <>
+        <WrapperDiv>
+          <div
+            className="text"
+            role="button"
+            tabIndex="0"
+            onKeyPress={handleOpen}
+            onClick={handleOpen}
+          >
+            DOCUMENTATION CHAPTERS
+          </div>
+          <div className="documentation-chapters">{isOpen && children}</div>
+        </WrapperDiv>
+      </>
+    );
+  }
+
+  return <>{children}</>;
+};
+
+NavWrapper.propTypes = {
+  isMobile: PropTypes.bool.isRequired,
+  children: PropTypes.oneOfType([PropTypes.element]).isRequired,
 };

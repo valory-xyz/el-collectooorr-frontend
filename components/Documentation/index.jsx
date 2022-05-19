@@ -9,7 +9,7 @@ import Collections from './content/3_Collections';
 import CollectionFractions from './content/4_CollectionFractions';
 import ManagementFee from './content/5_ManagementFee';
 import TechnicalArchitecture from './content/6_TechnicalArchitecture';
-import { DOC_NAV, DocumentationHeader } from './helpers';
+import { DOC_NAV, DocumentationHeader, NavWrapper } from './helpers';
 import { Container, DocNavigation, DocSection } from './styles';
 
 const { Link } = Anchor;
@@ -34,62 +34,77 @@ const Documentation = () => {
       <SubHeaderSection />
       <DocumentationHeader isMobile={isMobile} />
 
-      <DocSection>
-        <div className="navigation-section">
-          {DOC_NAV.map(({ id: key, title, subtitles }) => {
-            const hasSubNav = subtitles.length !== 0;
-            if (!hasSubNav) {
-              return (
-                <Anchor
-                  {...anchorCommonProps}
-                  key={key}
-                  className={`custom-nav-anchor ${
-                    key === activeNav ? 'custom-nav-anchor-active' : ''
-                  }`}
-                  onClick={() => setActiveNav(key)}
-                >
-                  <Link href={`#${key}`} title={title} />
-                </Anchor>
-              );
-            }
-
-            return (
-              <DocNavigation
-                defaultActiveKey={[firstKey]}
-                key={`navigation-${key}`}
-                ghost
-                expandIconPosition="right"
-                /**
-                 * e is an array of keys opened
-                 * eg. e = ['key-of-tab-1', 'key-of-tab-2']
-                 * and assign active-nav to the last opened tab
-                 */
-                onChange={(e) => setActiveNav(e[e.length - 1] || null)}
-                className={
-                  key === activeNav ? 'custom-ant-collapse-active' : ''
-                }
-              >
-                <Panel
-                  header={title}
-                  key={key}
-                  className={hasSubNav ? '' : 'no-sub-nav'}
-                >
+      <DocSection isMobile={isMobile}>
+        <NavWrapper isMobile={isMobile}>
+          <div className="navigation-section">
+            {DOC_NAV.map(({ id: key, title, subtitles }, index) => {
+              const hasSubNav = subtitles.length !== 0;
+              if (!hasSubNav) {
+                return (
                   <Anchor
                     {...anchorCommonProps}
+                    key={key}
+                    className={`custom-nav-anchor ${
+                      key === activeNav ? 'custom-nav-anchor-active' : ''
+                    }`}
                     onClick={() => setActiveNav(key)}
                   >
-                    {subtitles.map(({ name, id: subId }) => {
-                      const subKey = subId || kebabCase(name);
-                      return (
-                        <Link key={subKey} href={`#${subKey}`} title={name} />
-                      );
-                    })}
+                    <Link href={`#${key}`} title={title} />
                   </Anchor>
-                </Panel>
-              </DocNavigation>
-            );
-          })}
-        </div>
+                );
+              }
+
+              const getClassName = () => {
+                let docClassName = '';
+                if (key === activeNav) {
+                  docClassName += 'custom-ant-collapse-active ';
+                }
+                if (isMobile) {
+                  docClassName += 'doc-mobile-navigation ';
+                }
+                if (DOC_NAV.length - 1 === index) {
+                  docClassName += 'last-navigation-item ';
+                }
+
+                return docClassName;
+              };
+
+              return (
+                <DocNavigation
+                  defaultActiveKey={[firstKey]}
+                  key={`navigation-${key}`}
+                  ghost
+                  expandIconPosition="right"
+                  /**
+                   * e is an array of keys opened
+                   * eg. e = ['key-of-tab-1', 'key-of-tab-2']
+                   * and assign active-nav to the last opened tab
+                   */
+                  onChange={(e) => setActiveNav(e[e.length - 1] || null)}
+                  className={getClassName()}
+                >
+                  <Panel
+                    header={title}
+                    key={key}
+                    className={hasSubNav ? '' : 'no-sub-nav'}
+                  >
+                    <Anchor
+                      {...anchorCommonProps}
+                      onClick={() => setActiveNav(key)}
+                    >
+                      {subtitles.map(({ name, id: subId }) => {
+                        const subKey = subId || kebabCase(name);
+                        return (
+                          <Link key={subKey} href={`#${subKey}`} title={name} />
+                        );
+                      })}
+                    </Anchor>
+                  </Panel>
+                </DocNavigation>
+              );
+            })}
+          </div>
+        </NavWrapper>
 
         <div className="reading-section">
           <WhatIsElCol />
