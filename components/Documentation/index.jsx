@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { Collapse, Anchor } from 'antd/lib';
 import { kebabCase, get } from 'lodash';
 import useCheckMobileScreen from 'common-util/hooks/useCheckMobileScreen';
@@ -17,17 +18,40 @@ const { Panel } = Collapse;
 
 const Documentation = () => {
   const [activeNav, setActiveNav] = useState(null);
+  const router = useRouter();
   const isMobile = useCheckMobileScreen();
-  const firstKey = kebabCase(get(DOC_NAV, `[${0}].title`) || '');
   const anchorCommonProps = {
     affix: false,
     offsetTop: isMobile ? 20 : 120,
   };
 
   useEffect(() => {
-    // on load, set first key as active & opened by default
-    setActiveNav(firstKey);
+    const { asPath } = router;
+    const afterHash = asPath.split('#')[1];
+
+    if (!afterHash && !activeNav) {
+      // on load, set first key as active & opened by default
+      const firstKey = kebabCase(get(DOC_NAV, `[${0}].id`) || '');
+      setActiveNav(firstKey);
+    } else {
+      // if we want to point specific Id, the URL will have #
+      // eg. #user-flow
+      for (let i = 0; i < DOC_NAV.length; i += 1) {
+        if (DOC_NAV[i].id === afterHash) {
+          setActiveNav(DOC_NAV[i].id);
+        } else {
+          // if sub-nav is pointed, open the parent panel
+          // eg. what-is-el-col > #user-benefits
+          const hasId = DOC_NAV[i].subtitles.find(({ id }) => id === afterHash);
+          if (hasId) {
+            setActiveNav(DOC_NAV[i].id);
+          }
+        }
+      }
+    }
   }, []);
+
+  if (!activeNav) return null;
 
   return (
     <Container>
@@ -71,7 +95,7 @@ const Documentation = () => {
 
               return (
                 <DocNavigation
-                  defaultActiveKey={[firstKey]}
+                  defaultActiveKey={[activeNav]}
                   key={`navigation-${key}`}
                   ghost
                   expandIconPosition="right"
