@@ -257,7 +257,14 @@ export const addFunds = async ({ ether }) => {
     notification.success({
       key,
       message: 'Transaction Success',
-      description: tx.hash,
+      description: (
+        <>
+          {tx.hash}
+          <br />
+          <br />
+          VLT token will arrive in minutes.
+        </>
+      ),
       duration: 5,
       style: { border: `1px solid ${COLOR.PRIMARY}` },
     });
