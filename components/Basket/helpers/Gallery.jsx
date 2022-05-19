@@ -84,7 +84,7 @@ const Gallery = ({ list, nftMetadata }) => {
           />
           <h4>
             Gallery
-            <div>{text}</div>
+            <div>{`${text}. Pieces are collected when the Fund has ETH and as new drops happen`}</div>
           </h4>
         </div>
       </SubHeader>

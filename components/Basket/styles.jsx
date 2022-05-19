@@ -194,7 +194,7 @@ export const FundingProgress = styled.div`
 
 /* ------------- SERVICE ------------- */
 export const ServiceContainer = styled.div`
-  margin-top: 1rem;
+  margin-bottom: 1rem;
   border: 1px solid ${COLOR.PURPLE};
   .vault-service {
     display: flex;

@@ -117,6 +117,7 @@ const Basket = ({ account, balance }) => {
       <BasketContainer>
         <Row>
           <Col md={8}>
+            <Service isVaultClosed={isVaultClosed} />
             <Fund
               isVaultClosed={isVaultClosed}
               vaultSymbol={vaultSymbol}
@@ -124,7 +125,6 @@ const Basket = ({ account, balance }) => {
               vaultTotalSupply={vaultTotalSupply}
               userVTKBalance={userVTKBalance}
             />
-            <Service isVaultClosed={isVaultClosed} />
           </Col>
 
           <Col md={16} className="right-columm">
