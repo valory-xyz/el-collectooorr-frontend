@@ -1,6 +1,8 @@
 import React from 'react';
+import round from 'lodash/round';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
+import NumbersAnimate from 'common-util/NumbersAnimate';
 import { VAULT_ADDRESS } from 'common-util/AbiAndAddresses';
 import { VaultContainer, TotalYours, VaultHeader } from '../styles';
 
@@ -9,12 +11,10 @@ const URL = `https://fractional.art/vaults/${VAULT_ADDRESS}`;
 
 const Vault = ({ vaultReservePrice, vaultSymbol, userVTKBalance }) => {
   const symbol = vaultSymbol || 'TKN';
-  const reservePrice = vaultReservePrice
-    ? Number(vaultReservePrice).toFixed(2)
-    : '--';
+  const reservePrice = vaultReservePrice ? round(vaultReservePrice, 2) : '--';
   const getPercentage = () => {
     const temp = userVTKBalance ? userVTKBalance / TOTAL : 0;
-    return Number(temp).toFixed(2);
+    return round(temp, 2);
   };
 
   return (
@@ -48,11 +48,7 @@ const Vault = ({ vaultReservePrice, vaultSymbol, userVTKBalance }) => {
           <div className="name">
             RESERVE PRICE
             <Link href="/coming-soon">
-              <a
-                href="/coming-soon"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <a href="/coming-soon" target="_blank" rel="noopener noreferrer">
                 What&apos;s this?
               </a>
             </Link>
@@ -69,17 +65,19 @@ const Vault = ({ vaultReservePrice, vaultSymbol, userVTKBalance }) => {
           <div className="name">
             YOURS
             <Link href="/coming-soon">
-              <a
-                href="/coming-soon"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <a href="/coming-soon" target="_blank" rel="noopener noreferrer">
                 What&apos;s VLT1?
               </a>
             </Link>
           </div>
-          <div className="desc">{`${userVTKBalance} ${symbol}`}</div>
-          <div>{`${getPercentage()}% pool share`}</div>
+          <div className="desc">
+            {userVTKBalance ? <NumbersAnimate value={userVTKBalance} /> : '--'}
+            {` ${symbol}`}
+          </div>
+          <div>
+            <NumbersAnimate value={getPercentage()} />
+            % pool share
+          </div>
         </div>
       </TotalYours>
     </VaultContainer>

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Progress, Input, notification } from 'antd/lib';
 import get from 'lodash/get';
 import { COLOR } from 'util/theme';
+import NumbersAnimate from 'common-util/NumbersAnimate';
 import { getBalance } from 'common-util/functions';
 import Warning from 'common-util/SVGs/warning';
 import CustomButton from 'common-util/Button';
@@ -126,7 +127,10 @@ const Fund = ({
         />
         <div className="funding-process-info">
           <div className="progress-start">0 ETH</div>
-          <div className="progress-center">{`${getProgress()} ETH`}</div>
+          <div className="progress-center">
+            <NumbersAnimate value={getProgress()} />
+            {' ETH'}
+          </div>
           <div className="progress-end">
             <span>{`${FUND_CAP_IN_ETH} ETH`}</span>
             <span>(full)</span>
@@ -137,7 +141,10 @@ const Fund = ({
       <AddFunds>
         <div className="add-funds-header">
           <div>YOU FUNDED</div>
-          <h3>{`${getYouFunded()} ETH`}</h3>
+          <h3>
+            <NumbersAnimate value={getYouFunded()} />
+            {' ETH'}
+          </h3>
         </div>
 
         <div className="add-funds-form">
