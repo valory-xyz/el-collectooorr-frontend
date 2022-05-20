@@ -16,4 +16,6 @@ export const getBalance = (account) => new Promise((resolve, reject) => {
     });
 });
 
-export const AB = null;
+export const waitSometime = async (seconds = 3000) => {
+  await new Promise((resolve) => setTimeout(resolve, seconds));
+};
