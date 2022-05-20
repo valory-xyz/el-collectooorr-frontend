@@ -87,6 +87,7 @@ export const SubHeader = styled.div`
   .vault-status {
     font-family: "spacegrotesk__bold";
     color: ${COLOR.GREEN_2};
+    text-align: right;
   }
   &.pt-0 {
     padding-top: 0rem;

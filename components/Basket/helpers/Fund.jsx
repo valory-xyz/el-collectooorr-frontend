@@ -35,6 +35,8 @@ const Fund = ({
   balance,
   setUserBalance,
   setErrorMessage,
+  isDemo,
+  addFundCallback,
 }) => {
   const [value, setValue] = useState();
   const hasBalance = value ? value <= balance : false;
@@ -79,6 +81,13 @@ const Fund = ({
     } catch (error) {
       setErrorMessage(error);
     }
+
+    /**
+     * trigger callback only if it is demo
+     */
+    if (isDemo && !!addFundCallback) {
+      await addFundCallback(value, VTK_ETH_PRICE);
+    }
   };
 
   const onInputChange = (e) => {
@@ -90,6 +99,8 @@ const Fund = ({
   };
 
   const isBtnDisabled = () => {
+    // if (isDemo) return false; // TODO
+
     // disable button when metamask is not connected!
     if (!account) return true;
 
@@ -210,6 +221,8 @@ Fund.propTypes = {
   balance: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   setUserBalance: PropTypes.func,
   setErrorMessage: PropTypes.func,
+  isDemo: PropTypes.bool,
+  addFundCallback: PropTypes.func,
 };
 
 Fund.defaultProps = {
@@ -221,6 +234,8 @@ Fund.defaultProps = {
   account: null,
   setUserBalance: () => {},
   setErrorMessage: () => {},
+  isDemo: false,
+  addFundCallback: () => {},
 };
 
 const mapStateToProps = (state) => {

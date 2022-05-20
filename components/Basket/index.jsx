@@ -5,6 +5,7 @@ import { Skeleton, Row, Col } from 'antd/lib';
 import { get } from 'lodash';
 import { VAULT_ADDRESS } from 'common-util/AbiAndAddresses';
 import RiskBanner from 'common-util/RiskBanner';
+import { waitSometime } from 'common-util/functions';
 import Fund from './helpers/Fund';
 import Service from './helpers/Service';
 import Vault from './helpers/Vault';
@@ -18,7 +19,10 @@ import {
   getBalanceOf,
   getNftsInfo,
 } from './utils';
+import { NFT_LIST, NFT_METADATA } from './dummyValues';
 import { BasketContainer } from './styles';
+
+const IS_DEMO = true;
 
 /**
  * helper function formalize the list type
@@ -70,41 +74,84 @@ const Basket = ({ account, balance }) => {
   useEffect(async () => {
     setList([]);
 
-    try {
-      const status = await getVaultStatus();
-      setVaultStatus(status);
-
-      const reservePrice = await getVaultReservePrice();
-      setVaultReservePrice(reservePrice);
-
-      const symbol = await getVaultSymbol();
-      setVaultSymbol(symbol);
-
-      const vtkBalance = await getBalanceOf(account);
-      setUserVTKBalance(vtkBalance);
-
-      const vaultBalance = await getBalanceOf(VAULT_ADDRESS);
-      setVaultBalanceOf(vaultBalance);
-
-      const totalSupply = await getVaultTotalSupply(account);
-      setVaultTotalSupply(totalSupply);
-
-      const data = await getBaskets();
-      const transformedList = getCollectionList(data);
-      setList(transformedList);
-
-      const metadataList = await getNftsInfo(data.length);
-      setNftMetadata(metadataList);
-    } catch (e) {
-      console.error(e);
-    } finally {
+    if (IS_DEMO) {
       setIsLoading(false);
+      setVaultStatus(false);
+      setVaultReservePrice('15');
+      setVaultSymbol('VLT1');
+      setUserVTKBalance(3010);
+      setVaultBalanceOf(2000);
+      setVaultTotalSupply(10000);
+    } else {
+      try {
+        const status = await getVaultStatus();
+        setVaultStatus(status);
+
+        const reservePrice = await getVaultReservePrice();
+        setVaultReservePrice(reservePrice);
+
+        const symbol = await getVaultSymbol();
+        setVaultSymbol(symbol);
+
+        const vtkBalance = await getBalanceOf(account);
+        setUserVTKBalance(vtkBalance);
+
+        const vaultBalance = await getBalanceOf(VAULT_ADDRESS);
+        setVaultBalanceOf(vaultBalance);
+
+        const totalSupply = await getVaultTotalSupply(account);
+        setVaultTotalSupply(totalSupply);
+
+        const data = await getBaskets();
+        const transformedList = getCollectionList(data);
+        setList(transformedList);
+
+        const metadataList = await getNftsInfo(data.length);
+        setNftMetadata(metadataList);
+      } catch (e) {
+        console.error(e);
+      } finally {
+        setIsLoading(false);
+      }
     }
+
     /**
      * update API call when account is changed or
      * balance is updated
      */
   }, [account, balance]);
+
+  /**
+   * callback on add-funds
+   */
+  const addFundCallback = async (input, ethValue) => {
+    if (IS_DEMO) {
+      const amount = input / ethValue;
+
+      await waitSometime(5000);
+      setUserVTKBalance(userVTKBalance + amount);
+
+      await waitSometime(5000);
+      setVaultBalanceOf(vaultBalanceOf - amount);
+
+      /**
+       * dummy NFT
+       */
+      await waitSometime(5000);
+
+      if (IS_DEMO) {
+        let count = 0;
+        const intervalFn = setInterval(() => {
+          setList((e) => [...e, NFT_LIST[count]]);
+          setNftMetadata((e) => [...e, NFT_METADATA[count]]);
+          count += 1;
+          if (count === NFT_LIST.length) {
+            clearInterval(intervalFn);
+          }
+        }, 3000);
+      }
+    }
+  };
 
   if (isLoading) {
     return <Skeleton active />;
@@ -124,6 +171,8 @@ const Basket = ({ account, balance }) => {
               vaultBalanceOf={vaultBalanceOf}
               vaultTotalSupply={vaultTotalSupply}
               userVTKBalance={userVTKBalance}
+              isDemo={IS_DEMO}
+              addFundCallback={addFundCallback}
             />
           </Col>
 
