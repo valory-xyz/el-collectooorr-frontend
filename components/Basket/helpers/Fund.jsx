@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import { Progress, Input, notification } from 'antd/lib';
+import round from 'lodash/round';
 import get from 'lodash/get';
 import { COLOR } from 'util/theme';
 import NumbersAnimate from 'common-util/NumbersAnimate';
@@ -44,7 +45,7 @@ const Fund = ({
     const progress = purchasedTokens * VTK_ETH_PRICE;
     return progress || 0;
   };
-  const getYouFunded = () => (userVTKBalance ? userVTKBalance * VTK_ETH_PRICE : 0);
+  const getYouFunded = () => round(userVTKBalance ? userVTKBalance * VTK_ETH_PRICE : 0, 2);
   const getUserReceiveVtk = () => {
     if (!value) return '--';
     const totalVtk = value / VTK_ETH_PRICE;
