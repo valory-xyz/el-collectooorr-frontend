@@ -52,8 +52,7 @@ const Fund = ({
   const getUserReceiveVtk = () => {
     if (!value) return '--';
     const totalVtk = value / VTK_ETH_PRICE;
-    const actualVtk = totalVtk - totalVtk * MANAGEMENT_FEE; // user will receive => total - fee
-    return actualVtk.toLocaleString();
+    return totalVtk.toLocaleString();
   };
   const getManagementFee = () => MANAGEMENT_FEE * 100; // convert to percentage
 
@@ -100,8 +99,6 @@ const Fund = ({
   };
 
   const isBtnDisabled = () => {
-    // if (isDemo) return false; // TODO
-
     // disable button when metamask is not connected!
     if (!account) return true;
 
