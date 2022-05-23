@@ -1,8 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card } from 'antd/lib';
+import { Card, Skeleton } from 'antd/lib';
 import LinkIcon from 'common-util/SVGs/link';
-import { GalleryList, GalleryContainer, SubHeader } from '../styles';
+import {
+  GalleryList,
+  GalleryContainer,
+  SubHeader,
+  GalleryLoading,
+} from '../styles';
 
 const getImage = (type, {
   name, index, url, style,
@@ -68,7 +73,7 @@ const getNftInfo = (url, info) => {
   );
 };
 
-const Gallery = ({ list, nftMetadata }) => {
+const Gallery = ({ isLoading, list, nftMetadata }) => {
   const { length } = list || [];
   const text = `${length} piece${length === 1 ? '' : 's'} collected`;
 
@@ -90,32 +95,50 @@ const Gallery = ({ list, nftMetadata }) => {
       </SubHeader>
 
       <GalleryList>
-        {(list || []).map(({
-          name, type, url, style,
-        }, index) => (
-          <Card key={`basket-${index}`} bordered={false}>
-            {getImage(type, {
-              index,
-              url,
-              name,
-              style,
-            })}
+        {isLoading ? (
+          <GalleryLoading>
+            <Skeleton active />
+            <Skeleton active />
+            <Skeleton active />
+          </GalleryLoading>
+        ) : (
+          <>
+            {(list || []).map(
+              ({
+                name, type, url, style, cardStyle,
+              }, index) => (
+                <Card
+                  key={`basket-${index}`}
+                  bordered={false}
+                  style={cardStyle || {}}
+                >
+                  {getImage(type, {
+                    index,
+                    url,
+                    name,
+                    style,
+                  })}
 
-            <Card.Meta title={name} />
-            {getNftInfo(url, nftMetadata[index])}
-          </Card>
-        ))}
+                  <Card.Meta title={name} />
+                  {getNftInfo(url, nftMetadata[index])}
+                </Card>
+              ),
+            )}
+          </>
+        )}
       </GalleryList>
     </GalleryContainer>
   );
 };
 
 Gallery.propTypes = {
+  isLoading: PropTypes.bool,
   list: PropTypes.arrayOf(PropTypes.shape({})),
   nftMetadata: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 Gallery.defaultProps = {
+  isLoading: false,
   list: [],
   nftMetadata: [],
 };

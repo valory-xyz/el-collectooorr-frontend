@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Skeleton, Row, Col } from 'antd/lib';
 import { get } from 'lodash';
+import { IPFS_URL } from 'util/constants';
 import { VAULT_ADDRESS } from 'common-util/AbiAndAddresses';
 import RiskBanner from 'common-util/RiskBanner';
 import { waitSometime } from 'common-util/functions';
@@ -34,12 +35,17 @@ const getCollectionList = (array) => {
     return array.map(({
       name, description, image, txn,
     }) => {
-      const imageUrl = image
-        ? `https://ipfs.foundation.app/ipfs/${image.replace('ipfs://', '')}`
-        : null;
+      const getImageUrl = () => {
+        if (!image) return null;
+        if (image.includes('ipfs://')) {
+          return `${IPFS_URL}${image.replace('ipfs://', '')}`;
+        }
+        return image;
+      };
+
       return {
         type: 'image',
-        url: imageUrl,
+        url: getImageUrl(),
         name,
         txn: `https://etherscan.io/address/${txn}`,
         description,
@@ -63,6 +69,7 @@ const Basket = ({ account, balance }) => {
   const [vaultTotalSupply, setVaultTotalSupply] = useState(null);
   const [userVTKBalance, setUserVTKBalance] = useState(null);
 
+  const [isListLoading, setListLoading] = useState(false);
   const [list, setList] = useState([]);
   const [nftMetadata, setNftMetadata] = useState([]);
 
@@ -128,7 +135,8 @@ const Basket = ({ account, balance }) => {
     if (IS_DEMO) {
       const amount = input / ethValue;
 
-      await waitSometime(5000);
+      // await waitSometime(5000);
+      setListLoading(true);
       setUserVTKBalance(userVTKBalance + amount);
 
       await waitSometime(5000);
@@ -136,12 +144,13 @@ const Basket = ({ account, balance }) => {
 
       /**
        * dummy NFT
+       * add only if we dont' have NFT: TODO
        */
       await waitSometime(5000);
-
-      if (IS_DEMO) {
+      if (list.length === 0) {
         let count = 0;
         const intervalFn = setInterval(() => {
+          setListLoading(false);
           setList((e) => [...e, NFT_LIST[count]]);
           setNftMetadata((e) => [...e, NFT_METADATA[count]]);
           count += 1;
@@ -182,7 +191,11 @@ const Basket = ({ account, balance }) => {
               vaultSymbol={vaultSymbol}
               userVTKBalance={userVTKBalance}
             />
-            <Gallery list={list} nftMetadata={nftMetadata} />
+            <Gallery
+              isLoading={isListLoading}
+              list={list}
+              nftMetadata={nftMetadata}
+            />
           </Col>
         </Row>
       </BasketContainer>

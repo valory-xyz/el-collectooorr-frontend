@@ -45,8 +45,9 @@ const Fund = ({
   const getProgress = () => {
     const purchasedTokens = vaultTotalSupply - vaultBalanceOf;
     const progress = purchasedTokens * VTK_ETH_PRICE;
-    return progress || 0;
+    return round(progress, 2) || 0;
   };
+
   const getYouFunded = () => round(userVTKBalance ? userVTKBalance * VTK_ETH_PRICE : 0, 2);
   const getUserReceiveVtk = () => {
     if (!value) return '--';

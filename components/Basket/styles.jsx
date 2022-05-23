@@ -311,3 +311,10 @@ export const GalleryList = styled.div`
     background-color: ${COLOR.BORDER_GREY};
   }
 `;
+
+export const GalleryLoading = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  width: 100%;
+`;
