@@ -2,8 +2,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import Marquee from 'react-fast-marquee';
 import Link from 'next/link';
-import { URL } from 'util/constants';
-// import { TOKEN_ID, URL } from 'util/constants';
+import { TOKEN_ID, URL } from 'util/constants';
 import { CustomButton } from 'common-util/Button';
 import RiskBanner from 'common-util/RiskBanner';
 import useCheckMobileScreen from 'common-util/hooks/useCheckMobileScreen';
@@ -64,15 +63,12 @@ export const HeaderSection = () => {
       ) : (
         <div className="column-2">
           <CustomButton
-            // variant="red"
+            variant="red"
             style={getBtnStyle(isMobile)}
-            // onClick={() => router.push(`/vaults/${TOKEN_ID}`)}
+            onClick={() => router.push(`/vaults/${TOKEN_ID}`)}
             type="primary"
-            variant="disabled"
-            disabled
           >
-            {/* START COLLECTING */}
-            COMING SOON
+            START COLLECTING
           </CustomButton>
         </div>
       )}
