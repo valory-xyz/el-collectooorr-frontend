@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Card, Skeleton } from 'antd/lib';
 import LinkIcon from 'common-util/SVGs/link';
@@ -32,6 +32,34 @@ const getNftInfo = (url, info) => {
     artist, bought, date, txn,
   } = info || {};
 
+  const getList = () => {
+    const list = [];
+
+    if (bought) {
+      list.push(<>{`Bought: ${bought}ETH`}</>);
+    }
+
+    if (date) {
+      list.push(<>{date}</>);
+    }
+
+    if (txn) {
+      list.push(
+        <span>
+          <a
+            href={`https://etherscan.io/tx/${txn}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Txn
+          </a>
+        </span>,
+      );
+    }
+
+    return list;
+  };
+
   return (
     <div className="nft-info">
       {artist && <div>{artist}</div>}
@@ -47,27 +75,12 @@ const getNftInfo = (url, info) => {
       </a>
 
       <div>
-        {bought && <>{`Bought: ${bought}ETH`}</>}
-        {date && (
-          <>
-            &nbsp;&bull;&nbsp;
-            {date}
-          </>
-        )}
-        {txn && (
-          <>
-            &nbsp;&bull;&nbsp;
-            <span>
-              <a
-                href={`https://etherscan.io/tx/${txn}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Txn
-              </a>
-            </span>
-          </>
-        )}
+        {getList().map((e, index) => (
+          <Fragment key={`details-${url}-${index}`}>
+            {index === 0 ? null : <>&nbsp;&bull;&nbsp;</>}
+            {e}
+          </Fragment>
+        ))}
       </div>
     </div>
   );
