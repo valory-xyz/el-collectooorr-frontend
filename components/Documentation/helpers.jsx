@@ -48,6 +48,7 @@ export const DOC_NAV = [
     title: 'Technical Architecture',
     subtitles: [
       { id: 'on-chain-components', name: 'On-chain components' },
+      { id: 'autonolas-protocol', name: 'Autonolas Protocol' },
       { id: 'gnosis-safe', name: 'Gnosis Safe' },
       { id: 'art-blocks', name: 'Art Blocks ' },
       { id: 'fractional', name: 'Fractional' },

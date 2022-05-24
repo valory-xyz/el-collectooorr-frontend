@@ -41,6 +41,10 @@ const CollectionFractions = () => (
       exchange. Secondary markets may emerge, however, in the form of liquidity
       pools, where collection tokens can be freely traded.
     </p>
+
+    <br />
+    <br />
+    <br />
   </div>
 );
 

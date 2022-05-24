@@ -14,7 +14,7 @@ const WhatIsElCol = () => (
       collection.
     </p>
     <br />
-    <h3 id="user-benefits">User Benefits:</h3>
+    <h3 id="user-benefits">User Benefits</h3>
     <p>
       User Benefits El Collectooorr aims to provide three main benefits: to save
       users time and effort, to make NFT art collecting more accessible and to

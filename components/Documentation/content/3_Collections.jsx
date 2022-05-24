@@ -27,6 +27,9 @@ const Collections = () => (
       enough to begin minting, El Collectooorr may start to fill up the
       collection with freshly minted NFTs.
     </p>
+    <br />
+    <br />
+    <br />
   </div>
 );
 
