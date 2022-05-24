@@ -143,8 +143,8 @@ export const AddFunds = styled.div`
           margin-bottom: 0.75rem;
         }
         &:nth-child(2) {
-          p {
-            margin: 0;
+          a {
+            margin-left: 0.5rem;
           }
         }
         &.warning {
@@ -194,7 +194,7 @@ export const FundingProgress = styled.div`
 
 /* ------------- SERVICE ------------- */
 export const ServiceContainer = styled.div`
-  margin-top: 1rem;
+  margin-bottom: 1rem;
   border: 1px solid ${COLOR.PURPLE};
   .vault-service {
     display: flex;

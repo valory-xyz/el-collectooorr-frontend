@@ -56,7 +56,7 @@ describe('<Fund />', () => {
 
     const managementFeeText = container.querySelector('.management-fees').textContent;
     expect(managementFeeText).toBe(
-      'Management fee of 5% ETH will be charged.Learn more',
+      'Management fee of 5% of your added funds will be charged.Learn more',
     );
 
     /* fund-footer warning */

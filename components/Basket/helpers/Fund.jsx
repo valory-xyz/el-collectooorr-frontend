@@ -98,6 +98,7 @@ const Fund = ({
   };
 
   const fundBtnError = () => {
+    if (!account) return 'Connect wallet to add funds';
     if (value === '' || value === undefined) return '';
     if (!hasBalance) return 'Not enough ETH in wallet';
     return '';
@@ -163,9 +164,7 @@ const Fund = ({
           </CustomButton>
         </div>
 
-        {fundBtnError() && (
-          <div className="add-funds-input-warning">{fundBtnError()}</div>
-        )}
+        <div className="add-funds-input-warning">{fundBtnError()}</div>
 
         <div className="add-funds-info">
           <div className="you-will-receive">
@@ -173,11 +172,10 @@ const Fund = ({
             {` ${getUserReceiveVtk()} `}
             {vaultSymbol}
           </div>
-
           <div className="management-fees">
-            <p>
-              {`Management fee of ${getManagementFee()}% ETH will be charged.`}
-            </p>
+            <span>
+              {`Management fee of ${getManagementFee()}% of your added funds will be charged.`}
+            </span>
             <Link href="/coming-soon">
               <a href="/coming-soon">Learn more</a>
             </Link>
