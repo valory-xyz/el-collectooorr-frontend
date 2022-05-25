@@ -38,7 +38,7 @@ export const DocSection = styled.div`
     position: sticky;
     top: 108px;
     width: 30%;
-    max-width: 360px;
+    max-width: 380px;
   }
   .reading-section {
     max-width: 1000px;
