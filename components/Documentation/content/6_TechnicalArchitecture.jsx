@@ -1,4 +1,112 @@
 import { Anchor } from 'common-util/components';
+import { Check, X } from 'react-feather';
+import { COLOR } from 'util/theme';
+import { ComparisonTable } from '../styles';
+
+const Yes = () => <Check color={COLOR.GREEN_2} />;
+
+const No = () => <X color={COLOR.GREY_2} />;
+
+const DATA_ROWS = [
+  {
+    id: 'location',
+    name: 'LOCATION',
+    smartContractApp: true,
+    humanOperation: false,
+    autonomousService: true,
+  },
+  {
+    id: 'decentralized',
+    name: 'DECENTRALIZED',
+    smartContractApp: true,
+    humanOperation: false,
+    autonomousService: true,
+  },
+  {
+    id: 'robust',
+    name: 'ROBUST',
+    smartContractApp: true,
+    humanOperation: false,
+    autonomousService: true,
+  },
+  {
+    id: 'transparent',
+    name: 'TRANSPARENT',
+    smartContractApp: true,
+    humanOperation: false,
+    autonomousService: true,
+  },
+  {
+    id: 'composable',
+    name: 'COMPOSABLE',
+    smartContractApp: true,
+    humanOperation: false,
+    autonomousService: true,
+  },
+  {
+    id: 'complex-processing',
+    name: 'COMPLEX PROCESSING',
+    smartContractApp: false,
+    humanOperation: true,
+    autonomousService: true,
+  },
+  {
+    id: 'cross-chain',
+    name: 'CROSS CHAIN',
+    smartContractApp: false,
+    humanOperation: true,
+    autonomousService: true,
+  },
+  {
+    id: 'continous-on',
+    name: 'CONTINOUS / ALWAYS ON',
+    smartContractApp: false,
+    humanOperation: true,
+    autonomousService: true,
+  },
+];
+
+const getChainType = (type) => (type ? 'ON-CHAIN' : 'OFF-CHAIN');
+
+const Table = () => (
+  <ComparisonTable>
+    <thead>
+      <tr>
+        <th aria-label=" " />
+        <th>Smart Contract Apps</th>
+        <th>Human/Bot Operations</th>
+        <th>Autonomous Services</th>
+      </tr>
+    </thead>
+    <tbody>
+      {DATA_ROWS.map(
+        ({
+          id, name, smartContractApp, humanOperation, autonomousService,
+        }) => {
+          if (id === 'location') {
+            return (
+              <tr key={id}>
+                <td>{name}</td>
+                <td>{getChainType(smartContractApp)}</td>
+                <td>{getChainType(humanOperation)}</td>
+                <td>{getChainType(autonomousService)}</td>
+              </tr>
+            );
+          }
+
+          return (
+            <tr key={id}>
+              <td>{name}</td>
+              <td>{smartContractApp ? <Yes /> : <No />}</td>
+              <td>{humanOperation ? <Yes /> : <No />}</td>
+              <td>{autonomousService ? <Yes /> : <No />}</td>
+            </tr>
+          );
+        },
+      )}
+    </tbody>
+  </ComparisonTable>
+);
 
 const AutonolasService = () => (
   <div id="sub-section-autonals-service">
@@ -17,7 +125,8 @@ const AutonolasService = () => (
       Web 3. Have a look at the table below for a better understanding:
     </p>
 
-    <h1>TABLE TODO</h1>
+    <Table />
+    <br />
 
     <p>
       El Collectooorr is a service made up of multiple
@@ -92,10 +201,7 @@ const AutonolasService = () => (
       like knowing what price to buy NFTs at – and identifying when a new drop
       goes live. For more information on the Autonolas network and on becoming
       an agent operator, get in touch via the Autonolas
-      <Anchor
-        text="Discord"
-        url="https://discord.com/invite/z2PT65jKqQ"
-      />
+      <Anchor text="Discord" url="https://discord.com/invite/z2PT65jKqQ" />
       .
     </p>
     <br />

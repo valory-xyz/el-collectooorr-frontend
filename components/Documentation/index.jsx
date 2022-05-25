@@ -116,10 +116,15 @@ const Documentation = () => {
                       {...anchorCommonProps}
                       onClick={() => setActiveNav(key)}
                     >
-                      {subtitles.map(({ name, id: subId }) => {
+                      {subtitles.map(({ name, id: subId, className }) => {
                         const subKey = subId || kebabCase(name);
                         return (
-                          <Link key={subKey} href={`#${subKey}`} title={name} />
+                          <Link
+                            key={subKey}
+                            href={`#${subKey}`}
+                            title={name}
+                            className={className}
+                          />
                         );
                       })}
                     </Anchor>
