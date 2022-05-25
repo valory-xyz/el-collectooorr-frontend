@@ -35,7 +35,7 @@ export const DOC_NAV = [
   },
   {
     id: 'section-collection-fractions',
-    title: 'Collection tokens',
+    title: 'Collection Fractions and Voting',
     subtitles: [],
   },
   {

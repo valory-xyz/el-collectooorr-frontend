@@ -1,6 +1,6 @@
 const CollectionFractions = () => (
   <div id="section-collection-fractions">
-    <h2>Collection Fractions</h2>
+    <h2>Collection Fractions and Voting</h2>
     <p>
       As mentioned above, El Collectooorr is designed to exchange a user’s ETH
       for collection fractions (in the form of ERC-20 tokens). A collection is

@@ -5,20 +5,19 @@ const WhatIsElCol = () => (
     <p>El Collectooorr is a novel experiment in crypto art collection.</p>
     <br />
     <p>
-      The El Collectooorr aims to autonomously create collections of NFTs by
-      minting them as they drop on Art Blocks. It uses complex logic to decide
-      which mints to participate in and what prices to bid at, so users don’t
-      have to. The service is fueled by the community of users who fund
-      collections. Each collection is designed to have its own unique ERC-20
-      token, for users to vote and collectively decide on what happens to the
-      collection.
+      El Collectooorr aims to autonomously create collections of NFTs by minting
+      them as they drop on Art Blocks. It uses complex logic to decide which
+      mints to participate in and what prices to bid at, so users don’t have to.
+      The service is fueled by the community of users who fund collections. Each
+      collection is designed to have its own unique ERC-20 token, for users to
+      vote and collectively decide on what happens to the collection.
     </p>
     <br />
     <h3 id="user-benefits">User Benefits</h3>
     <p>
-      User Benefits El Collectooorr aims to provide three main benefits: to save
-      users time and effort, to make NFT art collecting more accessible and to
-      broadens users’ NFT exposure.
+      El Collectooorr aims to provide three main benefits: to save users time
+      and effort, to make NFT art collecting more accessible and to broadens
+      users’ NFT exposure.
     </p>
     <br />
     <h3 id="time-and-effort-saved">Time and effort saved:</h3>

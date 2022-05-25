@@ -214,7 +214,7 @@ const TechnicalArchitecture = () => (
     <h3 id="on-chain-components">On-chain components</h3>
     <p>
       El Collectooorr currently interacts with 4 on-chain components. The
-      service secured by the Autonolas protocols and it interacts with three
+      service is secured by the Autonolas protocols and it interacts with three
       types of smart contracts: Gnosis Safe, Art blocks and Fractional vault.
     </p>
     <br />
@@ -227,7 +227,6 @@ const TechnicalArchitecture = () => (
       becoming an agent operator, get in touch via the Autonolas
       <Anchor text="Discord" url="https://discord.com/invite/z2PT65jKqQ" />
     </p>
-    <p>Registry URL: Coming soon</p>
     <br />
     <h3 id="gnosis-safe">Gnosis Safe</h3>
     <p>
