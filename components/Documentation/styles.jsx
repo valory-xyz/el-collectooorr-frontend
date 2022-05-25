@@ -38,7 +38,7 @@ export const DocSection = styled.div`
     position: sticky;
     top: 108px;
     width: 30%;
-    max-width: 360px;
+    max-width: 380px;
   }
   .reading-section {
     max-width: 1000px;
@@ -68,7 +68,12 @@ export const DocSection = styled.div`
     .ant-anchor-link {
       padding-left: 0px;
       .ant-anchor-link-title {
+        color: inherit;
+        text-decoration: none;
+      }
+      &.bold .ant-anchor-link-title {
         color: ${COLOR.WHITE};
+        font-size: 15px;
       }
     }
   }
@@ -149,5 +154,35 @@ export const DocNavigation = styled(Collapse)`
   }
 
   ${MEDIA_QUERY.desktop} {
+  }
+`;
+
+export const ComparisonTable = styled.table`
+  width: 100%;
+  background-color: transparent;
+  border-collapse: collapse;
+  color: ${COLOR.GREY_1};
+  border: 1px solid ${COLOR.BORDER_GREY};
+  th,
+  td {
+    padding: 1rem 1rem;
+    border: 1px solid ${COLOR.BORDER_GREY};
+    &:first-child {
+      border-right-color: transparent;
+    }
+  }
+  thead {
+    tr th {
+      &:nth-child(1) {
+        width: 35%;
+      }
+    }
+  }
+  tbody {
+    tr td {
+      &:not(:first-child) {
+        text-align: center;
+      }
+    }
   }
 `;

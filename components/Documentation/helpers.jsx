@@ -35,7 +35,7 @@ export const DOC_NAV = [
   },
   {
     id: 'section-collection-fractions',
-    title: 'Collection tokens',
+    title: 'Collection Fractions and Voting',
     subtitles: [],
   },
   {
@@ -47,13 +47,19 @@ export const DOC_NAV = [
     id: 'section-technical-architecture',
     title: 'Technical Architecture',
     subtitles: [
-      { id: 'on-chain-components', name: 'On-chain components' },
+      {
+        id: 'on-chain-components',
+        name: 'On-chain components:',
+        className: 'bold',
+      },
+      { id: 'autonolas-protocol', name: 'Autonolas Protocol' },
       { id: 'gnosis-safe', name: 'Gnosis Safe' },
       { id: 'art-blocks', name: 'Art Blocks ' },
       { id: 'fractional', name: 'Fractional' },
       {
         id: 'autonomous-service-autonolas',
         name: 'Autonomous Service: Autonolas',
+        className: 'bold',
       },
       { id: 'funding-abci-app', name: 'Funding ABCI App' },
       { id: 'minter-abci-app', name: 'Minter ABCI App ' },

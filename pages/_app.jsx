@@ -29,6 +29,7 @@ class MyApp extends App {
 
     return (
       <>
+        <GlobalStyle />
         <Head>
           <title>El Collectooorr</title>
           <meta name="title" content="El Collectooorr" />
@@ -71,7 +72,6 @@ class MyApp extends App {
             </Layout>
           </MetamaskProvider>
         </Web3ReactProvider>
-        <GlobalStyle />
       </>
     );
   }
