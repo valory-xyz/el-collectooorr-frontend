@@ -36,6 +36,7 @@ export const HeaderContainer = styled.div`
       flex-direction: column;
       align-items: start;
       gap: 16px;
+      line-height: normal;
     }
   }
 
