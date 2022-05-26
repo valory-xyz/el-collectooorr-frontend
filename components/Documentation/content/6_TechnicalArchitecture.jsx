@@ -70,41 +70,47 @@ const getChainType = (type) => (type ? 'ON-CHAIN' : 'OFF-CHAIN');
 
 const Table = () => (
   <ComparisonTable>
-    <thead>
-      <tr>
-        <th aria-label=" " />
-        <th>Smart Contract Apps</th>
-        <th>Human/Bot Operations</th>
-        <th>Autonomous Services</th>
-      </tr>
-    </thead>
-    <tbody>
-      {DATA_ROWS.map(
-        ({
-          id, name, smartContractApp, humanOperation, autonomousService,
-        }) => {
-          if (id === 'location') {
+    <table>
+      <thead>
+        <tr>
+          <th aria-label=" " />
+          <th>Smart Contract Apps</th>
+          <th>Human/Bot Operations</th>
+          <th>Autonomous Services</th>
+        </tr>
+      </thead>
+      <tbody>
+        {DATA_ROWS.map(
+          ({
+            id,
+            name,
+            smartContractApp,
+            humanOperation,
+            autonomousService,
+          }) => {
+            if (id === 'location') {
+              return (
+                <tr key={id}>
+                  <td>{name}</td>
+                  <td>{getChainType(smartContractApp)}</td>
+                  <td>{getChainType(humanOperation)}</td>
+                  <td>{getChainType(autonomousService)}</td>
+                </tr>
+              );
+            }
+
             return (
               <tr key={id}>
                 <td>{name}</td>
-                <td>{getChainType(smartContractApp)}</td>
-                <td>{getChainType(humanOperation)}</td>
-                <td>{getChainType(autonomousService)}</td>
+                <td>{smartContractApp ? <Yes /> : <No />}</td>
+                <td>{humanOperation ? <Yes /> : <No />}</td>
+                <td>{autonomousService ? <Yes /> : <No />}</td>
               </tr>
             );
-          }
-
-          return (
-            <tr key={id}>
-              <td>{name}</td>
-              <td>{smartContractApp ? <Yes /> : <No />}</td>
-              <td>{humanOperation ? <Yes /> : <No />}</td>
-              <td>{autonomousService ? <Yes /> : <No />}</td>
-            </tr>
-          );
-        },
-      )}
-    </tbody>
+          },
+        )}
+      </tbody>
+    </table>
   </ComparisonTable>
 );
 

@@ -60,6 +60,10 @@ export const DocSection = styled.div`
         max-width: 1200px;
       }
     }
+
+    .section-disclaimer {
+      font-style: italic;
+    }
   }
   .ant-anchor {
     .ant-anchor-ink {
@@ -157,31 +161,46 @@ export const DocNavigation = styled(Collapse)`
   }
 `;
 
-export const ComparisonTable = styled.table`
-  width: 100%;
-  background-color: transparent;
-  border-collapse: collapse;
-  color: ${COLOR.GREY_1};
-  border: 1px solid ${COLOR.BORDER_GREY};
-  th,
-  td {
-    padding: 1rem 1rem;
+export const ComparisonTable = styled.div`
+  overflow-x: auto;
+  table {
+    width: 100%;
+    background-color: transparent;
+    border-collapse: collapse;
+    color: ${COLOR.GREY_1};
     border: 1px solid ${COLOR.BORDER_GREY};
-    &:first-child {
-      border-right-color: transparent;
+    th,
+    td {
+      padding: 1rem 1rem;
+      border: 1px solid ${COLOR.BORDER_GREY};
+      &:first-child {
+        border-right-color: transparent;
+      }
     }
-  }
-  thead {
-    tr th {
-      &:nth-child(1) {
-        width: 35%;
+    thead {
+      tr th {
+        &:nth-child(1) {
+          /* width: 35%; */
+        }
+      }
+    }
+    tbody {
+      tr td {
+        &:not(:first-child) {
+          text-align: center;
+        }
       }
     }
   }
-  tbody {
-    tr td {
-      &:not(:first-child) {
-        text-align: center;
+
+  ${MEDIA_QUERY.mobileL} {
+    margin: 0 -1rem;
+    table {
+      th,
+      td {
+        padding: 0.5rem 0.3rem;
+        word-break: break-word;
+        font-size: 12px;
       }
     }
   }
