@@ -30,6 +30,14 @@ export const Container = styled.div`
     padding-right: 0.5rem;
     background-position-y: 276px;
   }
+
+  ${MEDIA_QUERY.mobileS} {
+    background-position-y: 330px;
+  }
+
+  ${MEDIA_QUERY.mobileXS} {
+    background-position-y: 345px;
+  }
 `;
 
 export const CollectionContainer = styled.div`
@@ -61,6 +69,15 @@ export const CollectionContainer = styled.div`
       }
       .text {
         max-width: 264px;
+      }
+    }
+  }
+
+  ${MEDIA_QUERY.mobileXS} {
+    .header-column {
+      img {
+        width: 8px;
+        margin-bottom: 7rem;
       }
     }
   }

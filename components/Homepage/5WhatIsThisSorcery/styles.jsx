@@ -27,6 +27,12 @@ export const HeaderContainer = styled.div`
       font-size: 32px;
     }
   }
+
+  ${MEDIA_QUERY.mobileXS} {
+    img {
+      height: 50px;
+    }
+  }
 `;
 
 export const SorceryBody = styled.div`

@@ -64,6 +64,21 @@ export const HeaderContainer = styled.div`
       }
     }
   }
+
+  ${MEDIA_QUERY.mobileS} {
+    .column-1 {
+      a {
+        /* logo */
+        &:nth-child(1) img {
+          height: 40px;
+        }
+        /* el-col text */
+        &:nth-child(2) img {
+          width: 120px;
+        }
+      }
+    }
+  }
 `;
 
 export const SubHeaderContainer = styled.div`

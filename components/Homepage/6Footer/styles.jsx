@@ -39,6 +39,9 @@ export const Container = styled.div`
       .text {
         font-size: 16px;
         padding: 1rem 1rem;
+        .sub-text:first-child {
+          margin-bottom: 1rem;
+        }
       }
     }
     .footer-logo-container {
@@ -93,6 +96,14 @@ export const SubFooter = styled.div`
       text-align: left;
       display: inline-block;
       margin-top: 1.5rem;
+    }
+  }
+
+  ${MEDIA_QUERY.mobileS} {
+    .socials {
+      .autonolas-twitter {
+        min-width: auto;
+      }
     }
   }
 `;
