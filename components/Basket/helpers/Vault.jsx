@@ -71,7 +71,11 @@ const Vault = ({ vaultReservePrice, vaultSymbol, userVTKBalance }) => {
             </Link>
           </div>
           <div className="desc">
-            {userVTKBalance ? <NumbersAnimate value={userVTKBalance} /> : '--'}
+            {userVTKBalance || userVTKBalance === 0 ? (
+              <NumbersAnimate value={userVTKBalance} />
+            ) : (
+              '--'
+            )}
             {` ${symbol}`}
           </div>
           <div>
