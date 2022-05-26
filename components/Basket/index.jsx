@@ -87,7 +87,7 @@ const Basket = ({ account, balance }) => {
       setVaultReservePrice('15');
       setVaultSymbol('VLT1');
       setUserVTKBalance(0);
-      setVaultBalanceOf(2000);
+      setVaultBalanceOf(10000);
       setVaultTotalSupply(10000);
     } else {
       try {
