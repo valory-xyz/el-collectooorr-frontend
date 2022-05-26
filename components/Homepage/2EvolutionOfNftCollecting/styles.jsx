@@ -36,7 +36,8 @@ export const Container = styled.div`
   }
 
   ${MEDIA_QUERY.mobileXS} {
-    background-position-y: 345px;
+    background-position-y: 290px;
+    background-size: 87.5%;
   }
 `;
 
