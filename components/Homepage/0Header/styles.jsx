@@ -2,24 +2,6 @@ import styled from 'styled-components';
 import { COLOR, MEDIA_QUERY } from 'util/theme';
 import { MetamaskContainer } from 'components/Login/styles';
 
-export const getBtnStyle = (isMob) => {
-  const style = {
-    borderRadius: '0 20px 20px 0',
-    width: '216px',
-    height: 'auto',
-  };
-
-  if (isMob) {
-    return {
-      ...style,
-      width: 'auto',
-      padding: '6px 12px',
-    };
-  }
-
-  return style;
-};
-
 export const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -29,6 +11,17 @@ export const HeaderContainer = styled.div`
   border-radius: 10px;
   border: 1px solid ${COLOR.GREY_1};
   background-color: ${COLOR.BLACK};
+  .column-2 {
+    button {
+      border-radius: 0 20px 20px 0 !important;
+      width: 180px;
+      height: auto;
+      &:nth-child(1) {
+        margin-right: 1rem;
+      }
+    }
+  }
+
   ${MEDIA_QUERY.tablet} {
     margin-bottom: 0;
     .column-1 {
@@ -36,6 +29,11 @@ export const HeaderContainer = styled.div`
       flex-direction: column;
       align-items: start;
       gap: 16px;
+    }
+    .column-2 {
+      button {
+        width: auto;
+      }
     }
   }
 
@@ -47,6 +45,15 @@ export const HeaderContainer = styled.div`
       flex-direction: column;
       align-items: start;
       gap: 16px;
+    }
+    .column-2 {
+      width: 40%;
+      button {
+        padding: 6px 12px !important;
+        &:nth-child(1) {
+          width: 100%;
+        }
+      }
     }
     &.not-root-page {
       flex-direction: column;
