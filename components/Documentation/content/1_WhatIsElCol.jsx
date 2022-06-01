@@ -33,7 +33,7 @@ const WhatIsElCol = () => (
       <h3 id="user-benefits">User Benefits</h3>
       <p>
         El Collectooorr aims to provide three main benefits: to save users time
-        and effort, to make NFT art collecting more accessible and to broadens
+        and effort, to make NFT art collecting more accessible and to broaden
         users’ NFT exposure.
       </p>
       <br />
@@ -63,8 +63,8 @@ const WhatIsElCol = () => (
       </h3>
       <p>
         Through the fractionalization of NFTs from multiple drops, El
-        Collectooorr creates an index of Art Blocks drops. This broadens users’
-        exposures and increases the liquidity of the NFTs in the collections.
+        Collectooorr aims to broaden users’ exposure and increase the liquidity
+        of the NFTs in the collections.
       </p>
       <br />
       <br />
