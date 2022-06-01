@@ -1,4 +1,5 @@
 import { Fragment } from 'react';
+import { Footnote } from '../styles';
 
 const DATA = [
   {
@@ -35,6 +36,10 @@ const UserFlow = () => (
       The current configuration of the application aims to produce a user flow
       that proceeds as follows:
     </p>
+    <Footnote>
+      We make no guarantees or warranties that the implementation matches the
+      documentation.
+    </Footnote>
     <br />
 
     {DATA.map(({ name, desc }, index) => (

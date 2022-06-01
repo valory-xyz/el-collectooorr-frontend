@@ -205,3 +205,8 @@ export const ComparisonTable = styled.div`
     }
   }
 `;
+
+export const Footnote = styled.div`
+  font-size: 12px;
+  font-style: italic;
+`;
