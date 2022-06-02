@@ -1,4 +1,5 @@
 import { Fragment } from 'react';
+import { Footnote } from '../styles';
 
 const DATA = [
   {
@@ -19,7 +20,7 @@ const DATA = [
   },
   {
     name: '//005',
-    desc: 'If the target budget of 10 ETH is reached, this should mean that the entire supply of collection fractions is distributed between  those who funded the collection. Collectively, they should have full control of the reserve price, able to use their fractions to vote via fractional.art. In the event that a collection is sold, fraction holders can claim their share of the proceeds, again through fractional.art.',
+    desc: 'If the target budget of 10 ETH is reached, this should mean that the entire supply of collection fractions is distributed pro rata to those who funded the collection. Collectively, they should have full control of the reserve price, and should be able to use their fractions to vote via fractional.art. In the event that a collection is sold, fraction holders can claim their share of the proceeds, again through fractional.art.',
   },
   {
     name: '//006',
@@ -35,6 +36,10 @@ const UserFlow = () => (
       The current configuration of the application aims to produce a user flow
       that proceeds as follows:
     </p>
+    <Footnote>
+      We make no guarantees or warranties that the implementation matches the
+      documentation.
+    </Footnote>
     <br />
 
     {DATA.map(({ name, desc }, index) => (

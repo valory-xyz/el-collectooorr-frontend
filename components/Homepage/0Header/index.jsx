@@ -7,7 +7,7 @@ import { CustomButton } from 'common-util/Button';
 import RiskBanner from 'common-util/RiskBanner';
 import useCheckMobileScreen from 'common-util/hooks/useCheckMobileScreen';
 import Login from '../../Login';
-import { getBtnStyle, HeaderContainer, SubHeaderContainer } from './styles';
+import { HeaderContainer, SubHeaderContainer } from './styles';
 
 export const Dash = () => (
   <>&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;</>
@@ -63,8 +63,15 @@ export const HeaderSection = () => {
       ) : (
         <div className="column-2">
           <CustomButton
+            variant="blue"
+            onClick={() => router.push('/documentation')}
+            type="primary"
+          >
+            READ DOCS
+          </CustomButton>
+
+          <CustomButton
             variant="red"
-            style={getBtnStyle(isMobile)}
             onClick={() => router.push(`/vaults/${VAULT_TOKEN_ID}`)}
             type="primary"
           >
