@@ -34,6 +34,7 @@ export const WrapperDiv = styled.div`
 export const DocSection = styled.div`
   display: flex;
   align-items: flex-start;
+  font-size: 16px;
   .navigation-section {
     position: sticky;
     top: 108px;
@@ -133,12 +134,21 @@ export const DocSection = styled.div`
 `;
 
 export const DocNavigation = styled(Collapse)`
+  .ant-collapse-content-box {
+    .ant-anchor-link .ant-anchor-link-title {
+      font-size: 16px;
+    }
+  }
+
   &.doc-mobile-navigation {
     .ant-collapse-header {
       padding-left: 1rem !important;
     }
     .ant-collapse-content-box {
       padding-left: 2rem;
+      .ant-anchor-link .ant-anchor-link-title {
+        font-size: 14px;
+      }
     }
     &.last-navigation-item .ant-collapse-header {
       border-bottom-color: transparent;
