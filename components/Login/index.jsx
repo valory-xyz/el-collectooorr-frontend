@@ -18,7 +18,7 @@ import {
 import { Container, DetailsContainer, MetamaskContainer } from './styles';
 
 const Login = ({
-  isLoaded,
+  // isLoaded,
   account,
   balance,
   errorMessage,
@@ -153,7 +153,7 @@ const Login = ({
 };
 
 Login.propTypes = {
-  isLoaded: PropTypes.bool.isRequired,
+  // isLoaded: PropTypes.bool.isRequired,
   account: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   balance: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   errorMessage: PropTypes.string,
