@@ -92,6 +92,20 @@ export const SubHeader = styled.div`
   &.pt-0 {
     padding-top: 0rem;
   }
+
+  ${MEDIA_QUERY.mobileL} {
+    .sub-header {
+      img {
+        margin-right: 0.5rem;
+      }
+      h3 {
+        font-size: 30px;
+      }
+      h4 {
+        font-size: 30px;
+      }
+    }
+  }
 `;
 
 /* ------------- FUNDS ------------- */
