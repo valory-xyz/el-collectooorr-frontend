@@ -36,6 +36,7 @@ export const BasketContainer = styled.div`
   ${MEDIA_QUERY.tablet} {
     .right-columm {
       padding-left: 0rem;
+      margin-top: 1rem;
     }
     .ant-card {
       max-width: 100%;
@@ -158,6 +159,17 @@ export const AddFunds = styled.div`
       }
     }
   }
+
+  ${MEDIA_QUERY.tablet} {
+    margin-bottom: 1rem;
+    .add-funds {
+      &-form {
+        .ant-btn {
+          padding: 6px 16px !important ;
+        }
+      }
+    }
+  }
 `;
 
 export const FundingProgress = styled.div`
@@ -245,6 +257,23 @@ export const TotalYours = styled.div`
       color: ${COLOR.GREEN_3};
       text-transform: capitalize;
       word-break: break-word;
+    }
+  }
+
+  ${MEDIA_QUERY.tabletL} {
+    flex-direction: column;
+    gap: 1rem;
+    .vault-info {
+      &.reserve-price {
+        padding: 0;
+      }
+      &.yours {
+        padding-left: 0rem;
+      }
+      .desc {
+        margin: 0;
+        line-height: normal;
+      }
     }
   }
 `;
