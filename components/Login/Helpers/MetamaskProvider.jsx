@@ -18,21 +18,25 @@ function MetamaskProvider({ setLoaded, children }) {
 
   useEffect(() => {
     const isDisconnect = localStorage.getItem(CONSTANTS.DISCONNECT);
-
+    console.log(1, { isDisconnect });
     if (isDisconnect !== 'true') {
       injected
         .isAuthorized()
         .then((hasAuthorized) => {
           setLoaded(true);
+          console.log(2, { hasAuthorized });
 
           if (hasAuthorized && !networkActive && !networkError) {
             activateNetwork(injected);
+            console.log(3, { injected });
           }
         })
         .catch(() => {
           setLoaded(true);
         });
     }
+
+    console.log(4);
   }, [activateNetwork, networkActive, networkError]);
 
   return children;

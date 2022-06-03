@@ -45,6 +45,7 @@ const Login = ({
   }, []);
 
   const handleLogin = () => {
+    console.log('------ handle login -------');
     if (window.ethereum && window.ethereum.isMetaMask) {
       // remove `disconnect` from localStorage
       localStorage.removeItem(CONSTANTS.DISCONNECT);
@@ -76,14 +77,14 @@ const Login = ({
     setUserBalance(null);
   };
 
-  /**
-   * if already loaded, set account and balance of the user.
-   */
-  useEffect(() => {
-    if (isLoaded && !account) {
-      handleLogin();
-    }
-  }, [isLoaded]);
+  // /**
+  //  * if already loaded, set account and balance of the user.
+  //  */
+  // useEffect(() => {
+  //   if (isLoaded && !account) {
+  //     handleLogin();
+  //   }
+  // }, [isLoaded]);
 
   /**
    * listener for account, chain changes
