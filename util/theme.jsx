@@ -34,6 +34,7 @@ export const FONT_SIZE = {
 };
 
 export const BREAK_POINT = {
+  xxxs: '340px',
   xxs: '375px',
   xs: '480px',
   sm: '576px',
@@ -44,6 +45,7 @@ export const BREAK_POINT = {
 };
 
 export const MEDIA_QUERY = {
+  mobileXS: `@media only screen and (max-width: ${BREAK_POINT.xxxs})`,
   mobileS: `@media only screen and (max-width: ${BREAK_POINT.xxs})`,
   mobileM: `@media only screen and (max-width: ${BREAK_POINT.xs})`,
   mobileL: `@media only screen and (max-width: ${BREAK_POINT.sm})`,

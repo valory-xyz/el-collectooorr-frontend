@@ -62,4 +62,19 @@ export const MetamaskContainer = styled.div`
       }
     }
   }
+
+  ${MEDIA_QUERY.tablet} {
+    .ant-btn {
+      padding: 0.1rem 0.5rem !important;
+    }
+    .address {
+      width: 110px;
+    }
+  }
+
+  ${MEDIA_QUERY.mobileS} {
+    .address {
+      width: 70px;
+    }
+  }
 `;

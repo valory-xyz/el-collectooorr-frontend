@@ -39,6 +39,17 @@ export const Container = styled.div`
       }
     }
   }
+
+  ${MEDIA_QUERY.mobileXS} {
+    .header-container {
+      .header-column-1 {
+        align-items: flex-start;
+      }
+      .red-image {
+        display: none;
+      }
+    }
+  }
 `;
 
 export const EachDiv = styled.div`
@@ -126,7 +137,7 @@ export const EachDiv = styled.div`
         width: auto;
       }
       .row-2 img {
-        height: auto;
+        height: auto !important;
         width: 140px;
       }
       &-1,
@@ -167,6 +178,15 @@ export const EachDiv = styled.div`
         border-right: none !important;
         border-top: 1px solid ${COLOR.GREY_1};
         border-bottom: 1px solid ${COLOR.GREY_1};
+      }
+    }
+  }
+
+  ${MEDIA_QUERY.mobileXS} {
+    padding: 1rem;
+    &.how-it-works {
+      .row-2 img {
+        width: 106px;
       }
     }
   }
