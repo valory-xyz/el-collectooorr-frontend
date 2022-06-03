@@ -6,7 +6,6 @@ import { URL } from 'util/constants';
 // import { TOKEN_ID, URL } from 'util/constants';
 import { CustomButton } from 'common-util/Button';
 import RiskBanner from 'common-util/RiskBanner';
-import useCheckMobileScreen from 'common-util/hooks/useCheckMobileScreen';
 import Login from '../../Login';
 import { HeaderContainer, SubHeaderContainer } from './styles';
 
@@ -21,7 +20,6 @@ const linkToHome = (child, aClassName) => (
 );
 
 export const HeaderSection = () => {
-  const isMobile = useCheckMobileScreen();
   const router = useRouter();
   const isRoot = router.pathname === URL.ROOT;
 
