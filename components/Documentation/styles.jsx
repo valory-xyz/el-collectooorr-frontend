@@ -25,6 +25,8 @@ export const WrapperDiv = styled.div`
   cursor: pointer;
   .text {
     padding: 0 1rem;
+    text-decoration: underline;
+    text-underline-offset: 2px;
   }
   .documentation-chapters {
     transition: 0.2s;
