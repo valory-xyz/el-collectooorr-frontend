@@ -107,23 +107,23 @@ const Login = ({
    * listener for account, chain changes
    */
   const handleAccountChange = (newAccount) => {
-    // console.log(' >>>> accountChange');
-    // setUserAccount(newAccount);
-    // setBalance(newAccount.toString());
-    // setErrorMessage(null);
-    // window.location.reload();
+    console.log(' >>>> accountChange');
+    setUserAccount(newAccount);
+    setBalance(newAccount.toString());
+    setErrorMessage(null);
+    window.location.reload();
   };
 
   // reload the page to on chain change to avoid errors
   const handleChainChange = () => {
-    // console.log(' >>>> chainChange');
-    // window.location.reload();
+    console.log(' >>>> chainChange');
+    window.location.reload();
   };
 
   if (typeof window !== 'undefined' && window.ethereum) {
-    // console.log(' >>>> typeof window !== "undefined" && window.ethereum');
-    // window.ethereum.on('accountsChanged', handleAccountChange);
-    // window.ethereum.on('chainChanged', handleChainChange);
+    console.log(' >>>> typeof window !== "undefined" && window.ethereum');
+    window.ethereum.on('accountsChanged', handleAccountChange);
+    window.ethereum.on('chainChanged', handleChainChange);
   }
 
   if (errorMessage) {
