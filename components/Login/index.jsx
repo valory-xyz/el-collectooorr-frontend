@@ -19,7 +19,7 @@ import {
 import { Container, DetailsContainer, MetamaskContainer } from './styles';
 
 const Login = ({
-  // isLoaded,
+  isLoaded,
   account,
   balance,
   errorMessage,
@@ -39,11 +39,13 @@ const Login = ({
   };
 
   useEffect(async () => {
-    // const provider = new ethers.providers.Web3Provider(window.ethereum);
-    // const { chainId } = await provider.getNetwork();
-    // const isValid = CHAIN_ID.includes(Number(chainId));
-    // setIsNetworkSupported(isValid);
-  }, []);
+    if (account) {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const { chainId } = await provider.getNetwork();
+      const isValid = CHAIN_ID.includes(Number(chainId));
+      setIsNetworkSupported(isValid);
+    }
+  }, [account]);
 
   const handleLogin = () => {
     console.log('------ handle login -------');
@@ -78,14 +80,15 @@ const Login = ({
     setUserBalance(null);
   };
 
-  // /**
-  //  * if already loaded, set account and balance of the user.
-  //  */
-  // useEffect(() => {
-  //   if (isLoaded && !account) {
-  //     handleLogin();
-  //   }
-  // }, [isLoaded]);
+  /**
+   * if already loaded (ie. logged in before and present in localStorage),
+   * set account and balance of the user as we don't store the user details.
+   */
+  useEffect(() => {
+    if (isLoaded && !account) {
+      handleLogin();
+    }
+  }, [isLoaded]);
 
   /**
    * listener for account, chain changes
@@ -154,7 +157,7 @@ const Login = ({
 };
 
 Login.propTypes = {
-  // isLoaded: PropTypes.bool.isRequired,
+  isLoaded: PropTypes.bool.isRequired,
   account: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   balance: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   errorMessage: PropTypes.string,
