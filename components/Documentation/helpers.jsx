@@ -119,7 +119,7 @@ export const NavWrapper = ({ isMobile, children }) => {
             onKeyPress={handleOpen}
             onClick={handleOpen}
           >
-            DOCUMENTATION CHAPTERS
+            LIST OF CONTENTS
           </div>
           <div className="documentation-chapters">{isOpen && children}</div>
         </WrapperDiv>

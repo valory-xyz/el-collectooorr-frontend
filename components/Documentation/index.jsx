@@ -51,8 +51,6 @@ const Documentation = () => {
     }
   }, []);
 
-  if (!activeNav) return null;
-
   return (
     <Container>
       <SubHeaderSection />
@@ -71,7 +69,9 @@ const Documentation = () => {
                     className={`custom-nav-anchor ${
                       key === activeNav ? 'custom-nav-anchor-active' : ''
                     }`}
-                    onClick={() => setActiveNav(key)}
+                    onClick={() => {
+                      setActiveNav(key);
+                    }}
                   >
                     <Link href={`#${key}`} title={title} />
                   </Anchor>
@@ -95,7 +95,7 @@ const Documentation = () => {
 
               return (
                 <DocNavigation
-                  defaultActiveKey={[activeNav]}
+                  activeKey={[activeNav]}
                   key={`navigation-${key}`}
                   ghost
                   expandIconPosition="right"
@@ -104,7 +104,7 @@ const Documentation = () => {
                    * eg. e = ['key-of-tab-1', 'key-of-tab-2']
                    * and assign active-nav to the last opened tab
                    */
-                  onChange={(e) => setActiveNav(e[e.length - 1] || null)}
+                  onChange={(e) => setActiveNav(e[e.length - 1] || DOC_NAV[0].id)}
                   className={getClassName()}
                 >
                   <Panel
