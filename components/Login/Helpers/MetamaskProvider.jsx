@@ -17,9 +17,15 @@ function MetamaskProvider({ setLoaded, children }) {
   } = useWeb3React();
 
   useEffect(() => {
-    const isDisconnect = localStorage.getItem(CONSTANTS.DISCONNECT);
-    console.log(1, { isDisconnect });
-    if (isDisconnect !== 'true') {
+    /**
+     * If metamask was activated before, IS_CONNECTED localStorage will be set to true.
+     * If disconnected (loggout/disconnect button is clicked), IS_CONNECTED will be set to false,
+     * so we need to show popup only if metamask was connected before and the user
+     * did not disconnect.
+     */
+    const wasConnected = localStorage.getItem(CONSTANTS.IS_CONNECTED);
+    console.log({ wasConnected });
+    if (!!wasConnected && wasConnected === 'true') {
       injected
         .isAuthorized()
         .then((hasAuthorized) => {
