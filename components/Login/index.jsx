@@ -40,49 +40,55 @@ const Login = ({
   };
 
   useEffect(async () => {
-    // console.log(' >>>> useEffect - outside `account` - setIsNetworkSupported', account);
-    // if (account) {
-    //   console.log(' >>>> useEffect - inside `account` - setIsNetworkSupported', account);
-    //   const provider = new ethers.providers.Web3Provider(window.ethereum);
-    //   const { chainId } = await provider.getNetwork();
-    //   const isValid = CHAIN_ID.includes(Number(chainId));
-    //   setIsNetworkSupported(isValid);
-    // }
+    console.log(
+      ' >>>> useEffect - outside `account` - setIsNetworkSupported',
+      account,
+    );
+    if (account) {
+      console.log(
+        ' >>>> useEffect - inside `account` - setIsNetworkSupported',
+        account,
+      );
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const { chainId } = await provider.getNetwork();
+      const isValid = CHAIN_ID.includes(Number(chainId));
+      setIsNetworkSupported(isValid);
+    }
   }, [account]);
 
   const handleLogin = () => {
-    // console.log('1: ------ handle login -------');
-    // if (window.ethereum && window.ethereum.isMetaMask) {
-    //   console.log('2: ------ handle login -------');
-    //   // remove `disconnect` from localStorage
-    //   localStorage.removeItem(CONSTANTS.DISCONNECT);
+    console.log('1: ------ handle login -------');
+    if (window.ethereum && window.ethereum.isMetaMask) {
+      console.log('2: ------ handle login -------');
+      // remove `disconnect` from localStorage
+      localStorage.removeItem(CONSTANTS.DISCONNECT);
 
-    //   window.ethereum
-    //     .request({ method: CONSTANTS.ETH_REQUESTACCOUNTS })
-    //     .then((result) => {
-    //       // setting only the 1st account
-    //       setUserAccount(result[0]);
-    //       setBalance(result[0]);
-    //     })
-    //     .catch((e) => {
-    //       if (get(e, 'code') === -32002) {
-    //         setErrorMessage('Wallet connection pending');
-    //       } else {
-    //         setErrorMessage(e.message);
-    //       }
-    //     });
-    // } else {
-    //   setErrorMessage(METAMASK_ERROR_MSG);
-    // }
+      window.ethereum
+        .request({ method: CONSTANTS.ETH_REQUESTACCOUNTS })
+        .then((result) => {
+          // setting only the 1st account
+          setUserAccount(result[0]);
+          setBalance(result[0]);
+        })
+        .catch((e) => {
+          if (get(e, 'code') === -32002) {
+            setErrorMessage('Wallet connection pending');
+          } else {
+            setErrorMessage(e.message);
+          }
+        });
+    } else {
+      setErrorMessage(METAMASK_ERROR_MSG);
+    }
   };
 
   // set `disconnect` to localStorage for reference
   const handleDisconnect = () => {
-    // console.log(' >>>> disconnect');
-    // localStorage.setItem(CONSTANTS.DISCONNECT, true);
-    // setLoaded(false);
-    // setUserAccount(null);
-    // setUserBalance(null);
+    console.log(' >>>> disconnect');
+    localStorage.setItem(CONSTANTS.IS_CONNECTED, 'false');
+    setLoaded(false);
+    setUserAccount(null);
+    setUserBalance(null);
   };
 
   /**
@@ -90,11 +96,11 @@ const Login = ({
    * set account and balance of the user as we don't store the user details.
    */
   useEffect(() => {
-    // console.log(' >>>> useEffect - outside `isLoaded` - handleLogin');
-    // if (isLoaded && !account) {
-    //   console.log(' >>>> useEffect - inside `isLoaded` - handleLogin');
-    //   handleLogin();
-    // }
+    console.log(' >>>> useEffect - outside `isLoaded` - handleLogin');
+    if (isLoaded && !account) {
+      console.log(' >>>> useEffect - inside `isLoaded` - handleLogin');
+      handleLogin();
+    }
   }, [isLoaded]);
 
   /**
