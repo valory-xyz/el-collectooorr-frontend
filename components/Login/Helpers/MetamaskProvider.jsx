@@ -32,7 +32,7 @@ function MetamaskProvider({ setLoaded, children }) {
           }
         })
         .catch(() => {
-          setLoaded(true);
+          setLoaded(false);
         });
     }
 
