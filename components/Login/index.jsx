@@ -30,6 +30,7 @@ const Login = ({
 }) => {
   const [isNetworkSupported, setIsNetworkSupported] = useState(true);
   const setBalance = async (accountPassed) => {
+    console.log('>>> setBalance');
     try {
       const result = await getBalance(accountPassed);
       setUserBalance(result);
@@ -39,7 +40,9 @@ const Login = ({
   };
 
   useEffect(async () => {
+    console.log(' >>>> useEffect - outside `account` - setIsNetworkSupported');
     if (account) {
+      console.log(' >>>> useEffect - inside `account` - setIsNetworkSupported');
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const { chainId } = await provider.getNetwork();
       const isValid = CHAIN_ID.includes(Number(chainId));
@@ -48,8 +51,9 @@ const Login = ({
   }, [account]);
 
   const handleLogin = () => {
-    console.log('------ handle login -------');
+    console.log('1: ------ handle login -------');
     if (window.ethereum && window.ethereum.isMetaMask) {
+      console.log('2: ------ handle login -------');
       // remove `disconnect` from localStorage
       localStorage.removeItem(CONSTANTS.DISCONNECT);
 
@@ -74,6 +78,7 @@ const Login = ({
 
   // set `disconnect` to localStorage for reference
   const handleDisconnect = () => {
+    console.log(' >>>> disconnect');
     localStorage.setItem(CONSTANTS.DISCONNECT, true);
     setLoaded(false);
     setUserAccount(null);
@@ -85,7 +90,9 @@ const Login = ({
    * set account and balance of the user as we don't store the user details.
    */
   useEffect(() => {
+    console.log(' >>>> useEffect - outside `isLoaded` - handleLogin');
     if (isLoaded && !account) {
+      console.log(' >>>> useEffect - inside `isLoaded` - handleLogin');
       handleLogin();
     }
   }, [isLoaded]);
@@ -94,6 +101,7 @@ const Login = ({
    * listener for account, chain changes
    */
   const handleAccountChange = (newAccount) => {
+    console.log(' >>>> accountChange');
     setUserAccount(newAccount);
     setBalance(newAccount.toString());
     setErrorMessage(null);
@@ -102,10 +110,12 @@ const Login = ({
 
   // reload the page to on chain change to avoid errors
   const handleChainChange = () => {
+    console.log(' >>>> chainChange');
     window.location.reload();
   };
 
   if (typeof window !== 'undefined' && window.ethereum) {
+    console.log(' >>>> typeof window !== "undefined" && window.ethereum');
     window.ethereum.on('accountsChanged', handleAccountChange);
     window.ethereum.on('chainChanged', handleChainChange);
   }
