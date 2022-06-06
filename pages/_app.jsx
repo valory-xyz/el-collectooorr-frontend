@@ -3,8 +3,8 @@ import Head from 'next/head';
 import { createWrapper } from 'next-redux-wrapper';
 import PropTypes from 'prop-types';
 
-// import Web3 from 'web3';
-// import { Web3ReactProvider } from '@web3-react/core';
+import Web3 from 'web3';
+import { Web3ReactProvider } from '@web3-react/core';
 
 import GlobalStyle from 'components/GlobalStyles';
 import Layout from 'components/Layout';
@@ -13,7 +13,7 @@ import initStore from '../store';
 
 require('../styles/antd.less');
 
-// const getLibrary = (provider) => new Web3(provider);
+const getLibrary = (provider) => new Web3(provider);
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
@@ -67,13 +67,13 @@ class MyApp extends App {
           <link href="/fonts/stylesheet.css" rel="stylesheet" />
           <link rel="icon" type="images/png" href="/favicon.ico" />
         </Head>
-        {/* <Web3ReactProvider getLibrary={getLibrary}> */}
-        <MetamaskProvider>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </MetamaskProvider>
-        {/* </Web3ReactProvider> */}
+        <Web3ReactProvider getLibrary={getLibrary}>
+          <MetamaskProvider>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </MetamaskProvider>
+        </Web3ReactProvider>
       </>
     );
   }
