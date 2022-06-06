@@ -38,10 +38,10 @@ const Login = ({
   };
 
   useEffect(async () => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const { chainId } = await provider.getNetwork();
-    const isValid = CHAIN_ID.includes(Number(chainId));
-    setIsNetworkSupported(isValid);
+    // const provider = new ethers.providers.Web3Provider(window.ethereum);
+    // const { chainId } = await provider.getNetwork();
+    // const isValid = CHAIN_ID.includes(Number(chainId));
+    // setIsNetworkSupported(isValid);
   }, []);
 
   const handleLogin = () => {
