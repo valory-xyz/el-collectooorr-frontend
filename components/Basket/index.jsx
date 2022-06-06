@@ -71,6 +71,10 @@ const Basket = ({ account, balance }) => {
     setList([]);
 
     try {
+      /**
+       * order is important here as all the data independent
+       * of the `account` should be fetched first.
+       */
       const status = await getVaultStatus();
       setVaultStatus(status);
 
@@ -80,14 +84,14 @@ const Basket = ({ account, balance }) => {
       const symbol = await getVaultSymbol();
       setVaultSymbol(symbol);
 
-      const vtkBalance = await getBalanceOf(account);
-      setUserVTKBalance(vtkBalance);
+      const totalSupply = await getVaultTotalSupply();
+      setVaultTotalSupply(totalSupply);
 
       const vaultBalance = await getBalanceOf(VAULT_ADDRESS);
       setVaultBalanceOf(vaultBalance);
 
-      const totalSupply = await getVaultTotalSupply(account);
-      setVaultTotalSupply(totalSupply);
+      const vtkBalance = await getBalanceOf(account);
+      setUserVTKBalance(vtkBalance);
 
       const data = await getBaskets();
       const transformedList = getCollectionList(data);
