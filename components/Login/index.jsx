@@ -61,7 +61,7 @@ const Login = ({
     if (window.ethereum && window.ethereum.isMetaMask) {
       console.log('2: ------ handle login -------');
       // remove `disconnect` from localStorage
-      localStorage.removeItem(CONSTANTS.DISCONNECT);
+      localStorage.setItem(CONSTANTS.IS_CONNECTED, 'true');
 
       window.ethereum
         .request({ method: CONSTANTS.ETH_REQUESTACCOUNTS })
