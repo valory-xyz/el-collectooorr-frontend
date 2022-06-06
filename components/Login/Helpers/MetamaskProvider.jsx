@@ -23,11 +23,11 @@ function MetamaskProvider({ setLoaded, children }) {
       injected
         .isAuthorized()
         .then((hasAuthorized) => {
-          console.log(2, { hasAuthorized });
+          console.log(2, { hasAuthorized, networkError, networkActive });
 
           if (hasAuthorized && !networkActive && !networkError) {
             setLoaded(true);
-            activateNetwork(injected);
+            // activateNetwork(injected);
             console.log(3, { injected });
           }
         })
