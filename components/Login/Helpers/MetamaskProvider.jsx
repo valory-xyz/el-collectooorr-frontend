@@ -3,8 +3,11 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useWeb3React } from '@web3-react/core';
 import { setLoaded as setLoadedFn } from 'store/setup/actions';
-import { CONSTANTS } from 'util/constants';
-import injected from '.';
+// import { CONSTANTS } from 'util/constants';
+// import injected from '.';
+
+import { InjectedConnector } from '@web3-react/injected-connector';
+import { SUPPORTED_NETWORKS, CHAIN_ID, CONSTANTS } from 'util/constants';
 
 /**
  * component to persist the metamask login on browser refresh
@@ -26,6 +29,11 @@ function MetamaskProvider({ setLoaded, children }) {
     const wasConnected = localStorage.getItem(CONSTANTS.IS_CONNECTED);
     console.log({ wasConnected });
     if (!!wasConnected && wasConnected === 'true') {
+      const injected = new InjectedConnector({
+        supportedNetworks: SUPPORTED_NETWORKS,
+        supportedChainIds: CHAIN_ID,
+      });
+
       injected
         .isAuthorized()
         .then((hasAuthorized) => {
