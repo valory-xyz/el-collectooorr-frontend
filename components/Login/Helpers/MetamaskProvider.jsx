@@ -24,25 +24,19 @@ function MetamaskProvider({ setLoaded, children }) {
      * did not disconnect.
      */
     const wasConnected = localStorage.getItem(CONSTANTS.IS_CONNECTED);
-    console.log({ wasConnected });
     if (!!wasConnected && wasConnected === 'true') {
       injected
         .isAuthorized()
         .then((hasAuthorized) => {
-          console.log(2, { hasAuthorized, networkError, networkActive });
-
           if (hasAuthorized && !networkActive && !networkError) {
             setLoaded(true);
-            // activateNetwork(injected);
-            console.log(3, { injected });
+            activateNetwork(injected);
           }
         })
         .catch(() => {
           setLoaded(false);
         });
     }
-
-    console.log(4);
   }, [activateNetwork, networkActive, networkError]);
 
   return children;
