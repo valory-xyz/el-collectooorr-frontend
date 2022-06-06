@@ -29,6 +29,7 @@ export const HeaderContainer = styled.div`
       flex-direction: column;
       align-items: start;
       gap: 16px;
+      line-height: normal;
     }
     .column-2 {
       button {
@@ -66,6 +67,21 @@ export const HeaderContainer = styled.div`
         .dash {
           display: block;
           margin-top: -4px;
+        }
+      }
+    }
+  }
+
+  ${MEDIA_QUERY.mobileS} {
+    .column-1 {
+      a {
+        /* logo */
+        &:nth-child(1) img {
+          height: 40px;
+        }
+        /* el-col text */
+        &:nth-child(2) img {
+          width: 120px;
         }
       }
     }

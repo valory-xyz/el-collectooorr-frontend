@@ -6,7 +6,6 @@ import { URL } from 'util/constants';
 // import { TOKEN_ID, URL } from 'util/constants';
 import { CustomButton } from 'common-util/Button';
 import RiskBanner from 'common-util/RiskBanner';
-import useCheckMobileScreen from 'common-util/hooks/useCheckMobileScreen';
 import Login from '../../Login';
 import { HeaderContainer, SubHeaderContainer } from './styles';
 
@@ -14,48 +13,46 @@ export const Dash = () => (
   <>&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;</>
 );
 
-const linkToHome = (child) => (
+const linkToHome = (child, aClassName) => (
   <Link href="/">
-    <a href="/">{child}</a>
+    <a href="/" className={aClassName}>{child}</a>
   </Link>
 );
 
 export const HeaderSection = () => {
-  const isMobile = useCheckMobileScreen();
   const router = useRouter();
   const isRoot = router.pathname === URL.ROOT;
 
   return (
     <HeaderContainer className={isRoot ? '' : 'not-root-page'}>
       <div className="column-1">
-        {isMobile ? (
-          <>
-            {linkToHome(
-              <img
-                src="/images/0Header/el-collectooorr-logo.png"
-                alt="El collectooorr"
-                loading="lazy"
-                height={64}
-              />,
-            )}
-            {linkToHome(
-              <img
-                src="/images/0Header/el-collectooorr-text.png"
-                alt="El collectooorr"
-                loading="lazy"
-                width={150}
-              />,
-            )}
-          </>
-        ) : (
-          linkToHome(
-            <img
-              src="/images/0Header/logo.png"
-              alt="El collectooorr"
-              loading="lazy"
-              width={300}
-            />,
-          )
+        {linkToHome(
+          <img
+            src="/images/0Header/el-collectooorr-logo.png"
+            alt="El collectooorr"
+            loading="lazy"
+            height={64}
+          />,
+          'show-only-sm',
+        )}
+        {linkToHome(
+          <img
+            src="/images/0Header/el-collectooorr-text.png"
+            alt="El collectooorr"
+            loading="lazy"
+            width={150}
+            className="mb-8"
+          />,
+          'show-only-sm',
+        )}
+        {linkToHome(
+          <img
+            src="/images/0Header/logo.png"
+            alt="El collectooorr"
+            loading="lazy"
+            width={300}
+          />,
+          'hide-only-sm',
         )}
       </div>
 
