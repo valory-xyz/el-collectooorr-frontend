@@ -59,8 +59,15 @@ const Login = ({
           setBalance(result[0]);
         })
         .catch((e) => {
-          if (get(e, 'code') === -32002) {
+          const code = get(e, 'code');
+          if (code === -32002) {
             setErrorMessage('Wallet connection pending');
+          } else if (code === 4001 || code === -32602) {
+            /**
+             * 4001: user denied access to metamask, so no need to set error!
+             * -32602: user disconnected from connected sites option in metamask!
+             */
+            setErrorMessage(null);
           } else {
             setErrorMessage(e.message);
           }
