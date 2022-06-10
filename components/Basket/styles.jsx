@@ -36,6 +36,7 @@ export const BasketContainer = styled.div`
   ${MEDIA_QUERY.tablet} {
     .right-columm {
       padding-left: 0rem;
+      margin-top: 1rem;
     }
     .ant-card {
       max-width: 100%;
@@ -91,6 +92,20 @@ export const SubHeader = styled.div`
   }
   &.pt-0 {
     padding-top: 0rem;
+  }
+
+  ${MEDIA_QUERY.mobileL} {
+    .sub-header {
+      img {
+        margin-right: 0.5rem;
+      }
+      h3 {
+        font-size: 30px;
+      }
+      h4 {
+        font-size: 30px;
+      }
+    }
   }
 `;
 
@@ -155,6 +170,17 @@ export const AddFunds = styled.div`
             margin-bottom: -2px;
             margin-right: 4px;
           }
+        }
+      }
+    }
+  }
+
+  ${MEDIA_QUERY.tablet} {
+    margin-bottom: 1rem;
+    .add-funds {
+      &-form {
+        .ant-btn {
+          padding: 6px 16px !important ;
         }
       }
     }
@@ -246,6 +272,23 @@ export const TotalYours = styled.div`
       color: ${COLOR.GREEN_3};
       text-transform: capitalize;
       word-break: break-word;
+    }
+  }
+
+  ${MEDIA_QUERY.tabletL} {
+    flex-direction: column;
+    gap: 1rem;
+    .vault-info {
+      &.reserve-price {
+        padding: 0;
+      }
+      &.yours {
+        padding-left: 0rem;
+      }
+      .desc {
+        margin: 0;
+        line-height: normal;
+      }
     }
   }
 `;

@@ -17,6 +17,9 @@ describe('<Fund />', () => {
     };
     const { container } = render(wrapProvider(<Fund {...props} />));
 
+    // adding `await` for animations to be completed
+    await new Promise((e) => setTimeout(e, 3000));
+
     /* header & status */
     const header = container.querySelector('.sub-header h3').textContent;
     expect(header).toBe('Fund');
@@ -36,7 +39,6 @@ describe('<Fund />', () => {
 
     const progress = container.querySelector('.progress-center').textContent;
     expect(progress).toBe('8 ETH');
-
     const progressEndText = container.querySelector('.progress-end').textContent;
     expect(progressEndText).toBe('10 ETH(full)');
 
@@ -189,10 +191,13 @@ describe('<Fund /> => Add funds functionality', () => {
     const progressWidth = progressContainer.querySelector(
       '.ant-progress-inner > .ant-progress-bg',
     );
-    expect(progressWidth).toHaveStyle('width: 90%');
 
-    const progress = container.querySelector('.progress-center').textContent;
-    expect(progress).toBe('9 ETH');
+    await waitFor(async () => {
+      expect(progressWidth).toHaveStyle('width: 90%');
+
+      const progress = container.querySelector('.progress-center').textContent;
+      expect(progress).toBe('9 ETH');
+    });
   });
 
   it('add funds function throws error and handled gracefully', async () => {

@@ -64,6 +64,8 @@ class MyApp extends App {
             property="twitter:image"
             content="https://www.elcollectooorr.art/images/1CollectAndChill/metadata-background.png"
           />
+          <link href="/fonts/stylesheet.css" rel="stylesheet" />
+          <link rel="icon" type="images/png" href="/favicon.ico" />
         </Head>
         <Web3ReactProvider getLibrary={getLibrary}>
           <MetamaskProvider>

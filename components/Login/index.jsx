@@ -38,16 +38,18 @@ const Login = ({
   };
 
   useEffect(async () => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const { chainId } = await provider.getNetwork();
-    const isValid = CHAIN_ID.includes(Number(chainId));
-    setIsNetworkSupported(isValid);
-  }, []);
+    if (account) {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const { chainId } = await provider.getNetwork();
+      const isValid = CHAIN_ID.includes(Number(chainId));
+      setIsNetworkSupported(isValid);
+    }
+  }, [account]);
 
   const handleLogin = () => {
     if (window.ethereum && window.ethereum.isMetaMask) {
       // remove `disconnect` from localStorage
-      localStorage.removeItem(CONSTANTS.DISCONNECT);
+      localStorage.setItem(CONSTANTS.IS_CONNECTED, 'true');
 
       window.ethereum
         .request({ method: CONSTANTS.ETH_REQUESTACCOUNTS })
@@ -57,8 +59,15 @@ const Login = ({
           setBalance(result[0]);
         })
         .catch((e) => {
-          if (get(e, 'code') === -32002) {
+          const code = get(e, 'code');
+          if (code === -32002) {
             setErrorMessage('Wallet connection pending');
+          } else if (code === 4001 || code === -32602) {
+            /**
+             * 4001: user denied access to metamask, so no need to set error!
+             * -32602: user disconnected from connected sites option in metamask!
+             */
+            setErrorMessage(null);
           } else {
             setErrorMessage(e.message);
           }
@@ -70,14 +79,15 @@ const Login = ({
 
   // set `disconnect` to localStorage for reference
   const handleDisconnect = () => {
-    localStorage.setItem(CONSTANTS.DISCONNECT, true);
+    localStorage.setItem(CONSTANTS.IS_CONNECTED, 'false');
     setLoaded(false);
     setUserAccount(null);
     setUserBalance(null);
   };
 
   /**
-   * if already loaded, set account and balance of the user.
+   * if already loaded (ie. logged in before and present in localStorage),
+   * set account and balance of the user as we don't store the user details.
    */
   useEffect(() => {
     if (isLoaded && !account) {

@@ -101,4 +101,19 @@ export const EachBenefit = styled.div`
       min-height: 106px;
     }
   }
+
+  ${MEDIA_QUERY.mobileXS} {
+    &.benefit-1 img {
+      width: 180px;
+    }
+    &.benefit-2 img {
+      width: 120px;
+    }
+    &.benefit-3 img {
+      width: 156px;
+    }
+    &.benefit-4 img {
+      width: 160px;
+    }
+  }
 `;

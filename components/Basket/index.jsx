@@ -91,6 +91,10 @@ const Basket = ({ account, balance }) => {
       setVaultTotalSupply(10000);
     } else {
       try {
+        /**
+         * order is important here as all the data independent
+         * of the `account` should be fetched first.
+         */
         const status = await getVaultStatus();
         setVaultStatus(status);
 
@@ -100,14 +104,14 @@ const Basket = ({ account, balance }) => {
         const symbol = await getVaultSymbol();
         setVaultSymbol(symbol);
 
-        const vtkBalance = await getBalanceOf(account);
-        setUserVTKBalance(vtkBalance);
+        const totalSupply = await getVaultTotalSupply();
+        setVaultTotalSupply(totalSupply);
 
         const vaultBalance = await getBalanceOf(VAULT_ADDRESS);
         setVaultBalanceOf(vaultBalance);
 
-        const totalSupply = await getVaultTotalSupply(account);
-        setVaultTotalSupply(totalSupply);
+        const vtkBalance = await getBalanceOf(account);
+        setUserVTKBalance(vtkBalance);
 
         const data = await getBaskets();
         const transformedList = getCollectionList(data);
@@ -172,7 +176,7 @@ const Basket = ({ account, balance }) => {
 
       <BasketContainer>
         <Row>
-          <Col md={8}>
+          <Col lg={8} md={12}>
             <Service isVaultClosed={isVaultClosed} />
             <Fund
               isVaultClosed={isVaultClosed}
@@ -185,7 +189,7 @@ const Basket = ({ account, balance }) => {
             />
           </Col>
 
-          <Col md={16} className="right-columm">
+          <Col lg={16} md={12} className="right-columm">
             <Vault
               vaultReservePrice={vaultReservePrice}
               vaultSymbol={vaultSymbol}
