@@ -6,7 +6,20 @@ import {
   VAULT_CONTRACT,
   ARTBLOCKS_ADDRESS,
   ARTBLOCKS_CONTRACT,
+  BASKET_FACTORY_ADDRESS,
+  BASKET_FACTORY_CONTRACT,
+  VAULT_FACTORY_ADDRESS,
+  VAULT_FACTORY_CONTRACT,
 } from 'common-util/AbiAndAddresses';
+import { SAFE_CONTRACT, SAFE_CONTRACT_ADDRESS } from '../AbiAndAddresses/safeContract';
+
+
+export const getSafeContract = (address = SAFE_CONTRACT_ADDRESS) => {
+  const web3 = new Web3(window.web3.currentProvider);
+  const contract = new web3.eth.Contract(SAFE_CONTRACT.abi, address);
+  return contract;
+};
+
 
 export const getArtBlocksContract = (address = ARTBLOCKS_ADDRESS) => {
   const web3 = new Web3(window.web3.currentProvider);
@@ -20,8 +33,20 @@ export const getBasketContract = (basketAddress = BASKET_ADDRESS) => {
   return contract;
 };
 
-export const getVaultContract = () => {
+export const getBasketFactoryContract = (basketFactoryContract = BASKET_FACTORY_ADDRESS) => {
   const web3 = new Web3(window.web3.currentProvider);
-  const contract = new web3.eth.Contract(VAULT_CONTRACT.abi, VAULT_ADDRESS);
+  const contract = new web3.eth.Contract(BASKET_FACTORY_CONTRACT.abi, basketFactoryContract);
+  return contract;
+};
+
+export const getVaultContract = (vaultAddress = VAULT_ADDRESS) => {
+  const web3 = new Web3(window.web3.currentProvider);
+  const contract = new web3.eth.Contract(VAULT_CONTRACT.abi, vaultAddress);
+  return contract;
+};
+
+export const getVaultFactoryContract = (vaultFactoryAddress = VAULT_FACTORY_ADDRESS) => {
+  const web3 = new Web3(window.web3.currentProvider);
+  const contract = new web3.eth.Contract(VAULT_FACTORY_CONTRACT.abi, vaultFactoryAddress);
   return contract;
 };
