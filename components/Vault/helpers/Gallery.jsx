@@ -19,6 +19,16 @@ const getImage = (type, {
     );
   }
 
+  if (!type) {
+    console.warn('handling undefined image types as images');
+    console.log(url);
+    return (
+      <div className="nft-img">
+        <img alt={name} src={url} style={style} />
+      </div>
+    );
+  }
+
   return null;
 };
 
