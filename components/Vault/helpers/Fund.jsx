@@ -23,7 +23,7 @@ import {
 } from '../styles';
 
 const MANAGEMENT_FEE = 0.05; // 5 percent
-const VTK_ETH_PRICE = 0.001;
+const VTK_ETH_PRICE = 0.01;
 const FUND_CAP_IN_ETH = 10;
 
 const Fund = ({
