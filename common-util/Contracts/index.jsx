@@ -10,16 +10,15 @@ import {
   BASKET_FACTORY_CONTRACT,
   VAULT_FACTORY_ADDRESS,
   VAULT_FACTORY_CONTRACT,
+  SAFE_CONTRACT_ADDRESS,
+  SAFE_CONTRACT,
 } from 'common-util/AbiAndAddresses';
-import { SAFE_CONTRACT, SAFE_CONTRACT_ADDRESS } from '../AbiAndAddresses/safeContract';
-
 
 export const getSafeContract = (address = SAFE_CONTRACT_ADDRESS) => {
   const web3 = new Web3(window.web3.currentProvider);
   const contract = new web3.eth.Contract(SAFE_CONTRACT.abi, address);
   return contract;
 };
-
 
 export const getArtBlocksContract = (address = ARTBLOCKS_ADDRESS) => {
   const web3 = new Web3(window.web3.currentProvider);

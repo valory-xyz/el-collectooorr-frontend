@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Skeleton, Row, Col } from 'antd/lib';
 import { get } from 'lodash';
 import RiskBanner from 'common-util/RiskBanner';
+import { SAFE_CONTRACT_ADDRESS } from 'common-util/AbiAndAddresses';
 import Fund from './helpers/Fund';
 import Service from './helpers/Service';
 import Vault from './helpers/Vault';
@@ -14,10 +15,11 @@ import {
   getVaultSymbol,
   getVaultTotalSupply,
   getBalanceOf,
-  getNftsInfo, getLatestVaultAndBasket, mockGetNfts,
+  getNftsInfo,
+  getLatestVaultAndBasket,
+  mockGetNfts,
 } from './utils';
 import { BasketContainer } from './styles';
-import { SAFE_CONTRACT_ADDRESS } from '../../common-util/AbiAndAddresses/safeContract';
 
 /**
  * helper function formalize the list type

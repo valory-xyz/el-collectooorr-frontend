@@ -2,7 +2,9 @@ import Web3 from 'web3';
 import axios from 'axios';
 import { ethers } from 'ethers';
 import { notification } from 'antd/lib';
-import { map, sortBy, toInteger } from 'lodash';
+import {
+  map, sortBy, toInteger, get,
+} from 'lodash';
 import { METAMASK_ERROR_MSG } from 'util/constants';
 import { COLOR } from 'util/theme';
 import { ARTBLOCKS_ADDRESS } from 'common-util/AbiAndAddresses/artBlocksContract';
@@ -13,7 +15,7 @@ import {
   getVaultContract,
   getVaultFactoryContract,
 } from 'common-util/Contracts';
-import { SAFE_CONTRACT_ADDRESS } from '../../common-util/AbiAndAddresses/safeContract';
+import { SAFE_CONTRACT_ADDRESS } from 'common-util/AbiAndAddresses';
 
 export const sortByKeys = (object) => {
   const keys = Object.keys(object);
@@ -34,6 +36,20 @@ const getJsonData = (url) => new Promise((resolve, reject) => {
 });
 
 // -------------- BASKET--------------
+const handleNftData = async (list, resolve, basketAddress) => {
+  const results = await Promise.all(
+    list.map(async (url) => {
+      const result = await getJsonData(url);
+      const txn = basketAddress; // the owner is always the basket
+      return {
+        ...result,
+        txn,
+      };
+    }),
+  );
+  resolve(results);
+};
+
 const getFilteredNfts = async (basketToken) => {
   const contract = getBasketContract(basketToken);
   const depositedNfts = await contract.getPastEvents('DepositERC721', {
@@ -48,7 +64,7 @@ const getFilteredNfts = async (basketToken) => {
 
   const nfts = depositedNfts.filter((depositedNft) => {
     const isWithdrawn = withdrawnNfts.find(
-      (nft) => nft.returnValues.tokenId === depositedNft.returnValues.tokenId,
+      (nft) => get(nft, 'returnValues.tokenId') === get(depositedNft, 'returnValues.tokenId'),
     );
 
     return !isWithdrawn;
@@ -75,19 +91,7 @@ export const mockGetNfts = async (basketAddress) => {
       }
 
       Promise.all(promises)
-        .then(async (list) => {
-          const results = await Promise.all(
-            list.map(async (result) => {
-              const txn = basketAddress; // the owner is always the basket
-              return {
-                url: result.image,
-                ...result,
-                txn,
-              };
-            }),
-          );
-          resolve(results);
-        });
+        .then(handleNftData);
     } catch (error) {
       reject(error);
     }
@@ -112,24 +116,13 @@ export const getNfts = async (basketAddress) => {
       }
 
       Promise.all(promises)
-        .then(async (list) => {
-          const results = await Promise.all(
-            list.map(async (url) => {
-              const result = await getJsonData(url);
-              const txn = basketAddress; // the owner is always the basket
-              return {
-                ...result,
-                txn,
-              };
-            }),
-          );
-          resolve(results);
-        });
+        .then(handleNftData);
     } catch (error) {
       reject(error);
     }
   });
 };
+
 
 export const getNftsInfo = async (totalNft) => {
   const web3 = new Web3(window.web3.currentProvider);

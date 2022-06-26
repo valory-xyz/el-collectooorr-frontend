@@ -8,7 +8,9 @@ import { VaultContainer, TotalYours, VaultHeader } from '../styles';
 
 const URL = `https://fractional.art/vaults/${VAULT_ADDRESS}`;
 
-const VaultComponent = ({ vaultReservePrice, vaultSymbol, userVTKBalance, vaultTotalSupply, }) => {
+const VaultComponent = ({
+  vaultReservePrice, vaultSymbol, userVTKBalance, vaultTotalSupply,
+}) => {
   const symbol = vaultSymbol || 'TKN';
   const reservePrice = vaultReservePrice ? round(vaultReservePrice, 2) : '--';
   const getPercentage = () => {
@@ -87,12 +89,14 @@ VaultComponent.propTypes = {
   vaultReservePrice: PropTypes.string,
   vaultSymbol: PropTypes.string,
   userVTKBalance: PropTypes.number,
+  vaultTotalSupply: PropTypes.number,
 };
 
 VaultComponent.defaultProps = {
   vaultReservePrice: null,
   vaultSymbol: null,
   userVTKBalance: null,
+  vaultTotalSupply: null,
 };
 
 export default VaultComponent;
