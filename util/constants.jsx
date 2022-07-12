@@ -11,6 +11,7 @@ export const CONSTANTS = {
 export const URL = {
   ROOT: '/',
   VAULT: '/vaults',
+  DOCUMENTATION: '/documentation',
 };
 
 export const VAULT_TOKEN_ID = '0xF03b9E6707C1E29442e56B15d708e388A71a7177';
