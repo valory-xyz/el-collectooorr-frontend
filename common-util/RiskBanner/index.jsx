@@ -5,10 +5,11 @@ const RiskContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
   margin-bottom: 1rem;
   padding: 0.5rem 1rem;
   line-height: normal;
-  font-size: 36px;
+  font-size: 28px;
   font-family: "spacegrotesk__medium";
   border-radius: 10px;
   background-color: ${COLOR.RED};
@@ -24,7 +25,7 @@ const RiskContainer = styled.div`
 
 const RiskBanner = () => (
   <RiskContainer>
-    !!! DEPOSIT FUNDS AT YOUR OWN RISK. UNAUDITED PRODUCT !!!
+    !!! THIS PRODUCT IS IN BETA. DEPOSIT FUNDS AT YOUR OWN RISK. UNAUDITED PRODUCT !!!
   </RiskContainer>
 );
 
