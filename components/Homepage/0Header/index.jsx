@@ -15,13 +15,15 @@ export const Dash = () => (
 
 const linkToHome = (child, aClassName) => (
   <Link href="/">
-    <a href="/" className={aClassName}>{child}</a>
+    <a href="/" className={aClassName}>
+      {child}
+    </a>
   </Link>
 );
 
 export const HeaderSection = () => {
   const router = useRouter();
-  const isRoot = router.pathname === URL.ROOT;
+  const isRoot = router.pathname === URL.ROOT || router.pathname === URL.DOCUMENTATION;
 
   return (
     <HeaderContainer className={isRoot ? '' : 'not-root-page'}>
