@@ -36,19 +36,14 @@ const getJsonData = (url) => new Promise((resolve, reject) => {
 });
 
 // -------------- BASKET--------------
-const handleNftData = async (list, resolve, basketAddress) => {
-  const results = await Promise.all(
-    list.map(async (url) => {
-      const result = await getJsonData(url);
-      const txn = basketAddress; // the owner is always the basket
-      return {
-        ...result,
-        txn,
-      };
-    }),
-  );
-  resolve(results);
-};
+const handleNftData = (nfts, basketAddress) => nfts.map((nft) => {
+  const txn = basketAddress; // the owner is always the basket
+  return {
+    url: nft.image,
+    ...nft,
+    txn,
+  };
+});
 
 const getFilteredNfts = async (basketToken) => {
   const contract = getBasketContract(basketToken);
@@ -91,7 +86,7 @@ export const mockGetNfts = async (basketAddress) => {
       }
 
       Promise.all(promises)
-        .then(handleNftData);
+        .then((list) => resolve(handleNftData(list, basketAddress)));
     } catch (error) {
       reject(error);
     }
@@ -116,7 +111,7 @@ export const getNfts = async (basketAddress) => {
       }
 
       Promise.all(promises)
-        .then(handleNftData);
+        .then((list) => resolve(handleNftData(list, basketAddress)));
     } catch (error) {
       reject(error);
     }
