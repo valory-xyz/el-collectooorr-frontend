@@ -82,6 +82,10 @@ const VaultComponent = ({
        * order is important here as all the data independent
        * of the `account` should be fetched first.
        */
+      if (!account) {
+        return;
+      }
+
       const {
         latestVaultAddress,
         latestBasketAddress,

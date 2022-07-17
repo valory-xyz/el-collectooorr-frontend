@@ -36,19 +36,14 @@ const getJsonData = (url) => new Promise((resolve, reject) => {
 });
 
 // -------------- BASKET--------------
-const handleNftData = async (list, basketAddress, resolve) => {
-  const results = await Promise.all(
-    list.map(async (url) => {
-      const result = await getJsonData(url);
-      const txn = basketAddress; // the owner is always the basket
-      return {
-        ...result,
-        txn,
-      };
-    }),
-  );
-  resolve(results);
-};
+const handleNftData = (nfts, basketAddress) => nfts.map((nft) => {
+  const txn = basketAddress; // the owner is always the basket
+  return {
+    url: nft.image,
+    ...nft,
+    txn,
+  };
+});
 
 const getFilteredNfts = async (basketToken) => {
   const contract = getBasketContract(basketToken);
@@ -92,6 +87,8 @@ export const mockGetNfts = async (basketAddress) => {
       }
 
       Promise.all(promises).then(async (result) => handleNftData(result, basketAddress, resolve));
+      Promise.all(promises)
+        .then((list) => resolve(handleNftData(list, basketAddress)));
     } catch (error) {
       reject(error);
     }
@@ -111,7 +108,8 @@ export const getNfts = async (basketAddress) => {
         promises.push(result);
       }
 
-      Promise.all(promises).then(async (result) => handleNftData(result, basketAddress, resolve));
+      Promise.all(promises)
+        .then((list) => resolve(handleNftData(list, basketAddress)));
     } catch (error) {
       reject(error);
     }
@@ -124,7 +122,7 @@ export const getNftsInfo = async (totalNft) => {
 
   const blockNum = await web3.eth.getBlockNumber();
   const list = await contract.getPastEvents('Mint', {
-    fromBlock: blockNum - 10000,
+    fromBlock: Math.max(0, blockNum - 10000),
   });
 
   const getMetadata = () => new Promise((resolve, reject) => {
