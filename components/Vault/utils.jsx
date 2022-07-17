@@ -36,7 +36,7 @@ const getJsonData = (url) => new Promise((resolve, reject) => {
 });
 
 // -------------- BASKET--------------
-const handleNftData = async (list, resolve, basketAddress) => {
+const handleNftData = async (list, basketAddress, resolve) => {
   const results = await Promise.all(
     list.map(async (url) => {
       const result = await getJsonData(url);
@@ -64,7 +64,8 @@ const getFilteredNfts = async (basketToken) => {
 
   const nfts = depositedNfts.filter((depositedNft) => {
     const isWithdrawn = withdrawnNfts.find(
-      (nft) => get(nft, 'returnValues.tokenId') === get(depositedNft, 'returnValues.tokenId'),
+      (nft) => get(nft, 'returnValues.tokenId')
+        === get(depositedNft, 'returnValues.tokenId'),
     );
 
     return !isWithdrawn;
@@ -90,8 +91,7 @@ export const mockGetNfts = async (basketAddress) => {
         promises.push(result);
       }
 
-      Promise.all(promises)
-        .then(handleNftData);
+      Promise.all(promises).then(async (result) => handleNftData(result, basketAddress, resolve));
     } catch (error) {
       reject(error);
     }
@@ -105,24 +105,18 @@ export const getNfts = async (basketAddress) => {
     try {
       const promises = [];
       for (let i = 0; i < filteredNfts.length; i += 1) {
-        const {
-          token,
-          tokenId,
-        } = filteredNfts[i].returnValues;
+        const { token, tokenId } = filteredNfts[i].returnValues;
         const currentContract = getArtBlocksContract(token);
-        const result = currentContract.methods.tokenURI(tokenId)
-          .call();
+        const result = currentContract.methods.tokenURI(tokenId).call();
         promises.push(result);
       }
 
-      Promise.all(promises)
-        .then(handleNftData);
+      Promise.all(promises).then(async (result) => handleNftData(result, basketAddress, resolve));
     } catch (error) {
       reject(error);
     }
   });
 };
-
 
 export const getNftsInfo = async (totalNft) => {
   const web3 = new Web3(window.web3.currentProvider);
@@ -139,30 +133,28 @@ export const getNftsInfo = async (totalNft) => {
       const promises = [];
       for (let i = 0; i < totalNft; i += 1) {
         const { _projectId: pid } = list[i].returnValues;
-        const result = artBlocksContract.methods.projectDetails(pid)
-          .call();
+        const result = artBlocksContract.methods.projectDetails(pid).call();
         promises.push(result);
       }
 
-      Promise.all(promises)
-        .then(async (array) => {
-          const results = await Promise.all(
-            array.map(async (info, i) => {
-              const { value } = await web3.eth.getTransaction(
-                list[i].transactionHash,
-              ); // wei
-              const valueInEther = Web3.utils.fromWei(value, 'ether');
+      Promise.all(promises).then(async (array) => {
+        const results = await Promise.all(
+          array.map(async (info, i) => {
+            const { value } = await web3.eth.getTransaction(
+              list[i].transactionHash,
+            ); // wei
+            const valueInEther = Web3.utils.fromWei(value, 'ether');
 
-              return {
-                artist: info.artist,
-                bought: valueInEther,
-                date: null,
-                txn: list[i].transactionHash,
-              };
-            }),
-          );
-          resolve(results);
-        });
+            return {
+              artist: info.artist,
+              bought: valueInEther,
+              date: null,
+              txn: list[i].transactionHash,
+            };
+          }),
+        );
+        resolve(results);
+      });
     } catch (error) {
       reject(error);
     }
@@ -264,7 +256,6 @@ export const getBasketAddress = (vaultAddress) => new Promise((resolve, reject) 
     });
 });
 
-
 // -------------- OTHERS --------------
 const key = 'addFundsToast';
 
@@ -320,30 +311,33 @@ export const addFunds = async ({ ether }) => {
 };
 
 /*
-* Function to get the latest vault & basket created by the safe contract.
-* We can make use of indexed event parameters to achieve this.
-*
-* - Premises:
-* 1. Baskets are created by the SAFE_CONTRACT_ADDRESS.
-* 2. Vaults make use of baskets.
-* 3. Baskets must not be reassigned to different vaults.
-*
-* - Algorithm:
-* 1. Find the baskets created by the SAFE_CONTRACT_ADDRESS, by making use of the indexed
-* '_creator' param.
-* 2. Get the newest basket.
-* 3. Get the vault that have the newest basket, by making use of the indexed 'token' param.
-* */
+ * Function to get the latest vault & basket created by the safe contract.
+ * We can make use of indexed event parameters to achieve this.
+ *
+ * - Premises:
+ * 1. Baskets are created by the SAFE_CONTRACT_ADDRESS.
+ * 2. Vaults make use of baskets.
+ * 3. Baskets must not be reassigned to different vaults.
+ *
+ * - Algorithm:
+ * 1. Find the baskets created by the SAFE_CONTRACT_ADDRESS, by making use of the indexed
+ * '_creator' param.
+ * 2. Get the newest basket.
+ * 3. Get the vault that have the newest basket, by making use of the indexed 'token' param.
+ * */
 export const getLatestVaultAndBasket = async () => {
   const basketFactoryContract = getBasketFactoryContract();
-  const newBasketEvents = await basketFactoryContract.getPastEvents('NewBasket', {
-    filter: {
-      _creator: SAFE_CONTRACT_ADDRESS,
+  const newBasketEvents = await basketFactoryContract.getPastEvents(
+    'NewBasket',
+    {
+      filter: {
+        _creator: SAFE_CONTRACT_ADDRESS,
+      },
+      fromBlock: 'earliest',
     },
-    fromBlock: 'earliest',
-  });
+  );
   // eslint-disable-next-line no-underscore-dangle
-  const latestBasketAddress = (newBasketEvents[newBasketEvents.length - 1]).returnValues._address;
+  const latestBasketAddress = newBasketEvents[newBasketEvents.length - 1].returnValues._address;
 
   const vaultFactoryContract = getVaultFactoryContract();
   const newVaultEvents = await vaultFactoryContract.getPastEvents('Mint', {
