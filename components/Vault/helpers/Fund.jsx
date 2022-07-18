@@ -22,8 +22,7 @@ import {
   AddFunds,
 } from '../styles';
 
-// converting management_fee from 0.05 to 0.00
-const MANAGEMENT_FEE = 0.0;
+const MANAGEMENT_FEE = 0.05; // 5 percent
 const VTK_ETH_PRICE = 0.01;
 const FUND_CAP_IN_ETH = 10;
 
