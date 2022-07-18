@@ -89,12 +89,15 @@ const Fund = ({
     });
   };
 
+  // close vault if 99%, ie if 10ELC is remaining then it is 99%.
+  const isVaultClosed = vaultBalanceOf === 10;
+
   const isBtnDisabled = () => {
     // disable button when metamask is not connected!
     if (!account) return true;
 
     if (Number(value) === 0) return true;
-    if (vaultBalanceOf === 0) return true; // no balance left
+    if (isVaultClosed) return true; // no balance left
 
     // const vaultBalance = (vaultBalanceOf * VTK_ETH_PRICE); // TODO
     // return !hasBalance && (value > vaultBalance);
@@ -117,7 +120,7 @@ const Fund = ({
         </div>
 
         <div className="vault-status">
-          {vaultBalanceOf === 0 ? 'No longer accepting funds' : 'OPEN'}
+          {isVaultClosed ? 'No longer accepting funds' : 'OPEN'}
         </div>
       </SubHeader>
 
