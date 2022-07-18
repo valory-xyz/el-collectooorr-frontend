@@ -1,5 +1,4 @@
-// export const VAULT_ADDRESS = '0xADe6FDAba1643E4D1eeF68Da7170F234470938c6';
-export const VAULT_ADDRESS = '0xfcb51a6ac3330f60664adc6c310f6515f193c9d4'; // rinkeby
+export const VAULT_ADDRESS = '0x2F7e0C5a4CF1C42D15BE641b00CB2649B86c70Ca'; // rinkeby
 
 export const VAULT_CONTRACT = {
   abi: [

@@ -6,14 +6,18 @@ import NumbersAnimate from 'common-util/NumbersAnimate';
 import { VAULT_ADDRESS } from 'common-util/AbiAndAddresses';
 import { VaultContainer, TotalYours, VaultHeader } from '../styles';
 
-const TOTAL = 10000;
 const URL = `https://fractional.art/vaults/${VAULT_ADDRESS}`;
 
-const Vault = ({ vaultReservePrice, vaultSymbol, userVTKBalance }) => {
+const Vault = ({
+  vaultReservePrice,
+  vaultSymbol,
+  userVTKBalance,
+  vaultTotalSupply,
+}) => {
   const symbol = vaultSymbol || 'TKN';
   const reservePrice = vaultReservePrice ? round(vaultReservePrice, 2) : '--';
   const getPercentage = () => {
-    const temp = userVTKBalance ? userVTKBalance / TOTAL : 0;
+    const temp = userVTKBalance ? userVTKBalance / vaultTotalSupply : 0;
     return round(temp, 2);
   };
 
@@ -41,7 +45,7 @@ const Vault = ({ vaultReservePrice, vaultSymbol, userVTKBalance }) => {
       <TotalYours>
         <div className="vault-info total">
           <div className="name">TOTAL</div>
-          <div className="desc">{`10k ${symbol}`}</div>
+          <div className="desc">{`${vaultTotalSupply / 1000}k ${symbol}`}</div>
         </div>
 
         <div className="vault-info reserve-price">
@@ -88,12 +92,14 @@ Vault.propTypes = {
   vaultReservePrice: PropTypes.string,
   vaultSymbol: PropTypes.string,
   userVTKBalance: PropTypes.number,
+  vaultTotalSupply: PropTypes.number,
 };
 
 Vault.defaultProps = {
   vaultReservePrice: null,
   vaultSymbol: null,
   userVTKBalance: null,
+  vaultTotalSupply: null,
 };
 
 export default Vault;

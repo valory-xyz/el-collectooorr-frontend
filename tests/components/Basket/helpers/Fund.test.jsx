@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Fund from 'components/Basket/helpers/Fund';
-import { addFunds } from 'components/Basket/utils';
+import Fund from 'components/Vault/helpers/Fund';
+import { addFunds } from 'components/Vault/utils';
 import { wrapProvider } from '../../../helpers';
 
 describe('<Fund />', () => {

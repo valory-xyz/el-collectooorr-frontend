@@ -1,3 +1,3 @@
-import Basket from 'components/Basket';
+import Vault from 'components/Vault';
 
-export default Basket;
+export default Vault;
