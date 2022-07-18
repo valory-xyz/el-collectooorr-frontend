@@ -22,7 +22,8 @@ import {
   AddFunds,
 } from '../styles';
 
-const MANAGEMENT_FEE = 0.05; // 5 percent
+// converting management_fee from 0.05 to 0.00
+const MANAGEMENT_FEE = 0.0;
 const VTK_ETH_PRICE = 0.01;
 const FUND_CAP_IN_ETH = 10;
 
@@ -94,6 +95,8 @@ const Fund = ({
     if (!account) return true;
 
     if (Number(value) === 0) return true;
+    if (vaultBalanceOf === 0) return true; // no balance left
+
     // const vaultBalance = (vaultBalanceOf * VTK_ETH_PRICE); // TODO
     // return !hasBalance && (value > vaultBalance);
     return !hasBalance;
@@ -176,9 +179,7 @@ const Fund = ({
 
         <div className="add-funds-info">
           <div className="you-will-receive">
-            You will receive
-            {` ${getUserReceiveVtk()} `}
-            {vaultSymbol}
+            {`You will receive ${getUserReceiveVtk()} ${vaultSymbol}`}
           </div>
           <div className="management-fees">
             <span>
