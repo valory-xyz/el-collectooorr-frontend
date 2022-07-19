@@ -29,10 +29,7 @@ import { BasketContainer } from './styles';
 const getCollectionList = (array) => {
   if ((get(array[0], 'image') || '').includes('ipfs')) {
     return array.map(({
-      name,
-      description,
-      image,
-      txn,
+      name, description, image, txn,
     }) => {
       const imageUrl = image
         ? `https://ipfs.foundation.app/ipfs/${image.replace('ipfs://', '')}`
@@ -54,10 +51,7 @@ const getCollectionList = (array) => {
 /**
  * Vault component
  */
-const VaultComponent = ({
-  account,
-  balance,
-}) => {
+const VaultComponent = ({ account, balance }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isVaultClosed, setVaultStatus] = useState(null);
   const [vaultReservePrice, setVaultReservePrice] = useState(null);
@@ -86,10 +80,7 @@ const VaultComponent = ({
         return;
       }
 
-      const {
-        latestVaultAddress,
-        latestBasketAddress,
-      } = await getLatestVaultAndBasket();
+      const { latestVaultAddress, latestBasketAddress } = await getLatestVaultAndBasket();
 
       const status = await getVaultStatus(latestVaultAddress);
       setVaultStatus(status);
@@ -103,7 +94,10 @@ const VaultComponent = ({
       const totalSupply = await getVaultTotalSupply(latestVaultAddress);
       setVaultTotalSupply(totalSupply);
 
-      const vaultBalance = await getBalanceOf(SAFE_CONTRACT_ADDRESS, latestVaultAddress);
+      const vaultBalance = await getBalanceOf(
+        SAFE_CONTRACT_ADDRESS,
+        latestVaultAddress,
+      );
       setVaultBalanceOf(vaultBalance);
 
       const vtkBalance = await getBalanceOf(account, latestVaultAddress);
@@ -173,10 +167,7 @@ VaultComponent.defaultProps = {
 };
 
 const mapStateToProps = (state) => {
-  const {
-    account,
-    balance,
-  } = state.setup;
+  const { account, balance } = state.setup;
   return {
     account,
     balance,

@@ -63,7 +63,7 @@ const Fund = ({
      * is updated, all the other API's  will be fetched once again!
      */
     try {
-      await addFunds({ ether: value });
+      await addFunds({ ether: value, vaultSymbol });
     } catch (error) {
       notification.error({
         message: 'Error',
@@ -89,11 +89,16 @@ const Fund = ({
     });
   };
 
+  // close vault if 99%, ie if 10ELC is remaining then it is 99%.
+  const isVaultClosed = vaultBalanceOf === 10;
+
   const isBtnDisabled = () => {
     // disable button when metamask is not connected!
     if (!account) return true;
 
     if (Number(value) === 0) return true;
+    if (isVaultClosed) return true; // no balance left
+
     // const vaultBalance = (vaultBalanceOf * VTK_ETH_PRICE); // TODO
     // return !hasBalance && (value > vaultBalance);
     return !hasBalance;
@@ -115,7 +120,7 @@ const Fund = ({
         </div>
 
         <div className="vault-status">
-          {vaultBalanceOf === 0 ? 'No longer accepting funds' : 'OPEN'}
+          {isVaultClosed ? 'No longer accepting funds' : 'OPEN'}
         </div>
       </SubHeader>
 
@@ -176,9 +181,7 @@ const Fund = ({
 
         <div className="add-funds-info">
           <div className="you-will-receive">
-            You will receive
-            {` ${getUserReceiveVtk()} `}
-            {vaultSymbol}
+            {`You will receive ${getUserReceiveVtk()} ${vaultSymbol}`}
           </div>
           <div className="management-fees">
             <span>
