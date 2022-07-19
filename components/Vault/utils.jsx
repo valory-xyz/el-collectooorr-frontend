@@ -87,8 +87,7 @@ export const mockGetNfts = async (basketAddress) => {
       }
 
       Promise.all(promises).then(async (result) => handleNftData(result, basketAddress, resolve));
-      Promise.all(promises)
-        .then((list) => resolve(handleNftData(list, basketAddress)));
+      Promise.all(promises).then((list) => resolve(handleNftData(list, basketAddress)));
     } catch (error) {
       reject(error);
     }
@@ -108,8 +107,7 @@ export const getNfts = async (basketAddress) => {
         promises.push(result);
       }
 
-      Promise.all(promises)
-        .then((list) => resolve(handleNftData(list, basketAddress)));
+      Promise.all(promises).then((list) => resolve(handleNftData(list, basketAddress)));
     } catch (error) {
       reject(error);
     }
@@ -257,7 +255,7 @@ export const getBasketAddress = (vaultAddress) => new Promise((resolve, reject) 
 // -------------- OTHERS --------------
 const key = 'addFundsToast';
 
-export const addFunds = async ({ ether }) => {
+export const addFunds = async ({ ether, vaultSymbol }) => {
   try {
     if (!window.ethereum) {
       throw new Error(METAMASK_ERROR_MSG);
@@ -291,7 +289,7 @@ export const addFunds = async ({ ether }) => {
           {tx.hash}
           <br />
           <br />
-          VLT token will arrive in minutes.
+          {`${vaultSymbol} token will arrive in minutes.`}
         </>
       ),
       duration: 5,

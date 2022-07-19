@@ -63,7 +63,7 @@ const Fund = ({
      * is updated, all the other API's  will be fetched once again!
      */
     try {
-      await addFunds({ ether: value });
+      await addFunds({ ether: value, vaultSymbol });
     } catch (error) {
       notification.error({
         message: 'Error',
