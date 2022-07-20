@@ -111,14 +111,6 @@ const Fund = ({
     return '';
   };
 
-  console.log({
-    balance,
-    hasBalance,
-    value,
-    fundBtnError: fundBtnError(),
-    isBtnDisabled: isBtnDisabled(),
-  });
-
   return (
     <FundsContainer className="card-border">
       <SubHeader>
