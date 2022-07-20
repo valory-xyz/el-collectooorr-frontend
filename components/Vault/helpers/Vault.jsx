@@ -18,7 +18,7 @@ const Vault = ({
   const reservePrice = vaultReservePrice ? round(vaultReservePrice, 2) : '--';
   const getPercentage = () => {
     const temp = userVTKBalance ? userVTKBalance / vaultTotalSupply : 0;
-    return round(temp, 2);
+    return round(temp * 100, 2);
   };
 
   return (
@@ -70,7 +70,7 @@ const Vault = ({
             YOURS
             <Link href="/coming-soon">
               <a href="/coming-soon" target="_blank" rel="noopener noreferrer">
-                What&apos;s VLT1?
+                {`What's ${symbol}?`}
               </a>
             </Link>
           </div>
