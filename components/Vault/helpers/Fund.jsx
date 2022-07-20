@@ -112,6 +112,7 @@ const Fund = ({
   };
 
   console.log({
+    balance,
     hasBalance,
     value,
     fundBtnError: fundBtnError(),
