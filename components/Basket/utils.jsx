@@ -262,7 +262,7 @@ export const addFunds = async ({ ether }) => {
           {tx.hash}
           <br />
           <br />
-          VLT token will arrive in minutes.
+          ELC token will arrive in minutes.
         </>
       ),
       duration: 5,

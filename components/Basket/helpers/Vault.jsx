@@ -66,7 +66,7 @@ const Vault = ({ vaultReservePrice, vaultSymbol, userVTKBalance }) => {
             YOURS
             <Link href="/coming-soon">
               <a href="/coming-soon" target="_blank" rel="noopener noreferrer">
-                What&apos;s VLT1?
+                What&apos;s ELC?
               </a>
             </Link>
           </div>
