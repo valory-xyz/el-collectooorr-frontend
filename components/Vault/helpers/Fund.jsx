@@ -37,7 +37,7 @@ const Fund = ({
   setErrorMessage,
 }) => {
   const [value, setValue] = useState();
-  const hasBalance = value ? value <= balance : false;
+  const hasBalance = value ? Number(value) <= Number(balance) : false;
 
   // -5% from the balance to account for fees.
   const getProgress = () => {
