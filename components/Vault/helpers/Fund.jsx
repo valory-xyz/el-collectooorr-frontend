@@ -91,7 +91,9 @@ const Fund = ({
   };
 
   // only white-listed address will be able to add funds
-  const isWhitelisted = WHITELIST_ADDRESSES.addresses.find((e) => e === account);
+  const isWhitelisted = WHITELIST_ADDRESSES.addresses.find(
+    (e) => e.toLowerCase() === (account || '').toLowerCase(),
+  );
 
   // close vault if 99%, ie if 10ELC is remaining then it is 99%.
   const isVaultClosed = vaultBalanceOf === 10;

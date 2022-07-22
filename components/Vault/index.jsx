@@ -55,7 +55,7 @@ const VaultComponent = ({ account, balance }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isVaultClosed, setVaultStatus] = useState(null);
   const [vaultReservePrice, setVaultReservePrice] = useState(null);
-  const [vaultSymbol, setVaultSymbol] = useState(null);
+  const [vaultSymbol, setVaultSymbol] = useState('--');
   const [vaultBalanceOf, setVaultBalanceOf] = useState(null);
   const [vaultTotalSupply, setVaultTotalSupply] = useState(null);
   const [userVTKBalance, setUserVTKBalance] = useState(null);
