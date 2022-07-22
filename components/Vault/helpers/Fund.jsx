@@ -26,6 +26,8 @@ const MANAGEMENT_FEE = 0.05; // 5 percent
 const VTK_ETH_PRICE = 0.01;
 const FUND_CAP_IN_ETH = 10;
 
+const WHITELIST_ADDRESS = ['0x4387Fa5BE1c15926599a7873f24058623dA62761'];
+
 const Fund = ({
   vaultSymbol,
   userVTKBalance,
@@ -89,12 +91,15 @@ const Fund = ({
     });
   };
 
+  // only white-listed address will be able to add funds
+  const isWhitelisted = WHITELIST_ADDRESS.find((e) => e === account);
+
   // close vault if 99%, ie if 10ELC is remaining then it is 99%.
   const isVaultClosed = vaultBalanceOf === 10;
 
   const isBtnDisabled = () => {
     // disable button when metamask is not connected!
-    if (!account) return true;
+    if (!account || !isWhitelisted) return true;
 
     if (Number(value) === 0) return true;
     if (isVaultClosed) return true; // no balance left
@@ -106,6 +111,21 @@ const Fund = ({
 
   const fundBtnError = () => {
     if (!account) return 'Connect wallet to add funds';
+    if (!isWhitelisted) {
+      return (
+        <>
+          Can’t deposit funds - your address is not whitelisted.&nbsp;
+          <a
+            href="https://docs.google.com/forms/d/e/1FAIpQLSfA0ux4SYIA64rXta82JSU2c5zECoFQuABQQ90Lns-ZbNYCiA/viewform?usp=sf_link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Apply for whitelisting
+          </a>
+          .
+        </>
+      );
+    }
     if (value === '' || value === undefined) return '';
     if (!hasBalance) return 'Not enough ETH in wallet';
     return '';
