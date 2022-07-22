@@ -15,6 +15,7 @@ import {
   setErrorMessage as setErrorMessageFn,
 } from 'store/setup/actions';
 import { addFunds } from '../utils';
+import WHITELIST_ADDRESSES from './whitelist-addresses.json';
 import {
   FundsContainer,
   SubHeader,
@@ -25,8 +26,6 @@ import {
 const MANAGEMENT_FEE = 0.05; // 5 percent
 const VTK_ETH_PRICE = 0.01;
 const FUND_CAP_IN_ETH = 10;
-
-const WHITELIST_ADDRESS = ['0x4387Fa5BE1c15926599a7873f24058623dA62761'];
 
 const Fund = ({
   vaultSymbol,
@@ -92,7 +91,7 @@ const Fund = ({
   };
 
   // only white-listed address will be able to add funds
-  const isWhitelisted = WHITELIST_ADDRESS.find((e) => e === account);
+  const isWhitelisted = WHITELIST_ADDRESSES.addresses.find((e) => e === account);
 
   // close vault if 99%, ie if 10ELC is remaining then it is 99%.
   const isVaultClosed = vaultBalanceOf === 10;
