@@ -25,6 +25,15 @@ export const HeaderSection = () => {
   const router = useRouter();
   const isRoot = router.pathname === URL.ROOT || router.pathname === URL.DOCUMENTATION;
 
+  const readDocsBtn = (
+    <CustomButton
+      variant="blue"
+      onClick={() => router.push('/documentation')}
+      type="primary"
+    >
+      READ DOCS
+    </CustomButton>
+  );
   return (
     <HeaderContainer className={isRoot ? '' : 'not-root-page'}>
       <div className="column-1">
@@ -58,30 +67,23 @@ export const HeaderSection = () => {
         )}
       </div>
 
-      {!isRoot ? (
-        <Login />
-      ) : (
-        <div className="column-2">
-          <CustomButton
-            variant="blue"
-            onClick={() => router.push('/documentation')}
-            type="primary"
-          >
-            READ DOCS
-          </CustomButton>
-
-          <CustomButton
-            // variant="red"
-            // onClick={() => router.push(`/vaults/${TOKEN_ID}`)}
-            type="primary"
-            variant="disabled"
-            disabled
-          >
-            {/* START COLLECTING */}
-            COMING SOON
-          </CustomButton>
-        </div>
-      )}
+      <div className="column-2">
+        {readDocsBtn}
+        {!isRoot ? (
+          <Login />
+        ) : (
+          <>
+            <CustomButton
+              type="primary"
+              variant="disabled"
+              disabled
+            >
+              {/* START COLLECTING */}
+              COMING SOON
+            </CustomButton>
+          </>
+        )}
+      </div>
     </HeaderContainer>
   );
 };
