@@ -1,9 +1,9 @@
 import React from 'react';
 import round from 'lodash/round';
 import PropTypes from 'prop-types';
-import Link from 'next/link';
 import NumbersAnimate from 'common-util/NumbersAnimate';
 import { VAULT_ADDRESS } from 'common-util/AbiAndAddresses';
+import { getRedirect } from 'common-util/functions';
 import { VaultContainer, TotalYours, VaultHeader } from '../styles';
 
 const URL = `https://fractional.art/vaults/${VAULT_ADDRESS}`;
@@ -51,11 +51,10 @@ const Vault = ({
         <div className="vault-info reserve-price">
           <div className="name">
             RESERVE PRICE
-            <Link href="/coming-soon">
-              <a href="/coming-soon" target="_blank" rel="noopener noreferrer">
-                What&apos;s this?
-              </a>
-            </Link>
+            {getRedirect(
+              "What's this?",
+              '/documentation#section-collection-fractions',
+            )}
           </div>
 
           <div className="desc">{`${reservePrice} ETH`}</div>
@@ -68,11 +67,10 @@ const Vault = ({
         <div className="vault-info yours">
           <div className="name">
             YOURS
-            <Link href="/coming-soon">
-              <a href="/coming-soon" target="_blank" rel="noopener noreferrer">
-                {`What's ${symbol}?`}
-              </a>
-            </Link>
+            {getRedirect(
+              `What's ${symbol}?`,
+              '/documentation#section-collection-fractions',
+            )}
           </div>
           <div className="desc">
             {userVTKBalance ? <NumbersAnimate value={userVTKBalance} /> : '--'}

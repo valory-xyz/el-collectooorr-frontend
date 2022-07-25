@@ -1,4 +1,6 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import Web3 from 'web3';
+import Link from 'next/link';
 import { CONSTANTS } from 'util/constants';
 
 export const getBalance = (account) => new Promise((resolve, reject) => {
@@ -16,4 +18,14 @@ export const getBalance = (account) => new Promise((resolve, reject) => {
     });
 });
 
-export const AB = null;
+export const getRedirect = (text, link, isNewTab = true) => (
+  <Link href={link} passHref>
+    <a
+      href={link}
+      target={isNewTab ? '_target' : '_self'}
+      rel="noopener noreferrer"
+    >
+      {text}
+    </a>
+  </Link>
+);

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import LinkIcon from 'common-util/SVGs/link';
+import { VAULT_ADDRESS } from 'common-util/AbiAndAddresses';
 import { SubHeader, ServiceContainer } from '../styles';
 
 const Service = ({ isVaultClosed }) => (
@@ -28,7 +29,7 @@ const Service = ({ isVaultClosed }) => (
       <div className="vault-history">
         <div>HISTORY</div>
         <div>
-          <a href="http://google.com" target="_blank" rel="noopener noreferrer">
+          <a href={`https://etherscan.io/address/${VAULT_ADDRESS}`} target="_blank" rel="noopener noreferrer">
             View on Etherscan
             <LinkIcon />
           </a>

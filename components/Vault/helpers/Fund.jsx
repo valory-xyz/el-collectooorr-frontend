@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Link from 'next/link';
 import { Progress, Input, notification } from 'antd/lib';
 import round from 'lodash/round';
 import get from 'lodash/get';
 import { COLOR } from 'util/theme';
 import NumbersAnimate from 'common-util/NumbersAnimate';
-import { getBalance } from 'common-util/functions';
+import { getBalance, getRedirect } from 'common-util/functions';
 import Warning from 'common-util/SVGs/warning';
 import CustomButton from 'common-util/Button';
 import {
@@ -208,9 +207,7 @@ const Fund = ({
             <span>
               {`Management fee of ${getManagementFee()}% of your added funds will be charged.`}
             </span>
-            <Link href="/coming-soon">
-              <a href="/coming-soon">Learn more</a>
-            </Link>
+            {getRedirect('Learn more', '/documentation#section-management-fee')}
           </div>
 
           <div className="warning">
