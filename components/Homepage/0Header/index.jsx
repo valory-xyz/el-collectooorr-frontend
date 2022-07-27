@@ -2,7 +2,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import Marquee from 'react-fast-marquee';
 import Link from 'next/link';
-import { URL } from 'util/constants';
+import { URL, WHITELIST_LINK } from 'util/constants';
 // import { TOKEN_ID, URL } from 'util/constants';
 import { CustomButton } from 'common-util/Button';
 import RiskBanner from 'common-util/RiskBanner';
@@ -74,12 +74,11 @@ export const HeaderSection = () => {
         ) : (
           <>
             <CustomButton
+              variant="red"
               type="primary"
-              variant="disabled"
-              disabled
+              onClick={() => window.open(WHITELIST_LINK, 'target')}
             >
-              {/* START COLLECTING */}
-              COMING SOON
+              SIGN UP FOR WHITELIST
             </CustomButton>
           </>
         )}

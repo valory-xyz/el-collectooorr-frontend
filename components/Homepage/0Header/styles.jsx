@@ -16,9 +16,9 @@ export const HeaderContainer = styled.div`
     align-items: center;
     button.ant-btn-primary {
       border-radius: 0 20px 20px 0 !important;
-      width: 180px;
       height: auto;
       &:nth-child(1) {
+        width: 180px;
         margin-right: 1rem;
       }
     }

@@ -1,6 +1,6 @@
 import React from 'react';
 // import { useRouter } from 'next/router';
-// import { VAULT_TOKEN_ID } from 'util/constants';
+import { WHITELIST_LINK } from 'util/constants';
 import Header from 'common-util/Header';
 import { CustomButton } from 'common-util/Button';
 import useCheckMobileScreen from 'common-util/hooks/useCheckMobileScreen';
@@ -47,15 +47,12 @@ const CollectAndChill = () => {
           <div className="column-2">
             {!isMobile && textBoxImage}
             <CustomButton
-              // variant="red"
-              // onClick={() => router.push(`/vaults/${VAULT_TOKEN_ID}`)}
+              variant="red"
               style={btnStyle}
               type="primary"
-              variant="disabled"
-              disabled
+              onClick={() => window.open(WHITELIST_LINK, 'target')}
             >
-              {/* START COLLECTING */}
-              COMING SOON
+              SIGN UP FOR WHITELIST
             </CustomButton>
           </div>
         </div>
