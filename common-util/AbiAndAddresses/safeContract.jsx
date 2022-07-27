@@ -1,4 +1,4 @@
-export const SAFE_CONTRACT_ADDRESS = '0xe64C856427C770DEa53E41a0f73C67eE37a16aB4';
+export const SAFE_CONTRACT_ADDRESS = '0x3946a91BCb0C6406c7f096aaDc5D6AedA26380b2';
 
 // the safe contract has only the Mint event from the ERC721VaultFactory contract
 export const SAFE_CONTRACT = {

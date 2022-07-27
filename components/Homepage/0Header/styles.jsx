@@ -12,11 +12,13 @@ export const HeaderContainer = styled.div`
   border: 1px solid ${COLOR.GREY_1};
   background-color: ${COLOR.BLACK};
   .column-2 {
-    button {
+    display: flex;
+    align-items: center;
+    button.ant-btn-primary {
       border-radius: 0 20px 20px 0 !important;
-      width: 180px;
       height: auto;
       &:nth-child(1) {
+        width: 180px;
         margin-right: 1rem;
       }
     }
@@ -32,7 +34,7 @@ export const HeaderContainer = styled.div`
       line-height: normal;
     }
     .column-2 {
-      button {
+      button.ant-btn-primary {
         width: auto;
       }
     }
@@ -49,10 +51,13 @@ export const HeaderContainer = styled.div`
     }
     .column-2 {
       width: 40%;
-      button {
+      flex-direction: column;
+      button.ant-btn-primary {
+        width: 100%;
         padding: 6px 12px !important;
         &:nth-child(1) {
-          width: 100%;
+          margin-right: 0;
+          margin-bottom: 1rem;
         }
       }
     }

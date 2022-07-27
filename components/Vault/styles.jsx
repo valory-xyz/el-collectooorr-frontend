@@ -148,6 +148,9 @@ export const AddFunds = styled.div`
     &-input-warning {
       margin-top: 0.5rem;
       color: ${COLOR.ORANGE_1};
+      a {
+        color: ${COLOR.ORANGE_1} !important;
+      }
     }
     &-info {
       max-width: 360px;

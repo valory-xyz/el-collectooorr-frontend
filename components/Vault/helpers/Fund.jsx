@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Link from 'next/link';
 import { Progress, Input, notification } from 'antd/lib';
 import round from 'lodash/round';
 import get from 'lodash/get';
 import { COLOR } from 'util/theme';
 import NumbersAnimate from 'common-util/NumbersAnimate';
-import { getBalance } from 'common-util/functions';
+import { getBalance, getRedirect } from 'common-util/functions';
 import Warning from 'common-util/SVGs/warning';
 import CustomButton from 'common-util/Button';
 import {
@@ -15,6 +14,7 @@ import {
   setErrorMessage as setErrorMessageFn,
 } from 'store/setup/actions';
 import { addFunds } from '../utils';
+import WHITELIST_ADDRESSES from './whitelist-addresses.json';
 import {
   FundsContainer,
   SubHeader,
@@ -89,12 +89,17 @@ const Fund = ({
     });
   };
 
+  // only white-listed address will be able to add funds
+  const isWhitelisted = WHITELIST_ADDRESSES.addresses.find(
+    (e) => e.toLowerCase() === (account || '').toLowerCase(),
+  );
+
   // close vault if 99%, ie if 10ELC is remaining then it is 99%.
   const isVaultClosed = vaultBalanceOf === 10;
 
   const isBtnDisabled = () => {
     // disable button when metamask is not connected!
-    if (!account) return true;
+    if (!account || !isWhitelisted) return true;
 
     if (Number(value) === 0) return true;
     if (isVaultClosed) return true; // no balance left
@@ -106,6 +111,21 @@ const Fund = ({
 
   const fundBtnError = () => {
     if (!account) return 'Connect wallet to add funds';
+    if (!isWhitelisted) {
+      return (
+        <>
+          Can’t deposit funds - your address is not whitelisted.&nbsp;
+          <a
+            href="https://docs.google.com/forms/d/e/1FAIpQLSfA0ux4SYIA64rXta82JSU2c5zECoFQuABQQ90Lns-ZbNYCiA/viewform?usp=sf_link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Apply for whitelisting
+          </a>
+          .
+        </>
+      );
+    }
     if (value === '' || value === undefined) return '';
     if (!hasBalance) return 'Not enough ETH in wallet';
     return '';
@@ -187,9 +207,7 @@ const Fund = ({
             <span>
               {`Management fee of ${getManagementFee()}% of your added funds will be charged.`}
             </span>
-            <Link href="/coming-soon">
-              <a href="/coming-soon">Learn more</a>
-            </Link>
+            {getRedirect('Learn more', '/documentation#section-management-fee')}
           </div>
 
           <div className="warning">
