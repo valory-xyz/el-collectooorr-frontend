@@ -50,7 +50,6 @@ export const HeaderContainer = styled.div`
       gap: 16px;
     }
     .column-2 {
-      width: 40%;
       flex-direction: column;
       button.ant-btn-primary {
         width: 100%;
@@ -77,6 +76,15 @@ export const HeaderContainer = styled.div`
     }
   }
 
+  ${MEDIA_QUERY.mobileM} {
+    .column-2 {
+      button.ant-btn-primary {
+        width: auto !important;
+        min-width: 140px;
+      }
+    }
+  }
+
   ${MEDIA_QUERY.mobileS} {
     .column-1 {
       a {
@@ -88,6 +96,11 @@ export const HeaderContainer = styled.div`
         &:nth-child(2) img {
           width: 120px;
         }
+      }
+    }
+    .column-2 {
+      button.ant-btn-primary {
+        min-width: 130px;
       }
     }
   }

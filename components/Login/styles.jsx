@@ -7,6 +7,10 @@ export const Container = styled.div`
     width: auto;
     height: auto;
   }
+
+  ${MEDIA_QUERY.mobileM} {
+    line-height: normal;
+  }
 `;
 
 export const DetailsContainer = styled.div`
@@ -54,7 +58,7 @@ export const MetamaskContainer = styled.div`
 
   ${MEDIA_QUERY.tabletL} {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     > div {
       line-height: 1.5;
       &.dash {

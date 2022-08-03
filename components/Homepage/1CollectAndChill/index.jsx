@@ -52,7 +52,7 @@ const CollectAndChill = () => {
               type="primary"
               onClick={() => window.open(WHITELIST_LINK, 'target')}
             >
-              SIGN UP FOR WHITELIST
+              JOIN WHITELIST
             </CustomButton>
           </div>
         </div>
