@@ -10,7 +10,7 @@ const CollectAndChill = () => {
   // const router = useRouter();
   const isMobile = useCheckMobileScreen();
   const textBoxImage = (
-    <img src="/images/1CollectAndChill/text-box.svg" alt="" loading="lazy" />
+    <img src="/images/1CollectAndChill/text-box.svg" alt="" loading="lazy" width={132} />
   );
 
   return (
