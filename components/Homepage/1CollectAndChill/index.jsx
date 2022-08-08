@@ -45,7 +45,7 @@ const CollectAndChill = () => {
           </div>
 
           <div className="column-2">
-            {!isMobile && textBoxImage}
+            {textBoxImage}
             <CustomButton
               variant="red"
               style={btnStyle}

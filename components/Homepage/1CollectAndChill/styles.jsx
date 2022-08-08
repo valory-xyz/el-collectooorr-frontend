@@ -115,6 +115,13 @@ export const CollectAndChillContainer = styled.div`
 
   ${MEDIA_QUERY.tablet} {
     border-right: none;
+    .collect-chill-body {
+      .column-2 {
+        img {
+          display: none;
+        }
+      }
+    }
   }
 `;
 
