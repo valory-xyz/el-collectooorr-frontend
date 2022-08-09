@@ -1,5 +1,4 @@
 import React from 'react';
-// import { useRouter } from 'next/router';
 import { WHITELIST_LINK } from 'util/constants';
 import Header from 'common-util/Header';
 import { CustomButton } from 'common-util/Button';
@@ -7,10 +6,15 @@ import useCheckMobileScreen from 'common-util/hooks/useCheckMobileScreen';
 import { btnStyle, Container, CollectAndChillContainer } from './styles';
 
 const CollectAndChill = () => {
-  // const router = useRouter();
   const isMobile = useCheckMobileScreen();
   const textBoxImage = (
-    <img src="/images/1CollectAndChill/text-box.svg" alt="" loading="lazy" />
+    <img
+      src="/images/1CollectAndChill/text-box.svg"
+      alt=""
+      loading="lazy"
+      width={132}
+      height={166}
+    />
   );
 
   return (
@@ -45,7 +49,7 @@ const CollectAndChill = () => {
           </div>
 
           <div className="column-2">
-            {!isMobile && textBoxImage}
+            {textBoxImage}
             <CustomButton
               variant="red"
               style={btnStyle}
