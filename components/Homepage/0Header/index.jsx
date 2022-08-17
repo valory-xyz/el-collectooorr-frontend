@@ -3,9 +3,9 @@ import { useRouter } from 'next/router';
 import Marquee from 'react-fast-marquee';
 import Link from 'next/link';
 import { URL, WHITELIST_LINK } from 'util/constants';
-// import { TOKEN_ID, URL } from 'util/constants';
 import { CustomButton } from 'common-util/Button';
 import RiskBanner from 'common-util/RiskBanner';
+import useCheckMobileScreen from 'common-util/hooks/useCheckMobileScreen';
 import Login from '../../Login';
 import { HeaderContainer, SubHeaderContainer } from './styles';
 
@@ -22,6 +22,7 @@ const linkToHome = (child, aClassName) => (
 );
 
 export const HeaderSection = () => {
+  const isMobile = useCheckMobileScreen();
   const router = useRouter();
   const isRoot = router.pathname === URL.ROOT || router.pathname === URL.DOCUMENTATION;
 
@@ -78,7 +79,7 @@ export const HeaderSection = () => {
               type="primary"
               onClick={() => window.open(WHITELIST_LINK, 'target')}
             >
-              JOIN WHITELIST
+              {isMobile ? 'JOIN WHITELIST' : 'JOIN LIMITED SPACE WHITELIST'}
             </CustomButton>
           </>
         )}
@@ -89,18 +90,21 @@ export const HeaderSection = () => {
 
 export default HeaderSection;
 
-export const SubHeaderSection = () => (
-  <>
-    <RiskBanner />
-    <SubHeaderContainer>
-      <Marquee pauseOnHover gradient={false}>
-        THE WORLD&apos;S FIRST AUTONOMOUS NFT COLLECTOR DAO
-        <Dash />
-        THE WORLD&apos;S FIRST AUTONOMOUS NFT COLLECTOR DAO
-        <Dash />
-        THE WORLD&apos;S FIRST AUTONOMOUS NFT COLLECTOR DAO
-        <Dash />
-      </Marquee>
-    </SubHeaderContainer>
-  </>
-);
+export const SubHeaderSection = () => {
+  const text = 'THE WORLD\'S FIRST AUTONOMOUS NFT COLLECTOR DAO - "JOIN LIMITED SPACE WHITELIST"';
+  return (
+    <>
+      <RiskBanner />
+      <SubHeaderContainer>
+        <Marquee pauseOnHover gradient={false}>
+          {text}
+          <Dash />
+          {text}
+          <Dash />
+          {text}
+          <Dash />
+        </Marquee>
+      </SubHeaderContainer>
+    </>
+  );
+};
