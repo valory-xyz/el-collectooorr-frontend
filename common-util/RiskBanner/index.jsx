@@ -3,9 +3,6 @@ import { COLOR, MEDIA_QUERY } from 'util/theme';
 import { Anchor } from 'common-util/components';
 
 const RiskContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
   text-align: center;
   margin-bottom: 1rem;
   padding: 0.5rem 1rem;

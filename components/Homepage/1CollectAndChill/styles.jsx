@@ -6,7 +6,7 @@ export const btnStyle = {
   borderRadius: '0 0 20px 0',
   height: '60px',
   width: '100%',
-  fontSize: '26px',
+  fontSize: '21px',
 };
 
 export const Container = styled.div`
