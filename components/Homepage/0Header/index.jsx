@@ -91,7 +91,7 @@ export const HeaderSection = () => {
 export default HeaderSection;
 
 export const SubHeaderSection = () => {
-  const text = 'THE WORLD\'S FIRST AUTONOMOUS NFT COLLECTOR DAO - "JOIN LIMITED SPACE WHITELIST"';
+  const text = 'THE WORLD\'S FIRST AUTONOMOUS NFT COLLECTOR DAO - JOIN LIMITED-SPACE WHITELIST';
   return (
     <>
       <RiskBanner />
