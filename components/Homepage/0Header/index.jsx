@@ -79,7 +79,7 @@ export const HeaderSection = () => {
               type="primary"
               onClick={() => window.open(WHITELIST_LINK, 'target')}
             >
-              {isMobile ? 'JOIN WHITELIST' : 'JOIN LIMITED SPACE WHITELIST'}
+              {isMobile ? 'JOIN WHITELIST' : 'JOIN LIMITED-SPACE WHITELIST'}
             </CustomButton>
           </>
         )}
