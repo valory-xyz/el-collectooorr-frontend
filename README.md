@@ -1,8 +1,5 @@
-# el-collectooorr-frontend
-This repository contains code for El Collectooorr.
-
-## Project Status
-This project is currently in development. Feel free to create a branch and send me a PR for changes.
+# El Collectooorr Frontend
+This repository contains the frontend for [El Collectooorr](https://www.elcollectooorr.art/).
 
 ## Tech Stack
 - web3.js
@@ -15,20 +12,20 @@ This project is currently in development. Feel free to create a branch and send 
 
 ## Installation and Setup Instructions
 
-Clone down this repository. You will need `node` version ">=14" and `yarn` version ">=1" installed globally on your machine.  
+Clone down this repository. You will need `node` version ">=14" and `yarn` version ">=1" installed globally on your machine.
 
 Installation:
 
-`yarn`  
+`yarn`
 
-To Run Test Suite:  
+To Run Test Suite:
 
-`yarn testc`  
+`yarn testc`
 
 To Start Server:
 
-`yarn dev`  
+`yarn dev`
 
 To Visit App:
 
-`localhost:3000`  
+`localhost:3000`

@@ -1,10 +1,8 @@
 import styled from 'styled-components';
 import { COLOR, MEDIA_QUERY } from 'util/theme';
+import { Anchor } from 'common-util/components';
 
 const RiskContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
   text-align: center;
   margin-bottom: 1rem;
   padding: 0.5rem 1rem;
@@ -13,6 +11,9 @@ const RiskContainer = styled.div`
   font-family: "spacegrotesk__medium";
   border-radius: 10px;
   background-color: ${COLOR.RED};
+  > a {
+    color: inherit !important;
+  }
 
   ${MEDIA_QUERY.tabletL} {
     font-size: 24px;
@@ -25,7 +26,13 @@ const RiskContainer = styled.div`
 
 const RiskBanner = () => (
   <RiskContainer>
-    !!! THIS PRODUCT IS IN BETA. DEPOSIT FUNDS AT YOUR OWN RISK. UNAUDITED PRODUCT !!!
+    !!! THIS PRODUCT IS IN BETA.
+    <Anchor
+      url="https://drive.google.com/file/d/1FflvGI089u0_zzrK3CMIHnyPYQ22uT7-/view"
+      text="DEPOSIT FUNDS AT YOUR OWN RISK."
+      hasSpaceSuffix
+    />
+    UNAUDITED PRODUCT !!!
   </RiskContainer>
 );
 

@@ -1,0 +1,1 @@
+# Release History - `el-collectooorr-frontend`
