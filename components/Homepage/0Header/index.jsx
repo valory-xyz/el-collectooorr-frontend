@@ -2,7 +2,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import Marquee from 'react-fast-marquee';
 import Link from 'next/link';
-import { URL, WHITELIST_LINK } from 'util/constants';
+import { LATEST_VAULT, URL } from 'util/constants';
 import { CustomButton } from 'common-util/Button';
 import RiskBanner from 'common-util/RiskBanner';
 import useCheckMobileScreen from 'common-util/hooks/useCheckMobileScreen';
@@ -77,9 +77,9 @@ export const HeaderSection = () => {
             <CustomButton
               variant="red"
               type="primary"
-              onClick={() => window.open(WHITELIST_LINK, 'target')}
+              onClick={() => window.open(LATEST_VAULT, 'target')}
             >
-              {isMobile ? 'JOIN WHITELIST' : 'JOIN LIMITED-SPACE WHITELIST'}
+              {isMobile ? 'GO TO VAULT' : 'GO TO THE LATEST VAULT'}
             </CustomButton>
           </>
         )}
