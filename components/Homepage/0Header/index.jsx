@@ -77,7 +77,7 @@ export const HeaderSection = () => {
             <CustomButton
               variant="red"
               type="primary"
-              onClick={() => window.open(LATEST_VAULT, 'target')}
+              onClick={() => router.push(LATEST_VAULT)}
             >
               {isMobile ? 'GO TO VAULT' : 'GO TO THE LATEST VAULT'}
             </CustomButton>
