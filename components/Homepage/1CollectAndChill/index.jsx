@@ -1,11 +1,13 @@
 import React from 'react';
-import { WHITELIST_LINK } from 'util/constants';
+import { useRouter } from 'next/router';
 import Header from 'common-util/Header';
+import { LATEST_VAULT } from 'util/constants';
 import { CustomButton } from 'common-util/Button';
 import useCheckMobileScreen from 'common-util/hooks/useCheckMobileScreen';
 import { btnStyle, Container, CollectAndChillContainer } from './styles';
 
 const CollectAndChill = () => {
+  const router = useRouter();
   const isMobile = useCheckMobileScreen();
   const textBoxImage = (
     <img
@@ -54,9 +56,9 @@ const CollectAndChill = () => {
               variant="red"
               style={btnStyle}
               type="primary"
-              onClick={() => window.open(WHITELIST_LINK, 'target')}
+              onClick={() => router.push(LATEST_VAULT)}
             >
-              {isMobile ? 'JOIN WHITELIST' : 'JOIN LIMITED-SPACE WHITELIST'}
+              START COLLECTING
             </CustomButton>
           </div>
         </div>
