@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { LATEST_VAULT, URL } from 'util/constants';
 import { CustomButton } from 'common-util/Button';
 import RiskBanner from 'common-util/RiskBanner';
-import useCheckMobileScreen from 'common-util/hooks/useCheckMobileScreen';
 import Login from '../../Login';
 import { HeaderContainer, SubHeaderContainer } from './styles';
 
@@ -22,7 +21,6 @@ const linkToHome = (child, aClassName) => (
 );
 
 export const HeaderSection = () => {
-  const isMobile = useCheckMobileScreen();
   const router = useRouter();
   const isRoot = router.pathname === URL.ROOT || router.pathname === URL.DOCUMENTATION;
 
@@ -79,7 +77,7 @@ export const HeaderSection = () => {
               type="primary"
               onClick={() => router.push(LATEST_VAULT)}
             >
-              {isMobile ? 'GO TO VAULT' : 'GO TO THE LATEST VAULT'}
+              START COLLECTING
             </CustomButton>
           </>
         )}

@@ -58,7 +58,7 @@ const CollectAndChill = () => {
               type="primary"
               onClick={() => router.push(LATEST_VAULT)}
             >
-              {isMobile ? 'GO TO VAULT' : 'GO TO THE LATEST VAULT'}
+              START COLLECTING
             </CustomButton>
           </div>
         </div>
