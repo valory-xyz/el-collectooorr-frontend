@@ -5,16 +5,17 @@ import Fund from 'components/Vault/helpers/Fund';
 import { addFunds } from 'components/Vault/utils';
 import { wrapProvider } from '../../../helpers';
 
+const props = {
+  vaultSymbol: 'VLT1',
+  userVTKBalance: 10,
+  vaultBalanceOf: 200,
+  vaultTotalSupply: 1000,
+};
+
 describe('<Fund />', () => {
   it('accepts fund and everything renders as expected', async () => {
     expect.hasAssertions();
 
-    const props = {
-      userVTKBalance: 10,
-      vaultBalanceOf: 2000,
-      vaultSymbol: 'VLT1',
-      vaultTotalSupply: 10000,
-    };
     const { container } = render(wrapProvider(<Fund {...props} />));
 
     // adding `await` for animations to be completed
@@ -46,7 +47,7 @@ describe('<Fund />', () => {
     const youFunded = container.querySelector(
       '.add-funds-header > h3',
     ).textContent;
-    expect(youFunded).toBe('0.01 ETH');
+    expect(youFunded).toBe('0.1 ETH');
 
     /* input & add button */
     const addFundsInput = container.querySelector('.add-funds-form > input');
@@ -70,13 +71,6 @@ describe('<Fund />', () => {
 
   it('disables/enables button correctly when valid funds are added', async () => {
     expect.hasAssertions();
-
-    const props = {
-      userVTKBalance: 10,
-      vaultBalanceOf: 2000,
-      vaultSymbol: 'VLT1',
-      vaultTotalSupply: 10000,
-    };
 
     const { getByTestId } = render(
       wrapProvider(<Fund {...props} />, { balance: 2 }),
@@ -111,13 +105,6 @@ describe('<Fund />', () => {
   it('calculates "you will receive" correctly', async () => {
     expect.hasAssertions();
 
-    const props = {
-      userVTKBalance: 10,
-      vaultBalanceOf: 2000,
-      vaultSymbol: 'VLT1',
-      vaultTotalSupply: 10000,
-    };
-
     const { container, getByTestId } = render(
       wrapProvider(<Fund {...props} />, { balance: 2 }),
     );
@@ -129,32 +116,26 @@ describe('<Fund />', () => {
     await waitFor(() => {
       userEvent.type(addFundsInput, '1');
       const temp = container.querySelector('.you-will-receive').textContent;
-      expect(temp).toBe('You will receive 950 VLT1');
+      expect(temp).toBe('You will receive 95 VLT1');
     });
 
     await waitFor(() => {
       userEvent.clear(addFundsInput);
       userEvent.type(addFundsInput, '2');
       const temp = container.querySelector('.you-will-receive').textContent;
-      expect(temp).toBe('You will receive 1,900 VLT1');
+      expect(temp).toBe('You will receive 190 VLT1');
     });
   });
 });
 
-// mock functions
-jest.mock('components/Basket/utils', () => ({ addFunds: jest.fn() }));
+// // mock functions
+jest.mock('components/Vault/utils', () => ({ addFunds: jest.fn() }));
 
 describe('<Fund /> => Add funds functionality', () => {
   it('add funds function works as expected', async () => {
     expect.hasAssertions();
 
     addFunds.mockImplementation(() => Promise.resolve());
-    const props = {
-      userVTKBalance: 10,
-      vaultBalanceOf: 2000,
-      vaultSymbol: 'VLT1',
-      vaultTotalSupply: 10000,
-    };
 
     const { container, getByTestId, rerender } = render(
       wrapProvider(<Fund {...props} />, { balance: 2 }),
@@ -180,9 +161,9 @@ describe('<Fund /> => Add funds functionality', () => {
     // Assuming funds added successfully & re-render with new values
     const propsAfterAddFunds = {
       userVTKBalance: 10,
-      vaultBalanceOf: 1000, // reduced from 2000 to 1000
+      vaultBalanceOf: 100, // reduced from 200 to 100
       vaultSymbol: 'VLT1',
-      vaultTotalSupply: 10000,
+      vaultTotalSupply: 1000,
     };
     rerender(wrapProvider(<Fund {...propsAfterAddFunds} />, { balance: 1 }));
 
@@ -205,12 +186,6 @@ describe('<Fund /> => Add funds functionality', () => {
     jest.useFakeTimers();
 
     addFunds.mockImplementation(() => Promise.reject(new Error('Random Error')));
-    const props = {
-      userVTKBalance: 10,
-      vaultBalanceOf: 2000,
-      vaultSymbol: 'VLT1',
-      vaultTotalSupply: 10000,
-    };
 
     const { getByTestId } = render(
       wrapProvider(<Fund {...props} />, { balance: 2 }),
