@@ -5,16 +5,17 @@ import Fund from 'components/Vault/helpers/Fund';
 import { addFunds } from 'components/Vault/utils';
 import { wrapProvider } from '../../../helpers';
 
+const props = {
+  vaultSymbol: 'VLT1',
+  userVTKBalance: 10,
+  vaultBalanceOf: 200,
+  vaultTotalSupply: 1000,
+};
+
 describe('<Fund />', () => {
   it('accepts fund and everything renders as expected', async () => {
     expect.hasAssertions();
 
-    const props = {
-      vaultSymbol: 'VLT1',
-      userVTKBalance: 10,
-      vaultBalanceOf: 200,
-      vaultTotalSupply: 1000,
-    };
     const { container } = render(wrapProvider(<Fund {...props} />));
 
     // adding `await` for animations to be completed
@@ -71,13 +72,6 @@ describe('<Fund />', () => {
   it('disables/enables button correctly when valid funds are added', async () => {
     expect.hasAssertions();
 
-    const props = {
-      userVTKBalance: 10,
-      vaultBalanceOf: 200,
-      vaultSymbol: 'VLT1',
-      vaultTotalSupply: 1000,
-    };
-
     const { getByTestId } = render(
       wrapProvider(<Fund {...props} />, { balance: 2 }),
     );
@@ -111,13 +105,6 @@ describe('<Fund />', () => {
   it('calculates "you will receive" correctly', async () => {
     expect.hasAssertions();
 
-    const props = {
-      userVTKBalance: 10,
-      vaultBalanceOf: 200,
-      vaultSymbol: 'VLT1',
-      vaultTotalSupply: 1000,
-    };
-
     const { container, getByTestId } = render(
       wrapProvider(<Fund {...props} />, { balance: 2 }),
     );
@@ -149,12 +136,6 @@ describe('<Fund /> => Add funds functionality', () => {
     expect.hasAssertions();
 
     addFunds.mockImplementation(() => Promise.resolve());
-    const props = {
-      userVTKBalance: 10,
-      vaultBalanceOf: 2000,
-      vaultSymbol: 'VLT1',
-      vaultTotalSupply: 10000,
-    };
 
     const { container, getByTestId, rerender } = render(
       wrapProvider(<Fund {...props} />, { balance: 2 }),
@@ -205,12 +186,6 @@ describe('<Fund /> => Add funds functionality', () => {
     jest.useFakeTimers();
 
     addFunds.mockImplementation(() => Promise.reject(new Error('Random Error')));
-    const props = {
-      userVTKBalance: 10,
-      vaultBalanceOf: 200,
-      vaultSymbol: 'VLT1',
-      vaultTotalSupply: 1000,
-    };
 
     const { getByTestId } = render(
       wrapProvider(<Fund {...props} />, { balance: 2 }),
