@@ -53,7 +53,7 @@ export const DocSection = styled.div`
     .green-text-2 {
       font-size: 19px;
       color: ${COLOR.GREEN_2};
-      font-family: "minecraft";
+      font-family: "minecraft", sans-serif;
     }
     .img-wrapper {
       position: relative;

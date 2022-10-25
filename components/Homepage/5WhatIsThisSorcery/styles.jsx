@@ -92,7 +92,7 @@ export const BodyRowOne = styled.div`
       max-width: 300px;
       line-height: 24px;
       font-size: 20px;
-      font-family: "spacegrotesk__semibold";
+      font-family: "spacegrotesk__semibold", sans-serif;
     }
   }
   .column-2 {
@@ -128,7 +128,7 @@ export const BodyRowTwo = styled.div`
         align-items: center;
       }
       span {
-        font-family: "minecraft";
+        font-family: "minecraft", sans-serif;
         font-size: 24px;
       }
       .desc {
@@ -153,7 +153,7 @@ export const BodyRowTwo = styled.div`
         border-top: none;
         border-right: none;
         span {
-          font-family: "minecraft";
+          font-family: "minecraft", sans-serif;
           font-size: 24px;
         }
         .desc {
@@ -181,7 +181,7 @@ export const SorceryFooter = styled.div`
   .text {
     font-size: 18px;
     line-height: 24px;
-    font-family: "spacegrotesk__medium";
+    font-family: "spacegrotesk__medium", sans-serif;
   }
   img.max-arrow {
     width: 112px;

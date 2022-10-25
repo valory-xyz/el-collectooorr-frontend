@@ -16,11 +16,11 @@ const getLibrary = (provider) => new Web3(provider);
 
 const MyApp = ({ Component, pageProps }) => (
   <>
-    <style global jsx>
+    <style jsx global>
       {`
           body {
             margin: 0;
-            font-family: Arial, sans-serif;
+            font-family: sans-serif;
             text-rendering: optimizeLegibility;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
