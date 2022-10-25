@@ -8,14 +8,6 @@ const GlobalStyle = createGlobalStyle`
   :before {
     box-sizing: border-box;
   }
-  body,
-  html {
-    width: 100%;
-    height: 100%;
-    overscroll-behavior: none;
-    margin: 0;
-    font-family: texgyreheros__regular, sans-serif;
-  }
   /* common */
   .mb-8 {
     margin-bottom: 0.5rem;
