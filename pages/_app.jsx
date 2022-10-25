@@ -16,18 +16,18 @@ const getLibrary = (provider) => new Web3(provider);
 
 const MyApp = ({ Component, pageProps }) => (
   <>
-    <Head>
-      <style global jsx>
-        {`
+    <style global jsx>
+      {`
           body {
             margin: 0;
-            font-family: sans-serif;
+            font-family: Arial, sans-serif;
             text-rendering: optimizeLegibility;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
           }
         `}
-      </style>
+    </style>
+    <Head>
       <title>El Collectooorr</title>
       <meta name="title" content="El Collectooorr" />
       <meta
