@@ -65,7 +65,7 @@ export const EachDiv = styled.div`
     margin-bottom: 0.5rem;
     .name {
       font-size: 38px;
-      font-family: "minecraft";
+      font-family: "minecraft", sans-serif;
     }
   }
   .row-2 {

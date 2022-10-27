@@ -109,7 +109,7 @@ export const HeaderContainer = styled.div`
 export const SubHeaderContainer = styled.div`
   padding: 0.5rem 1rem 0.25rem 1rem;
   margin-bottom: 1rem;
-  font-family: "minecraft";
+  font-family: "minecraft", sans-serif;
   font-size: 18px;
   border-radius: 10px;
   border: 1px solid ${COLOR.GREY_1};

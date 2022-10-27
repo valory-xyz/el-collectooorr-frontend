@@ -4,7 +4,7 @@ import { COLOR, MEDIA_QUERY } from 'util/theme';
 const regularFontStyles = css`
   color: ${COLOR.GREY_1};
   font-size: 16px;
-  font-family: "spacegrotesk__regular";
+  font-family: "spacegrotesk__regular", sans-serif;
   font-weight: 300;
 `;
 
@@ -68,7 +68,7 @@ export const SubHeader = styled.div`
     h4 {
       margin: 0;
       line-height: normal;
-      font-family: "spacegrotesk__bold";
+      font-family: "spacegrotesk__bold", sans-serif;
     }
     h3 {
       font-size: 48px;
@@ -86,7 +86,7 @@ export const SubHeader = styled.div`
     }
   }
   .vault-status {
-    font-family: "spacegrotesk__bold";
+    font-family: "spacegrotesk__bold", sans-serif;
     color: ${COLOR.GREEN_2};
   }
   &.pt-0 {
@@ -119,7 +119,7 @@ export const AddFunds = styled.div`
       margin-bottom: 1rem;
       h3 {
         margin: 0;
-        font-family: "spacegrotesk__semibold";
+        font-family: "spacegrotesk__semibold", sans-serif;
         font-size: 24px;
         line-height: normal;
       }

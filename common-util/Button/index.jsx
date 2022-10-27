@@ -8,7 +8,7 @@ export const commonStyle = {
   fontSize: '14px',
   padding: '6px 32px',
   textTransform: 'uppercase',
-  fontFamily: 'spacegrotesk__bold',
+  fontFamily: '"spacegrotesk__bold", sans-serif',
 };
 
 /**
@@ -72,7 +72,11 @@ export const CustomButton = ({
 );
 
 CustomButton.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.element, PropTypes.array, PropTypes.string]),
+  children: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.array,
+    PropTypes.string,
+  ]),
   variant: PropTypes.string,
   style: PropTypes.shape({}),
 };

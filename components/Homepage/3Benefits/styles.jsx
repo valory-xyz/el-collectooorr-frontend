@@ -41,7 +41,7 @@ export const EachBenefit = styled.div`
   .name {
     min-height: 5rem;
     font-size: 20px;
-    font-family: "spacegrotesk__bold";
+    font-family: "spacegrotesk__bold", sans-serif;
     letter-spacing: 0.05em;
   }
   .desc {

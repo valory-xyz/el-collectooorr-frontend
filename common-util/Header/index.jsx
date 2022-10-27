@@ -7,7 +7,7 @@ const H2 = styled.h2`
   margin: 0;
   font-size: 62px;
   line-height: normal;
-  font-family: "spacegrotesk__bold";
+  font-family: "spacegrotesk__bold", sans-serif;
   ${MEDIA_QUERY.laptop} {
     font-size: 50px;
   }

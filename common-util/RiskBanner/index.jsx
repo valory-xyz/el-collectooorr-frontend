@@ -8,7 +8,7 @@ const RiskContainer = styled.div`
   padding: 0.5rem 1rem;
   line-height: normal;
   font-size: 28px;
-  font-family: "spacegrotesk__medium";
+  font-family: "spacegrotesk__medium", sans-serif;
   border-radius: 10px;
   background-color: ${COLOR.RED};
   > a {
