@@ -16,15 +16,15 @@ const DotSpace = () => <>&nbsp;&nbsp;•&nbsp;&nbsp;</>;
 
 const { Text } = Typography;
 
-const PRICE_DOCS = 'https://docs.autonolas.network/product/price-oracle';
-const PRICE_ORACLE_STATUS_INFO = [
-  { name: 'What is this?', link: PRICE_DOCS },
-  { name: 'Run the Code', link: `${PRICE_DOCS}#run-the-code` },
-  { name: 'Build your own', link: `${PRICE_DOCS}#build-your-own` },
+const DOCS_URL = 'https://docs.autonolas.network/product/el-collectooorr';
+const EL_COL_STATUS_INFO = [
+  { name: 'What is this?', link: DOCS_URL },
+  { name: 'Run the Code', link: `${DOCS_URL}#run-the-code` },
+  { name: 'Build your own', link: `${DOCS_URL}#build-your-own` },
 ];
-const PRICE_ORACLE_STATUS_INFO_MOBILE = [
-  { name: 'Run Code', link: `${PRICE_DOCS}#run-the-code` },
-  { name: 'Build', link: `${PRICE_DOCS}#build-your-own` },
+const EL_COL_STATUS_INFO_MOBILE = [
+  { name: 'Run Code', link: `${DOCS_URL}#run-the-code` },
+  { name: 'Build', link: `${DOCS_URL}#build-your-own` },
 ];
 
 const WidgetFooter = () => {
@@ -42,8 +42,8 @@ const WidgetFooter = () => {
   return (
     <Div>
       <ServiceStatusInfo
-        extra={generateContent(PRICE_ORACLE_STATUS_INFO)}
-        extraMd={generateContent(PRICE_ORACLE_STATUS_INFO_MOBILE)}
+        extra={generateContent(EL_COL_STATUS_INFO)}
+        extraMd={generateContent(EL_COL_STATUS_INFO_MOBILE)}
       />
     </Div>
   );
