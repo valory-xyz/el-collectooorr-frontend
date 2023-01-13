@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import useCheckMobileScreen from 'common-util/hooks/useCheckMobileScreen';
 import Twitter from 'common-util/SVGs/twitter';
 import Discord from 'common-util/SVGs/discord';
@@ -18,9 +19,14 @@ const getLink = ({ href, children, className = '' }) => (
 
 const Footer = () => {
   const isMobile = useCheckMobileScreen();
+  const router = useRouter();
 
   return (
-    <Container>
+    <Container
+      style={
+        router.pathname.includes('vaults/') ? { paddingBottom: '100px' } : {}
+      }
+    >
       <div className="footer-logo-container">
         <img
           src="/images/6Footer/el-collectooorr-footer.png"

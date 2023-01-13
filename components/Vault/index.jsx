@@ -9,6 +9,7 @@ import Fund from './helpers/Fund';
 import Service from './helpers/Service';
 import Vault from './helpers/Vault';
 import Gallery from './helpers/Gallery';
+import WidgetFooter from './WidgetFooter';
 import {
   getVaultStatus,
   getVaultReservePrice,
@@ -152,6 +153,8 @@ const VaultComponent = ({ account, balance }) => {
           </Col>
         </Row>
       </BasketContainer>
+
+      <WidgetFooter />
     </>
   );
 };
