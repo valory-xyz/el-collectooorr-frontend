@@ -5,7 +5,7 @@ import { ServiceStatusInfo } from '@autonolas/frontend-library';
 import { COLOR } from 'util/theme';
 
 export const Div = styled.div`
-  > .serive-status-maximized {
+  > .service-status-maximized {
     background-color: ${COLOR.BLACK};
   }
 `;
