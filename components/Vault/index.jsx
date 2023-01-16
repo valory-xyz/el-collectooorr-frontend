@@ -6,9 +6,9 @@ import { get } from 'lodash';
 import RiskBanner from 'common-util/RiskBanner';
 import { SAFE_CONTRACT_ADDRESS } from 'common-util/AbiAndAddresses';
 import Fund from './helpers/Fund';
-import Service from './helpers/Service';
 import Vault from './helpers/Vault';
 import Gallery from './helpers/Gallery';
+import WidgetFooter from './WidgetFooter';
 import {
   getVaultStatus,
   getVaultReservePrice,
@@ -131,7 +131,6 @@ const VaultComponent = ({ account, balance }) => {
       <BasketContainer>
         <Row>
           <Col lg={8} md={12}>
-            <Service isVaultClosed={isVaultClosed} />
             <Fund
               isVaultClosed={isVaultClosed}
               vaultSymbol={vaultSymbol}
@@ -152,6 +151,8 @@ const VaultComponent = ({ account, balance }) => {
           </Col>
         </Row>
       </BasketContainer>
+
+      <WidgetFooter />
     </>
   );
 };
