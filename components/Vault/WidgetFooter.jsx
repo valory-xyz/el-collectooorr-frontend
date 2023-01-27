@@ -1,5 +1,6 @@
 import { Fragment } from 'react';
 import { Typography } from 'antd/lib';
+import { kebabCase } from 'lodash';
 import styled from 'styled-components';
 import { ServiceStatusInfo } from '@autonolas/frontend-library';
 import { COLOR } from 'util/theme';
@@ -22,27 +23,21 @@ export const ExtraContent = styled.div`
 
 const { Text } = Typography;
 
-const DotSpace = () => <>&nbsp;&nbsp;•&nbsp;&nbsp;</>;
+const getList = (myList) => myList.map(({ text, redirectTo, isInternal = true }, index) => (
+  <Fragment key={kebabCase(text)}>
+    <Text type="secondary">
+      <a
+        href={redirectTo}
+        target={isInternal ? '_self' : '_blank'}
+        rel="noreferrer"
+      >
+        {text}
+      </a>
 
-const getList = (myList) => myList.map(
-  ({
-    id, text, redirectTo, isInternal = true,
-  }, index) => (
-    <Fragment key={id}>
-      <Text type="secondary">
-        <a
-          href={redirectTo}
-          target={isInternal ? '_self' : '_blank'}
-          rel="noreferrer"
-        >
-          {text}
-        </a>
-
-        {index !== myList.length - 1 && <>&nbsp;&nbsp;•&nbsp;&nbsp;</>}
-      </Text>
-    </Fragment>
-  ),
-);
+      {index !== myList.length - 1 && <>&nbsp;&nbsp;•&nbsp;&nbsp;</>}
+    </Text>
+  </Fragment>
+));
 
 const DOCS_URL = 'https://docs.autonolas.network/product/mintkit/';
 const EL_COL_STATUS_INFO = [
@@ -54,8 +49,12 @@ const EL_COL_STATUS_INFO = [
   },
 ];
 const EL_COL_STATUS_INFO_MOBILE = [
-  { name: 'Run Code', link: `${DOCS_URL}#demo` },
-  { name: 'Build', link: `${DOCS_URL}#build` },
+  { text: 'Run Code', redirectTo: `${DOCS_URL}#demo` },
+  {
+    text: 'Get help',
+    redirectTo: 'https://propel.valory.xyz',
+    isInternal: false,
+  },
 ];
 
 const BuiltWith = (
@@ -67,44 +66,30 @@ const BuiltWith = (
   </>
 );
 
-const WidgetFooter = () => {
-  const generateContent = (contentList) => contentList.map((contract, index) => (
-    <Fragment key={contract.link}>
-      <Text type="secondary" className="row-2">
-        <a href={contract.link} target="_blank" rel="noopener noreferrer">
-          {contract.name}
-        </a>
-      </Text>
-      {contentList.length - 1 !== index && <DotSpace />}
-    </Fragment>
-  ));
-
-  return (
-    <Div>
-      <ServiceStatusInfo
-        // extra={generateContent(EL_COL_STATUS_INFO)}
-        extra={(
-          <ExtraContent>
-            {[
-              {
-                id: 'code',
-                name: BuiltWith,
-                list: EL_COL_STATUS_INFO,
-              },
-            ].map((e) => (
-              <div key={e.id}>
-                <div>
-                  <Text className="status-sub-header">{e.name}</Text>
-                </div>
-                <div className="status-sub-content">{getList(e.list)}</div>
+const WidgetFooter = () => (
+  <Div>
+    <ServiceStatusInfo
+      extra={(
+        <ExtraContent>
+          {[
+            {
+              id: 'code',
+              name: BuiltWith,
+              list: EL_COL_STATUS_INFO,
+            },
+          ].map((e) => (
+            <div key={e.id}>
+              <div>
+                <Text className="status-sub-header">{e.name}</Text>
               </div>
-            ))}
-          </ExtraContent>
-        )}
-        extraMd={generateContent(EL_COL_STATUS_INFO_MOBILE)}
-      />
-    </Div>
-  );
-};
+              <div className="status-sub-content">{getList(e.list)}</div>
+            </div>
+          ))}
+        </ExtraContent>
+      )}
+      extraMd={getList(EL_COL_STATUS_INFO_MOBILE)}
+    />
+  </Div>
+);
 
 export default WidgetFooter;
