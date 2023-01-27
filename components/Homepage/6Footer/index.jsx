@@ -24,7 +24,7 @@ const Footer = () => {
   return (
     <Container
       style={
-        router.pathname.includes('vaults/') ? { paddingBottom: '100px' } : {}
+        router.pathname.includes('vaults/') ? { paddingBottom: '120px' } : {}
       }
     >
       <div className="footer-logo-container">
