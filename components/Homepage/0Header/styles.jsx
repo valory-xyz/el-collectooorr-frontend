@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { COLOR, MEDIA_QUERY } from 'util/theme';
-import { MetamaskContainer } from 'components/Login/styles';
 
 export const HeaderContainer = styled.div`
   display: flex;
@@ -65,13 +64,6 @@ export const HeaderContainer = styled.div`
       .column-1 {
         flex-direction: row;
         align-items: center;
-      }
-      ${MetamaskContainer} {
-        flex-direction: row;
-        .dash {
-          display: block;
-          margin-top: -4px;
-        }
       }
     }
   }

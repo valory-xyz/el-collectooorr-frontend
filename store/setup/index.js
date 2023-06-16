@@ -2,12 +2,9 @@ import { apiTypes, syncTypes } from './_types';
 
 const initialState = {
   account: null,
-  errorMessage: null,
+  chainId: null,
   balance: null,
-  /**
-   * boolean to indicate if the account was loaded
-   */
-  isLoaded: false,
+  errorMessage: null,
 };
 
 export default (state = initialState, action) => {
@@ -17,26 +14,18 @@ export default (state = initialState, action) => {
     case apiTypes.GET_API: {
       return { ...state, data };
     }
-
-    case syncTypes.SET_LOADED: {
-      return { ...state, ...action.data };
-    }
-
-    case syncTypes.SET_ACCOUNT: {
-      return { ...state, ...action.data };
-    }
-
-    case syncTypes.SET_BALANCE: {
-      return { ...state, ...action.data };
-    }
-
-    case syncTypes.SET_LOGIN_ERROR: {
-      return { ...state, ...action.data };
-    }
-
+    case syncTypes.SET_CHAIND_ID:
+    case syncTypes.SET_ACCOUNT:
+    case syncTypes.SET_BALANCE:
+    case syncTypes.SET_LOGIN_ERROR:
     case syncTypes.SET_STORE_STATE: {
-      return { ...state, ...action.data };
+      return { ...state, ...data };
     }
+
+    case syncTypes.SET_LOGOUT: {
+      return { ...initialState };
+    }
+
 
     default:
       return state;

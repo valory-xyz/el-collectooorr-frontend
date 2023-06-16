@@ -1,31 +1,28 @@
 import Head from 'next/head';
 import { createWrapper } from 'next-redux-wrapper';
 import PropTypes from 'prop-types';
+import { WagmiConfig } from 'wagmi';
 
-import Web3 from 'web3';
-import { Web3ReactProvider } from '@web3-react/core';
+import { wagmiConfig } from 'common-util/Login/config';
 
 import GlobalStyle from 'components/GlobalStyles';
 import Layout from 'components/Layout';
-import MetamaskProvider from 'components/Login/Helpers/MetamaskProvider';
 import initStore from '../store';
 
 require('./styles.less');
-
-const getLibrary = (provider) => new Web3(provider);
 
 const MyApp = ({ Component, pageProps }) => (
   <>
     <style jsx global>
       {`
-          body {
-            margin: 0;
-            font-family: sans-serif;
-            text-rendering: optimizeLegibility;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-          }
-        `}
+        body {
+          margin: 0;
+          font-family: sans-serif;
+          text-rendering: optimizeLegibility;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+        }
+      `}
     </style>
     <Head>
       <title>El Collectooorr</title>
@@ -61,13 +58,11 @@ const MyApp = ({ Component, pageProps }) => (
       <link href="/fonts/stylesheet.css" rel="stylesheet" />
       <link rel="icon" type="images/png" href="/favicon.ico" />
     </Head>
-    <Web3ReactProvider getLibrary={getLibrary}>
-      <MetamaskProvider>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </MetamaskProvider>
-    </Web3ReactProvider>
+    <WagmiConfig config={wagmiConfig}>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </WagmiConfig>
     <GlobalStyle />
   </>
 );
