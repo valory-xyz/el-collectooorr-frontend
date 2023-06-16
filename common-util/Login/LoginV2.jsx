@@ -1,16 +1,16 @@
-import { useEffect } from "react";
-import PropTypes from "prop-types";
-import Web3 from "web3";
-import { Web3Modal, Web3Button, Web3NetworkSwitch } from "@web3modal/react";
-import { useAccount, useNetwork, useBalance } from "wagmi";
-import { COLOR } from "util/theme";
-import { projectId, ethereumClient } from "./config";
-import { LoginContainer } from "./styles";
+import { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import Web3 from 'web3';
+import { Web3Modal, Web3Button, Web3NetworkSwitch } from '@web3modal/react';
+import { useAccount, useNetwork, useBalance } from 'wagmi';
+import { COLOR } from 'util/theme';
+import { projectId, ethereumClient } from './config';
+import { LoginContainer } from './styles';
 
 export const LoginV2 = ({
   onConnect: onConnectCb,
   onDisconnect: onDisconnectCb,
-  theme = "light",
+  theme = 'light',
 }) => {
   const { address } = useAccount();
   const { chain } = useNetwork();
@@ -56,12 +56,12 @@ export const LoginV2 = ({
           window.location.reload();
         };
 
-        modalProvider.on("chainChanged", handleChainChanged);
+        modalProvider.on('chainChanged', handleChainChanged);
 
         // cleanup
         return () => {
           if (modalProvider.removeListener) {
-            modalProvider.removeListener("chainChanged", handleChainChanged);
+            modalProvider.removeListener('chainChanged', handleChainChanged);
           }
         };
       }
@@ -80,10 +80,10 @@ export const LoginV2 = ({
         ethereumClient={ethereumClient}
         themeMode={theme}
         themeVariables={{
-          "--w3m-button-border-radius": "5px",
-          "--w3m-accent-color": COLOR.SECONDARY,
-          "--w3m-background-color": COLOR.SECONDARY,
-          "--w3m-accent-fill-color": COLOR.BLACK,
+          '--w3m-button-border-radius': '5px',
+          '--w3m-accent-color': COLOR.SECONDARY,
+          '--w3m-background-color': COLOR.SECONDARY,
+          '--w3m-accent-fill-color': COLOR.BLACK,
         }}
       />
     </LoginContainer>
@@ -99,5 +99,5 @@ LoginV2.propTypes = {
 LoginV2.defaultProps = {
   onConnect: undefined,
   onDisconnect: undefined,
-  theme: "light",
+  theme: 'light',
 };

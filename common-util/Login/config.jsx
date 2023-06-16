@@ -2,9 +2,9 @@ import {
   EthereumClient,
   w3mConnectors,
   w3mProvider,
-} from "@web3modal/ethereum";
-import { configureChains, createConfig } from "wagmi";
-import { mainnet } from "wagmi/chains";
+} from '@web3modal/ethereum';
+import { configureChains, createConfig } from 'wagmi';
+import { mainnet } from 'wagmi/chains';
 
 export const chains = [mainnet];
 export const projectId = process.env.NEXT_PUBLIC_WALLET_PROJECT_ID;
