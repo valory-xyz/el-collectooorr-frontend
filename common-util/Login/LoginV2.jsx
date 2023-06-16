@@ -10,7 +10,7 @@ import { LoginContainer } from './styles';
 export const LoginV2 = ({
   onConnect: onConnectCb,
   onDisconnect: onDisconnectCb,
-  theme = 'light',
+  theme = 'dark',
 }) => {
   const { address } = useAccount();
   const { chain } = useNetwork();
@@ -99,5 +99,5 @@ LoginV2.propTypes = {
 LoginV2.defaultProps = {
   onConnect: undefined,
   onDisconnect: undefined,
-  theme: 'light',
+  theme: 'dark',
 };
