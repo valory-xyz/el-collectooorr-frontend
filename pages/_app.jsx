@@ -9,21 +9,11 @@ import GlobalStyle from 'components/GlobalStyles';
 import Layout from 'components/Layout';
 import initStore from '../store';
 
+/* eslint-disable-next-line jest/require-hook */
 require('./styles.less');
 
 const MyApp = ({ Component, pageProps }) => (
   <>
-    <style jsx global>
-      {`
-        body {
-          margin: 0;
-          font-family: sans-serif;
-          text-rendering: optimizeLegibility;
-          -webkit-font-smoothing: antialiased;
-          -moz-osx-font-smoothing: grayscale;
-        }
-      `}
-    </style>
     <Head>
       <title>El Collectooorr</title>
       <meta name="title" content="El Collectooorr" />
