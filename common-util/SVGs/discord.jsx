@@ -1,6 +1,6 @@
 import { COLOR } from 'util/theme';
 
-const Warning = () => (
+const Discord = () => (
   <svg
     width="36"
     height="31"
@@ -15,4 +15,4 @@ const Warning = () => (
   </svg>
 );
 
-export default Warning;
+export default Discord;
