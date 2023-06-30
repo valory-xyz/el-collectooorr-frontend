@@ -49,3 +49,7 @@ export const getVaultFactoryContract = (vaultFactoryAddress = VAULT_FACTORY_ADDR
   const contract = new web3.eth.Contract(VAULT_FACTORY_CONTRACT.abi, vaultFactoryAddress);
   return contract;
 };
+
+export const rpc = {
+  1: process.env.NEXT_PUBLIC_MAINNET_URL,
+};
