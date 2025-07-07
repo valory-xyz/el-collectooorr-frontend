@@ -1,21 +1,17 @@
 import styled from 'styled-components';
 import { Layout } from 'antd';
 import { COLOR, MEDIA_QUERY } from 'util/theme';
-import { URL } from 'util/constants';
 
 export const CustomLayout = styled(Layout)`
-  background-image: ${({ pathname }) => `${
-    pathname === URL.ROOT ? "url('/images/background-close-dot.png')" : 'none'
-  } !important`};
-  background-size: 100%;
+  height: 100vh;
+
   .ant-layout-header {
     z-index: 1000;
     position: fixed;
     height: 82px;
     width: 100%;
-    padding: 0 1rem;
-    margin-top: 1rem;
-    background-color: ${COLOR.BLACK};
+    padding: 0;
+    background: ${COLOR.WHITE};
   }
   .site-layout {
     padding: 0 1rem;
@@ -31,9 +27,11 @@ export const CustomLayout = styled(Layout)`
   a {
     text-decoration: underline;
     text-underline-offset: 2px;
-    color: ${COLOR.GREEN_2};
+    color: ${COLOR.BLACK};
+
     &:hover {
       text-decoration: underline;
+      color: ${COLOR.BLACK};
     }
   }
   .ant-result-title {

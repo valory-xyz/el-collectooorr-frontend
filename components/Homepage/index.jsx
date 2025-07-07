@@ -1,20 +1,40 @@
 import React from 'react';
-import { SubHeaderSection } from './0Header';
-import CollectAndChill from './1CollectAndChill';
-import EvolutionOfNftCollecting from './2EvolutionOfNftCollecting';
-import Benefits from './3Benefits';
-import HowItWorks from './4HowItWorks';
-import WhatIsThisSorcery from './5WhatIsThisSorcery';
+import { Alert, Typography } from 'antd';
+import styled from 'styled-components';
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 1rem;
+`;
+
+const AlertContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: default;
+`;
 
 const Homepage = () => (
-  <>
-    <SubHeaderSection />
-    <CollectAndChill />
-    <EvolutionOfNftCollecting />
-    <Benefits />
-    <HowItWorks />
-    <WhatIsThisSorcery />
-  </>
+  <Container>
+    <AlertContainer>
+      <Alert
+        message="This app has been deprecated and is no longer supported."
+        showIcon
+      />
+    </AlertContainer>
+    <Typography.Text>
+      Please head over to
+      {' '}
+      <a href="https://olas.network/" target="_blank" rel="noopener noreferrer">
+        Olas
+      </a>
+      {' '}
+    </Typography.Text>
+  </Container>
 );
 
 export default Homepage;

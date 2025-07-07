@@ -2,10 +2,9 @@ import styled from 'styled-components';
 import { COLOR, MEDIA_QUERY } from 'util/theme';
 
 export const Container = styled.div`
-  margin-top: 2rem;
-  margin-bottom: 2rem;
   font-size: 20px;
-  font-family: "spacegrotesk__regular", sans-serif;
+  font-family: 'spacegrotesk__regular', sans-serif;
+  text-align: center;
   .footer-logo-container {
     margin-bottom: 2rem;
     img {

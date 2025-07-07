@@ -9,13 +9,11 @@ import {
   setErrorMessage as setErrorMessageFn,
   setLogout as setLogoutFn,
 } from 'store/setup/actions';
-import { LoginV2 as LoginComponent } from 'common-util/Login';
 
 const Login = ({
   setUserAccount,
   setUserBalance,
   setChainId,
-  setErrorMessage,
   setLogout,
 }) => {
   const { address } = useAccount();
@@ -33,28 +31,8 @@ const Login = ({
     }
   }, [address]);
 
-  const onConnect = (response) => {
-    setUserAccount(response.address);
-    setUserBalance(response.balance);
-    setChainId(response.chainId);
-  };
-
-  const onDisconnect = () => {
-    setLogout();
-  };
-
-  const onError = (error) => {
-    setErrorMessage(error);
-  };
-
   return (
-    <div>
-      <LoginComponent
-        onConnect={onConnect}
-        onDisconnect={onDisconnect}
-        onError={onError}
-      />
-    </div>
+    <div />
   );
 };
 
@@ -62,7 +40,6 @@ Login.propTypes = {
   setUserAccount: PropTypes.func.isRequired,
   setUserBalance: PropTypes.func.isRequired,
   setChainId: PropTypes.func.isRequired,
-  setErrorMessage: PropTypes.func.isRequired,
   setLogout: PropTypes.func.isRequired,
 };
 
