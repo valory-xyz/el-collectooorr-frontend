@@ -9,6 +9,10 @@ const Container = styled.div`
   justify-content: center;
   height: 100%;
   gap: 1rem;
+
+  .ant-alert {
+   font-size: 16px;
+  }
 `;
 
 const AlertContainer = styled.div`
