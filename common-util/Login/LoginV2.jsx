@@ -1,16 +1,12 @@
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Web3 from 'web3';
-import { Web3Modal, Web3Button, Web3NetworkSwitch } from '@web3modal/react';
 import { useAccount, useNetwork, useBalance } from 'wagmi';
-import { COLOR } from 'util/theme';
-import { projectId, ethereumClient } from './config';
 import { LoginContainer } from './styles';
 
 export const LoginV2 = ({
   onConnect: onConnectCb,
   onDisconnect: onDisconnectCb,
-  theme = 'dark',
 }) => {
   const { address } = useAccount();
   const { chain } = useNetwork();
@@ -78,33 +74,16 @@ export const LoginV2 = ({
   }, [connector]);
 
   return (
-    <LoginContainer>
-      <Web3NetworkSwitch />
-      &nbsp;&nbsp;
-      <Web3Button balance="show" avatar="hide" />
-      <Web3Modal
-        projectId={projectId}
-        ethereumClient={ethereumClient}
-        themeMode={theme}
-        themeVariables={{
-          '--w3m-button-border-radius': '5px',
-          '--w3m-accent-color': COLOR.SECONDARY,
-          '--w3m-background-color': COLOR.SECONDARY,
-          '--w3m-accent-fill-color': COLOR.BLACK,
-        }}
-      />
-    </LoginContainer>
+    <LoginContainer />
   );
 };
 
 LoginV2.propTypes = {
   onConnect: PropTypes.func,
   onDisconnect: PropTypes.func,
-  theme: PropTypes.string,
 };
 
 LoginV2.defaultProps = {
   onConnect: undefined,
   onDisconnect: undefined,
-  theme: 'dark',
 };
