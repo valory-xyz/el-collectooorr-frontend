@@ -16,6 +16,20 @@ module.exports = {
       return config;
     },
   }),
+  async redirects() {
+    return [
+      {
+        source: '/coming-soon',
+        destination: '/',
+        permanent: false,
+      },
+      {
+        source: '/documentation',
+        destination: '/',
+        permanent: false,
+      },
+    ];
+  },
   publicRuntimeConfig: {},
   compiler: {
     styledComponents: true,
