@@ -4,10 +4,10 @@ import { Container } from './styles';
 
 const Footer = () => (
   <Container>
-    <Typography.Text>
-      {`© Valory ${new Date().getFullYear()}`}
+    <Typography.Paragraph>
+      {`© Olas (aka Autonolas) DAO ${new Date().getFullYear()}`}
       {' '}
-    </Typography.Text>
+    </Typography.Paragraph>
   </Container>
 );
 
