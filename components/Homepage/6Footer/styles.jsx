@@ -6,6 +6,10 @@ export const Container = styled.div`
   font-family: 'spacegrotesk__regular', sans-serif;
   text-align: center;
 
+  .ant-typography {
+    color: ${COLOR.WHITE};
+  }
+
   .footer-logo-container {
     margin-bottom: 2rem;
     img {

@@ -4,14 +4,18 @@ import { COLOR, MEDIA_QUERY } from 'util/theme';
 
 export const CustomLayout = styled(Layout)`
   height: 100vh;
+  background-image: url('/images/background-close-dot.png');
+  background-color: ${COLOR.BLACK};
+  background-size: 100%;
 
   .ant-layout-header {
     z-index: 1000;
     position: fixed;
     height: 82px;
     width: 100%;
-    padding: 0;
-    background: ${COLOR.WHITE};
+    padding: 0 1rem;
+    margin-top: 1rem;
+    background-color: ${COLOR.BLACK};
   }
   .site-layout {
     padding: 0 1rem;
@@ -27,13 +31,13 @@ export const CustomLayout = styled(Layout)`
   a {
     text-decoration: underline;
     text-underline-offset: 2px;
-    color: ${COLOR.BLACK};
+    color: ${COLOR.GREEN_2};
 
     &:hover {
       text-decoration: underline;
-      color: ${COLOR.BLACK};
     }
   }
+    
   .ant-result-title {
     color: ${COLOR.WHITE};
   }
