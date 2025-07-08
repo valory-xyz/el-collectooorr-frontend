@@ -1,9 +1,6 @@
 import Head from 'next/head';
 import { createWrapper } from 'next-redux-wrapper';
 import PropTypes from 'prop-types';
-import { WagmiConfig } from 'wagmi';
-
-import { wagmiConfig } from 'common-util/Login/config';
 
 import GlobalStyle from 'components/GlobalStyles';
 import Layout from 'components/Layout';
@@ -48,11 +45,9 @@ const MyApp = ({ Component, pageProps }) => (
       <link href="/fonts/stylesheet.css" rel="stylesheet" />
       <link rel="icon" type="images/png" href="/favicon.ico" />
     </Head>
-    <WagmiConfig config={wagmiConfig}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </WagmiConfig>
+    <Layout>
+      <Component {...pageProps} />
+    </Layout>
     <GlobalStyle />
   </>
 );

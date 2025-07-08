@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 import { Layout } from 'antd';
 import { COLOR, MEDIA_QUERY } from 'util/theme';
-import { URL } from 'util/constants';
 
 export const CustomLayout = styled(Layout)`
-  background-image: ${({ pathname }) => `${
-    pathname === URL.ROOT ? "url('/images/background-close-dot.png')" : 'none'
-  } !important`};
+  height: 100vh;
+  background-image: url('/images/background-close-dot.png');
+  background-color: ${COLOR.BLACK};
   background-size: 100%;
+
   .ant-layout-header {
     z-index: 1000;
     position: fixed;
@@ -32,10 +32,12 @@ export const CustomLayout = styled(Layout)`
     text-decoration: underline;
     text-underline-offset: 2px;
     color: ${COLOR.GREEN_2};
+
     &:hover {
       text-decoration: underline;
     }
   }
+    
   .ant-result-title {
     color: ${COLOR.WHITE};
   }

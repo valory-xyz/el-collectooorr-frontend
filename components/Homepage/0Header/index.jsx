@@ -2,10 +2,8 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import Marquee from 'react-fast-marquee';
 import Link from 'next/link';
-import { LATEST_VAULT, URL } from 'util/constants';
-import { CustomButton } from 'common-util/Button';
+import { URL } from 'util/constants';
 import RiskBanner from 'common-util/RiskBanner';
-import Login from '../../Login';
 import { HeaderContainer, SubHeaderContainer } from './styles';
 
 export const Dash = () => (
@@ -24,15 +22,6 @@ export const HeaderSection = () => {
   const router = useRouter();
   const isRoot = router.pathname === URL.ROOT || router.pathname === URL.DOCUMENTATION;
 
-  const readDocsBtn = (
-    <CustomButton
-      variant="blue"
-      onClick={() => router.push('/documentation')}
-      type="primary"
-    >
-      READ DOCS
-    </CustomButton>
-  );
   return (
     <HeaderContainer className={isRoot ? '' : 'not-root-page'}>
       <div className="column-1">
@@ -63,23 +52,6 @@ export const HeaderSection = () => {
             width={300}
           />,
           'hide-only-sm',
-        )}
-      </div>
-
-      <div className="column-2">
-        {readDocsBtn}
-        {!isRoot ? (
-          <Login />
-        ) : (
-          <>
-            <CustomButton
-              variant="red"
-              type="primary"
-              onClick={() => router.push(LATEST_VAULT)}
-            >
-              START COLLECTING
-            </CustomButton>
-          </>
         )}
       </div>
     </HeaderContainer>
