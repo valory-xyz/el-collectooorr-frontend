@@ -12,7 +12,10 @@ jobs:
     continue-on-error: False
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v4
+      with:
+        node-version-file: 'package.json'
     - name: Install modules
       run: yarn
     - name: Run ESLint

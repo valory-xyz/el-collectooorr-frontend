@@ -73,7 +73,7 @@ const Table = () => (
     <table>
       <thead>
         <tr>
-          <th aria-label=" " />
+          <th aria-hidden />
           <th>Smart Contract Apps</th>
           <th>Human/Bot Operations</th>
           <th>Autonomous Services</th>
